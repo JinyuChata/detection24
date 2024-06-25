@@ -14,12 +14,16 @@ def parse_line(line):
 
     if "data=flag_data is " in line:
         uuid = line.split(" ")[-1]
-        print(f"IN:  {container_id}, {uuid}")
+        # print(f"IN:  {container_id}, {uuid}")
         current_uuid_dict[container_id] = uuid
     elif "data=end_flag_data is " in line:
         uuid = line.split(" ")[-1]
-        print(f"OUT: {container_id}, {uuid}")
-        assert current_uuid_dict[container_id] == uuid
+        # print(f"OUT: {container_id}, {uuid}")
+        # assert current_uuid_dict[container_id] == uuid
+        if current_uuid_dict[container_id] != uuid:
+            print(
+                f"WARNING: when exit {container_id}:{uuid}, curr uuid does not match."
+            )
         current_uuid_dict[container_id] = None
     elif current_uuid_dict[container_id] is not None:
         uuid = current_uuid_dict[container_id]

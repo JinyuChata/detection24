@@ -1,3 +1,4 @@
+import os
 import requests
 import json
 import concurrent.futures
@@ -21,7 +22,7 @@ def send_request(url, headers, data, request_type, uuid_dict):
         response_string = str(e)
         print(f"Error: {e}")
     finally:
-        uuid_dict[headers["uuid"]] = (request_type, response_string)
+        uuid_dict[headers["uuid"]] = {"type": request_type, "resp": response_string}
 
 
 def perform_requests(
@@ -33,6 +34,7 @@ def perform_requests(
     n_benign,
     n_attack,
     total_time,
+    metadata_out_path,
 ):
     total_requests = n_benign + n_attack
     interval = total_time / total_requests
@@ -64,9 +66,11 @@ def perform_requests(
             future.result()
 
     print("UUID dictionary:")
-    for uuid_key, value in uuid_dict.items():
-        request_type, response_string = value
-        print(f"{uuid_key}: ({request_type}, {response_string})")
+    # for uuid_key, value in uuid_dict.items():
+    #     request_type, response_string = value.type, value.resp
+    #     print(f"{uuid_key}: ({request_type}, {response_string})")
+    with open(os.path.join(metadata_out_path, "metadata.json"), "w") as f:
+        json.dump(uuid_dict, f, ensure_ascii=False, indent=4)
 
 
 if __name__ == "__main__":
@@ -85,6 +89,13 @@ if __name__ == "__main__":
         choices=["modify", "leak"],
         required=True,
         help="Type of attack data",
+    )
+    parser.add_argument(
+        "--metadata_out_path",
+        type=str,
+        required=False,
+        default="./",
+        help="Path to json metadata",
     )
 
     args = parser.parse_args()
@@ -132,4 +143,5 @@ if __name__ == "__main__":
         args.n_benign,
         args.n_attack,
         args.total_time,
+        args.metadata_out_path,
     )

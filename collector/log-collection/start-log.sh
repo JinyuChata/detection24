@@ -12,6 +12,9 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+cd "$SCRIPT_DIR" || exit 1
+
 # 获取当前时间戳
 timestamp=$(date +"%Y%m%d%H%M%S")
 
@@ -82,14 +85,15 @@ cleanup() {
     echo "Processes terminated."
     exit 0
 }
+trap cleanup SIGINT
 
 # 运行 Python 脚本，并传递参数
-python3.9 run_lab.py --n_benign "$n_benign" --n_attack "$n_attack" --total_time "$total_time" --data_attack_type "$data_attack_type"
-
+python3.9 run_lab.py --n_benign "$n_benign" --n_attack "$n_attack" --total_time "$total_time" --data_attack_type "$data_attack_type" --metadata_out_path "$log_dir"
+python3.9 sysdig-splitter.py --sysdig-path "${log_dir}/sysdig/sysdig.log"
+rm -f "${log_dir}/sysdig/sysdig.log"
 sleep 5
 
 cleanup
 
 # 捕捉 SIGINT 信号，并调用 cleanup 函数
-# trap cleanup SIGINT
 wait $pid1 $pid2
