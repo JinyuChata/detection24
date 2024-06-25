@@ -1,15 +1,39 @@
 import argparse
+import os
+
+current_uuid_dict = {}
+outpath = ""
+
+
+def parse_line(line):
+    global current_uuid, outpath
+    tags = line.split("#")
+    container_id = tags[12]
+    if container_id not in current_uuid_dict:
+        current_uuid_dict[container_id] = None
+
+    if "data=flag_data is " in line:
+        uuid = line.split(" ")[-1]
+        print(f"IN:  {container_id}, {uuid}")
+        current_uuid_dict[container_id] = uuid
+    elif "data=end_flag_data is " in line:
+        uuid = line.split(" ")[-1]
+        print(f"OUT: {container_id}, {uuid}")
+        assert current_uuid_dict[container_id] == uuid
+        current_uuid_dict[container_id] = None
+    elif current_uuid_dict[container_id] is not None:
+        uuid = current_uuid_dict[container_id]
+        log_file = os.path.join(outpath, f"{uuid}.log")
+        with open(log_file, "a") as f:
+            f.write(line + "\n")
 
 
 def read_file(file_path):
-    try:
-        with open(file_path, "r") as file:
-            for line in file:
-                print(line.strip())
-    except FileNotFoundError:
-        print(f"The file at path {file_path} was not found.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    global current_uuid, outpath
+    outpath = os.path.dirname(file_path)
+    with open(file_path, "r") as file:
+        for line in file:
+            parse_line(line.strip())
 
 
 def main():
