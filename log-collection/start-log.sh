@@ -95,7 +95,7 @@ cleanup
 
 # 分割Sysdig日志
 python3.9 sysdig-splitter.py --sysdig-path "${log_dir}/sysdig/sysdig.log"
-rm -f "${log_dir}/sysdig/sysdig.log"
+# rm -f "${log_dir}/sysdig/sysdig.log"
 sleep 5
 
 # 运行图生成脚本
