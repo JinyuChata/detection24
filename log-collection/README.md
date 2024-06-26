@@ -14,6 +14,8 @@
 bash start-log.sh --n_benign 10 --n_attack 5 --total_time 5 --data_attack_type leak
 ```
 
+Script outputs will be stored in `./output/ATTACKTYPE-ACTIONTIME`, 
+
 ### Arguments
 
 `start-log.sh` will send `n_benign` of benign requests as well as `n_attack` of attack requests in `total_time` seconds, and the attack type is `data_attack_type`.
