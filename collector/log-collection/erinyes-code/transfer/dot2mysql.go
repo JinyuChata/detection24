@@ -3,12 +3,13 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/awalterschulze/gographviz"
-	_ "github.com/go-sql-driver/mysql"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
+
+	"github.com/awalterschulze/gographviz"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 const dataSourceName = "root:123456@tcp(localhost:3306)/erinyes"

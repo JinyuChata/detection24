@@ -5,9 +5,11 @@ import (
 	"erinyes/logs"
 	"erinyes/models"
 	"erinyes/parser"
-	"github.com/awalterschulze/gographviz"
 	"os"
+	"path/filepath"
 	"strings"
+
+	"github.com/awalterschulze/gographviz"
 )
 
 func createDir(dirName string) {
@@ -117,8 +119,8 @@ func GenerateDotGraph(uuid string) *gographviz.Graph {
 }
 
 func GenerateDot(fileName string, uuid string) {
-	createDir("graphs/")
-	dotName := "graphs/" + fileName + ".dot"
+	createDir(filepath.Dir(fileName))
+	dotName := fileName
 	graph := GenerateDotGraph(uuid)
 	fo, err := os.OpenFile(dotName, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, os.ModePerm)
 	if err != nil {

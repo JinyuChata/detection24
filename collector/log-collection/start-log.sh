@@ -83,17 +83,24 @@ cleanup() {
     echo "Terminating processes..."
     sudo kill -9 $pid1 $pid2 $pid3 $pid4
     echo "Processes terminated."
-    exit 0
 }
 trap cleanup SIGINT
 
 # 运行 Python 脚本，并传递参数
 python3.9 run_lab.py --n_benign "$n_benign" --n_attack "$n_attack" --total_time "$total_time" --data_attack_type "$data_attack_type" --metadata_out_path "$log_dir"
+
+sleep 5
+echo "Requests send finished. Cleaning up..."
+cleanup
+
+# 分割Sysdig日志
 python3.9 sysdig-splitter.py --sysdig-path "${log_dir}/sysdig/sysdig.log"
 rm -f "${log_dir}/sysdig/sysdig.log"
 sleep 5
 
-cleanup
+# 运行图生成脚本
+python3.9 generate-dot.py "$log_dir"
+
 
 # 捕捉 SIGINT 信号，并调用 cleanup 函数
 wait $pid1 $pid2

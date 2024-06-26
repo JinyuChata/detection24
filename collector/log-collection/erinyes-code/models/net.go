@@ -9,8 +9,8 @@ type Net struct {
 	Method     string `gorm:"column:method"`
 	Payload    string `gorm:"column:payload"`
 	PayloadLen int    `gorm:"column:payload_len"`
-	SeqNum     int    `gorm:"column:seq_num"`
-	AckNum     int    `gorm:"column:ack_num"`
+	SeqNum     int64  `gorm:"column:seq_num"`
+	AckNum     int64  `gorm:"column:ack_num"`
 	Time       int64  `gorm:"column:time"`
 	UUID       string `gorm:"column:uuid"`
 }

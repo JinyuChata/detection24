@@ -3,21 +3,23 @@ package parser
 import (
 	"encoding/json"
 	"erinyes/logs"
+	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type NetJson struct {
-	IPSrc      string  `json:"ip_src"`
-	PortSrc    int     `json:"port_src"`
-	IPDst      string  `json:"ip_dst"`
-	PortDst    int     `json:"port_dst"`
-	SeqNum     int     `json:"sequence_num"`
-	AckNum     int     `json:"acknowledge_num"`
-	PayLoadLen int     `json:"payload_len"`
-	PayLoad    string  `json:"payload"`
-	TimeStamp  float64 `json:"time_stamp"`
+	IPSrc      string `json:"ip_src"`
+	PortSrc    int    `json:"port_src"`
+	IPDst      string `json:"ip_dst"`
+	PortDst    int    `json:"port_dst"`
+	SeqNum     int64  `json:"sequence_num"`
+	AckNum     int64  `json:"acknowledge_num"`
+	PayLoadLen int    `json:"payload_len"`
+	PayLoad    string `json:"payload"`
+	TimeStamp  string `json:"time_stamp"`
 }
 
 type NetLog struct {
@@ -25,8 +27,8 @@ type NetLog struct {
 	PortSrc    string
 	IPDst      string
 	PortDst    string
-	SeqNum     int
-	AckNum     int
+	SeqNum     int64
+	AckNum     int64
 	PayLoadLen int
 	Method     string
 	Time       int64
@@ -69,6 +71,11 @@ func SplitNetLine(rawLine string) (error, *NetLog) {
 			uuid = tmpMatches[1]
 		}
 	}
+	t, err := time.Parse("2006-01-02 15:04:05.999999", netJson.TimeStamp)
+	if err != nil {
+		fmt.Println("Error parsing timestamp:", err)
+		return err, nil
+	}
 	netData := NetLog{
 		IPSrc:      netJson.IPSrc,
 		PortSrc:    strconv.Itoa(netJson.PortSrc),
@@ -78,7 +85,7 @@ func SplitNetLine(rawLine string) (error, *NetLog) {
 		AckNum:     netJson.AckNum,
 		PayLoadLen: netJson.PayLoadLen,
 		Method:     method,
-		Time:       int64(netJson.TimeStamp * 1000000),
+		Time:       int64(t.UnixMicro()),
 		UUID:       uuid,
 	}
 	return nil, &netData

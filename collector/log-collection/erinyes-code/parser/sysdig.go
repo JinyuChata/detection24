@@ -98,30 +98,31 @@ func Convert2Datetime(timestamp int64) (string, error) {
 }
 
 func SplitSysdigLine(rawLine string) (error, *SysdigLog) {
-	fields := strings.Split(rawLine, " ")
-	if len(fields) < 15 {
+	fields := strings.Split(rawLine, "#")
+	fmt.Println(fields)
+	if len(fields) < 14 {
 		return fmt.Errorf("not enough fileds"), nil
 	}
-	timestamp, err := Convert2Timestamp(fields[0] + " " + fields[1])
+	timestamp, err := Convert2Timestamp(fields[0])
 	if err != nil {
 		logs.Logger.Errorf("Parse datetime to timestamp failed, datetime is %s", fields[0]+" "+fields[1])
 		return err, nil
 	}
 	return nil, &SysdigLog{
 		Time:          timestamp,
-		ProcessName:   fields[2],
-		Tid:           fields[3],
-		Pid:           fields[4],
-		VPid:          fields[5],
-		Dir:           fields[6],
-		EventType:     fields[7],
-		Fd:            fields[8],
-		PPid:          fields[9],
-		Cmd:           fields[10],
-		Ret:           fields[11],
-		ContainerID:   fields[12],
-		ContainerName: fields[13],
-		Info:          fields[14:],
+		ProcessName:   fields[1],
+		Tid:           fields[2],
+		Pid:           fields[3],
+		VPid:          fields[4],
+		Dir:           fields[5],
+		EventType:     fields[6],
+		Fd:            fields[7],
+		PPid:          fields[8],
+		Cmd:           fields[9],
+		Ret:           fields[10],
+		ContainerID:   fields[11],
+		ContainerName: fields[12],
+		Info:          fields[13:],
 		HostID:        conf.MockHostID,
 		HostName:      conf.MockHostName,
 	}

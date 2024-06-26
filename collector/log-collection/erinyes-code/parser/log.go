@@ -25,8 +25,8 @@ type ParsedNetLog struct {
 	Method     string
 	Payload    string
 	PayloadLen int
-	SeqNum     int
-	AckNum     int
+	SeqNum     int64
+	AckNum     int64
 	Time       int64
 	UUID       string
 }

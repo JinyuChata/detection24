@@ -60,8 +60,8 @@ CREATE TABLE `net`  (
   `method` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `payload` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `payload_len` int NULL DEFAULT NULL,
-  `seq_num` int NULL DEFAULT NULL,
-  `ack_num` int NULL DEFAULT NULL,
+  `seq_num` bigint NULL DEFAULT NULL,
+  `ack_num` bigint NULL DEFAULT NULL,
   `time` bigint NOT NULL,
   `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE

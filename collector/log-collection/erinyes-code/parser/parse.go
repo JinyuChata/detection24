@@ -3,6 +3,7 @@ package parser
 import (
 	"erinyes/logs"
 	"erinyes/models"
+	"fmt"
 	"sync"
 )
 
@@ -11,12 +12,13 @@ var wgInserter = sync.WaitGroup{}
 
 func FileLogParse(repeat bool, sysdigFilepath string, netFilepath string, deleteAll bool) {
 	if deleteAll {
+		fmt.Println("DELETE ALL=====")
 		db := models.GetMysqlDB()
-		db.Delete(&models.Event{})
-		db.Delete(&models.File{})
-		db.Delete(&models.Net{})
-		db.Delete(&models.Process{})
-		db.Delete(&models.Socket{})
+		db.Where("1=1").Delete(&models.Event{})
+		db.Where("1=1").Delete(&models.File{})
+		db.Where("1=1").Delete(&models.Net{})
+		db.Where("1=1").Delete(&models.Process{})
+		db.Where("1=1").Delete(&models.Socket{})
 	}
 
 	pChan := make(chan ParsedLog, 1000)
