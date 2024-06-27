@@ -12,6 +12,16 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
+if [[ -z "$n_benign" || -z "$n_attack" || -z "$total_time" || -z "$data_attack_type" ]]; then
+    echo "Error: One or more arguments are empty."
+    exit 1
+else
+    echo "All arguments are set."
+fi
+
+# 生成erinyes配置
+bash update-config.sh
+
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 cd "$SCRIPT_DIR" || exit 1
 
