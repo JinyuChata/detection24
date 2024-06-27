@@ -2,11 +2,12 @@
 
 `log-collection` contains the following functions:
 
-1. Send benign and attack requests with random uuid concurrently
-2. Collect sysdig log
-3. Collect network log
-4. Dispatch log by type (attack or benign) and uuid
-5. Generate request-level graph based on log (dot & svg)
+1. Auto generate configurations for erinyes via `kubectl get pods` and `kubectl get svc`
+2. Send benign and attack requests with random uuid concurrently
+3. Collect sysdig log
+4. Collect network log
+5. Dispatch log by type (attack or benign) and uuid
+6. Generate request-level graph based on log (dot & svg)
 
 ## Start
 
