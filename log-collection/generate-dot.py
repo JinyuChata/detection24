@@ -39,14 +39,16 @@ def ensure_dir(directory):
 import subprocess
 
 
-def run_build(dir: str, uuid: str):
+def run_build(dir: str, uuid_sysdig: str, uuid_net: str = None):
+    if uuid_net is None:
+        uuid_net = uuid_sysdig
     command = [
         "go",
         "run",
         "main.go",
         "graph",
-        os.path.join("../", dir, "sysdig", f"{uuid}.log"),
-        os.path.join("../", dir, "net", f"{uuid}.log"),
+        os.path.join("../", dir, "sysdig", f"{uuid_sysdig}.log"),
+        os.path.join("../", dir, "net", f"{uuid_net}.log"),
         "remove_all",
     ]
 
@@ -96,24 +98,33 @@ def run_dot(dotpath: str):
 if __name__ == "__main__":
     import sys
 
-    if len(sys.argv) != 2:
-        print(f"Usage: python generate-dot.py ./output/leak-20240625230313")
+    if len(sys.argv) != 3:
+        print(f"Usage: python generate-dot.py ./output/leak-20240625230313 all|split")
         sys.exit(1)
 
     directory = sys.argv[1]
+    strategy = sys.argv[2]
     directory = directory.lstrip("./")
-    metadata = read_metadata(directory)
-
     dot_base = os.path.join(directory, "dot")
     svg_base = os.path.join(directory, "svg")
-    for uuid, info in metadata.items():
-        data_type = info["type"]
-        dot_type_base = os.path.join(dot_base, data_type)
-        svg_type_base = os.path.join(svg_base, data_type)
-        ensure_dir(dot_type_base)
-        ensure_dir(svg_type_base)
-        dot_path = os.path.join(dot_type_base, f"{uuid}.dot")
-        run_build(directory, uuid)
+    if strategy == "split":
+        metadata = read_metadata(directory)
+        for uuid, info in metadata.items():
+            data_type = info["type"]
+            dot_type_base = os.path.join(dot_base, data_type)
+            svg_type_base = os.path.join(svg_base, data_type)
+            ensure_dir(dot_type_base)
+            ensure_dir(svg_type_base)
+            dot_path = os.path.join(dot_type_base, f"{uuid}.dot")
+            run_build(directory, uuid)
+            run_dot(dot_path)
+            svg_path = os.path.join(svg_type_base, f"{uuid}.svg")
+            convert_svg(dot_path, svg_path)
+    else:
+        ensure_dir(dot_base)
+        ensure_dir(svg_base)
+        run_build(directory, "sysdig", "net")
+        dot_path = os.path.join(dot_base, f"all.dot")
+        svg_path = os.path.join(svg_base, f"all.svg")
         run_dot(dot_path)
-        svg_path = os.path.join(svg_type_base, f"{uuid}.svg")
         convert_svg(dot_path, svg_path)

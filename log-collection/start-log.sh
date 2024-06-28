@@ -1,5 +1,7 @@
 #!/bin/bash
 
+graph_strategy="split"
+
 # 解析命令行参数
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -7,6 +9,7 @@ while [[ "$#" -gt 0 ]]; do
         --n_attack) n_attack="$2"; shift ;;
         --total_time) total_time="$2"; shift ;;
         --data_attack_type) data_attack_type="$2"; shift ;;
+        --graph_strategy) graph_strategy="$2"; shift ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
@@ -73,13 +76,19 @@ echo $pid1
 
 echo "Start running http-parse-complete ..."
 # sudo python3.5 ./http-parse-complete.py >> "${log_dir}/net.log" &
-sudo python3.5 ./http-parse-complete.py | jq -r '"UUID: \(.payload | capture("(?i)uuid: (?<uuid>[^\r]*)").uuid) \(. | tojson)"' | while read -r line; do
-    uuid=$(echo $line | awk '{print $2}')
-    log=$(echo $line | sed 's/UUID: [^ ]* //')
-    echo $log >> "${log_dir}/net/${uuid}.log"
-done &
-pid2=$!
-echo $pid2
+if [ "$graph_strategy" == "split" ]; then
+    sudo python3.5 ./http-parse-complete.py | jq -r '"UUID: \(.payload | capture("(?i)uuid: (?<uuid>[^\r]*)").uuid) \(. | tojson)"' | while read -r line; do
+        uuid=$(echo $line | awk '{print $2}')
+        log=$(echo $line | sed 's/UUID: [^ ]* //')
+        echo $log >> "${log_dir}/net/${uuid}.log"
+    done &
+    pid2=$!
+    echo $pid2
+else
+    sudo python3.5 ./http-parse-complete.py > "${log_dir}/net/net.log" &
+    pid2=$!
+    echo $pid2
+fi
 
 sleep 2
 pid3=$(pgrep -f "python3.5 ./http-parse-complete.py")
@@ -104,12 +113,14 @@ echo "Requests send finished. Cleaning up..."
 cleanup
 
 # 分割Sysdig日志
-python3.9 sysdig-splitter.py --sysdig-path "${log_dir}/sysdig/sysdig.log"
-# rm -f "${log_dir}/sysdig/sysdig.log"
-sleep 5
+if [ "$graph_strategy" == "split" ]; then
+  python3.9 sysdig-splitter.py --sysdig-path "${log_dir}/sysdig/sysdig.log"
+  # rm -f "${log_dir}/sysdig/sysdig.log"
+  sleep 5
+fi
 
 # 运行图生成脚本
-python3.9 generate-dot.py "$log_dir"
+python3.9 generate-dot.py "$log_dir" "$graph_strategy"
 
 
 # 捕捉 SIGINT 信号，并调用 cleanup 函数

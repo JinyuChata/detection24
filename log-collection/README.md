@@ -12,7 +12,8 @@
 ## Start
 
 ```bash
-bash start-log.sh --n_benign 10 --n_attack 5 --total_time 5 --data_attack_type leak
+bash start-log.sh --n_benign 10 --n_attack 5 --total_time 5 --data_attack_type leak --graph_strategy split
+bash start-log.sh --n_benign 10 --n_attack 5 --total_time 5 --data_attack_type leak --graph_strategy all 
 ```
 
 Script outputs will be stored in `./output/ATTACKTYPE-ACTIONTIME`, 
@@ -25,3 +26,8 @@ Script outputs will be stored in `./output/ATTACKTYPE-ACTIONTIME`,
 
 - `leak`: leakage of crenditials
 - `modify`: command injection resulted in file modification
+
+### Split graph by request uuid: graph_strategy
+
+- `split`: split graph by req uuid
+- `all`: contain a large, unsplit graph
