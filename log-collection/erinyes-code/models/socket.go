@@ -4,6 +4,7 @@ import (
 	"erinyes/conf"
 	"erinyes/helper"
 	"erinyes/logs"
+
 	"gorm.io/gorm"
 )
 
@@ -47,16 +48,15 @@ func (s Socket) VertexShape() string {
 }
 
 func (s *Socket) RelateHostAndCin() {
-	// if s.DstIP == conf.Config.Cin0IP {
-	// 	s.DstIP = conf.Config.HostIP
-	// 	s.DstPort = "8085"
-	// } else if s.DstIP == conf.Config.HostIP {
-	// 	s.DstPort = "8085"
-	// } else if s.DstIP == "127.0.0.1" {
-	// 	s.DstIP = conf.Config.HostIP
-	// 	s.DstPort = "8085"
-	// }
-	
+	if s.DstIP == conf.Config.Cin0IP {
+		s.DstIP = conf.Config.HostIP
+		s.DstPort = "31112"
+	} else if s.DstIP == conf.Config.HostIP {
+		s.DstPort = "31112"
+	} else if s.DstIP == "127.0.0.1" {
+		s.DstIP = conf.Config.HostIP
+		s.DstPort = "31112"
+	}
 }
 
 func (s *Socket) UnionGateway() {

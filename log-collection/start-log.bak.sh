@@ -22,6 +22,8 @@ else
     echo "All arguments are set."
 fi
 
+# 生成erinyes配置
+bash update-config.sh
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 cd "$SCRIPT_DIR" || exit 1
@@ -31,13 +33,32 @@ timestamp=$(date +"%Y%m%d%H%M%S")
 
 # 要查找的容器名称列表
 out_name=$data_attack_type
-# container_names=("jinyuzhu/zjy-2n-product-purchase-publish" "jinyuzhu/zjy-2n-product-purchase" "jinyuzhu/zjy-2n-product-purchase-get-price" "jinyuzhu/zjy-2n-product-purchase-authorize-cc")
-container_images=("jinyuzhu/zjy-2n-product-purchase-publish@sha256:36f7ea54b60de0a660c264496d508a0d6113dd6055fb7627749d924aa2ff590d" "jinyuzhu/zjy-2n-product-purchase@sha256:5b75d956f8aca84471785542011efbf7df7cbb2c1d68b30e5bcd945e639cb31f" "jinyuzhu/zjy-2n-product-purchase-get-price@sha256:054890c19140f43608ce2dc2a513f6583c6ad72aa450ebd3d551692c40fc25eb" "jinyuzhu/zjy-2n-product-purchase-authorize-cc@sha256:eaab7b10599381af9ce493c18e257478df8bd1bd695b549b570a0e5e5eed1cb4")
+container_names=("jinyuzhu/zjy-2n-product-purchase-publish" "jinyuzhu/zjy-2n-product-purchase" "jinyuzhu/zjy-2n-product-purchase-get-price" "jinyuzhu/zjy-2n-product-purchase-authorize-cc")
+container_images=()
 
 # 创建日志目录
 log_dir="output/${out_name}-${timestamp}"
 mkdir -p "$log_dir/net"
 mkdir -p "$log_dir/sysdig"
+
+# 遍历容器名称列表
+for container_name in "${container_names[@]}"; do
+    echo "Searching for container: $container_name"
+
+    # 使用 docker ps 和 grep 全字匹配容器名称
+    container_id=$(sudo docker ps --filter "ancestor=$container_name" --format "{{.ID}}")
+
+    if [ -n "$container_id" ]; then
+        echo "Found container ID: $container_id for container name: $container_name"
+        # 获取容器信息
+        image=$(sudo docker inspect "$container_id" | grep -o '"Image": ".*"' | sed -n '2p' | awk -F': ' '{print $2}' | tr -d '"')
+        container_images+=("$image")
+        echo "-------------------------------------------"
+    else
+        echo "No matching container found for name: $container_name"
+        echo "-------------------------------------------"
+    fi
+done
 
 # 打印找到的容器镜像
 for image in "${container_images[@]}"; do
@@ -80,24 +101,9 @@ echo $pid4
 cleanup() {
     echo "Terminating processes..."
     sudo kill -9 $pid1 $pid2 $pid3 $pid4
-    echo "terminate scene: "
-    bash ../scene/tearHR.sh
     echo "Processes terminated."
 }
 trap cleanup SIGINT
-
-echo "-------------------------------------------"
-echo "start scene: "
-original_pwd=$(pwd)
-cd ../scene
-bash ./deployHR.sh
-sleep 20
-kubectl get pods -A | grep purchase
-cd "$original_pwd"
-echo "-------------------------------------------"
-
-# 生成erinyes配置
-bash update-config.sh
 
 # 运行 Python 脚本，并传递参数
 python3.9 run_lab.py --n_benign "$n_benign" --n_attack "$n_attack" --total_time "$total_time" --data_attack_type "$data_attack_type" --metadata_out_path "$log_dir"
@@ -119,5 +125,3 @@ python3.9 generate-dot.py "$log_dir" "$graph_strategy"
 
 # 捕捉 SIGINT 信号，并调用 cleanup 函数
 wait $pid1 $pid2
-
-
