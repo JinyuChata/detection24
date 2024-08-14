@@ -14,6 +14,9 @@
 ```bash
 bash start-log.sh --n_benign 10 --n_attack 5 --total_time 5 --data_attack_type leak --graph_strategy split
 bash start-log.sh --n_benign 10 --n_attack 5 --total_time 5 --data_attack_type leak --graph_strategy all 
+
+bash start-log.sh --n_benign 0 --n_attack 1 --total_time 1 --data_attack_type warm1 --graph_strategy all
+bash start-log.sh --n_benign 0 --n_attack 1 --total_time 1 --data_attack_type warm2 --graph_strategy all
 ```
 
 Script outputs will be stored in `./output/ATTACKTYPE-ACTIONTIME`, 
@@ -26,6 +29,7 @@ Script outputs will be stored in `./output/ATTACKTYPE-ACTIONTIME`,
 
 - `leak`: leakage of crenditials
 - `modify`: command injection resulted in file modification
+- `warm1`, `warm2`: warm container reuse in alastor
 
 ### Split graph by request uuid: graph_strategy
 
