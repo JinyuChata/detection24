@@ -17,6 +17,8 @@ bash start-log.sh --n_benign 10 --n_attack 5 --total_time 5 --data_attack_type l
 
 bash start-log.sh --n_benign 0 --n_attack 1 --total_time 1 --data_attack_type warm1 --graph_strategy all
 bash start-log.sh --n_benign 0 --n_attack 1 --total_time 1 --data_attack_type warm2 --graph_strategy all
+
+bash start-log.sh --n_benign 0 --n_attack 1 --total_time 1 --data_attack_type warm --graph_strategy all
 ```
 
 Script outputs will be stored in `./output/ATTACKTYPE-ACTIONTIME`, 
