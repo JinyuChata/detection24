@@ -8,11 +8,12 @@ import (
 	"erinyes/parser"
 	"erinyes/service"
 	"fmt"
+	"os"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
 	"gonum.org/v1/gonum/graph/multi"
-	"os"
-	"strconv"
 )
 
 func main() {
@@ -72,7 +73,7 @@ func GenerateGraph(_ *cobra.Command, args []string) {
 		netFilepath = args[1]
 		deleteAll = true
 	}
-	parser.FileLogParse(true, sysdigFilepath, netFilepath, deleteAll)
+	parser.FileLogParse(false, sysdigFilepath, netFilepath, deleteAll)
 }
 
 func StartHTTP(_ *cobra.Command, args []string) {

@@ -208,9 +208,9 @@ func (s *SysdigLog) ExtractPort() (string, bool) {
 }
 
 func (s *SysdigLog) FilteredFilePath() string {
-	//if strings.HasPrefix(s.Fd, "/home/app/node_modules") {
-	//	return "/home/app/node_modules"
-	//}
+	if strings.HasPrefix(s.Fd, "/home/app/node_modules") {
+		return "/home/app/node_modules"
+	}
 	return s.Fd
 }
 

@@ -115,7 +115,7 @@ fi
 
 # 运行图生成脚本
 python3.9 generate-dot.py "$log_dir" "$graph_strategy"
-python3.9 prov.py "$log_dir" erinyes
+
 
 # 捕捉 SIGINT 信号，并调用 cleanup 函数
 wait $pid1 $pid2
