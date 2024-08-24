@@ -32,7 +32,7 @@ timestamp=$(date +"%Y%m%d%H%M%S")
 # 要查找的容器名称列表
 out_name=$data_attack_type
 # container_names=("jinyuzhu/zjy-2n-product-purchase-publish" "jinyuzhu/zjy-2n-product-purchase" "jinyuzhu/zjy-2n-product-purchase-get-price" "jinyuzhu/zjy-2n-product-purchase-authorize-cc")
-container_images=("jinyuzhu/zjy-2n-product-purchase-publish@sha256:36f7ea54b60de0a660c264496d508a0d6113dd6055fb7627749d924aa2ff590d" "jinyuzhu/zjy-2n-product-purchase@sha256:5b75d956f8aca84471785542011efbf7df7cbb2c1d68b30e5bcd945e639cb31f" "jinyuzhu/zjy-2n-product-purchase-get-price@sha256:054890c19140f43608ce2dc2a513f6583c6ad72aa450ebd3d551692c40fc25eb" "jinyuzhu/zjy-2n-product-purchase-authorize-cc@sha256:eaab7b10599381af9ce493c18e257478df8bd1bd695b549b570a0e5e5eed1cb4")
+container_images=("jinyuzhu/zjy-2n-product-purchase-publish@sha256:c2fdba90baf8c4e8098c96e92b1149ae81bc77d1cbd0b9b664a76b8d87171262" "jinyuzhu/zjy-2n-product-purchase@sha256:653764d72ac2f66176c33f38b59266095c9f77e410346f3fd134a132fd9af974" "jinyuzhu/zjy-2n-product-purchase-get-price@sha256:eb677ee79edd3a8de3f249c33b231ff8c757a4d3a8510a26c6d131574fd5cde1" "jinyuzhu/zjy-2n-product-purchase-authorize-cc@sha256:06e48c5ba9768d7470098b1ad2a5011df28dc59ca042234757551980820d6059")
 
 # 创建日志目录
 log_dir="output/${out_name}-${timestamp}"
@@ -80,21 +80,21 @@ echo $pid4
 cleanup() {
     echo "Terminating processes..."
     sudo kill -9 $pid1 $pid2 $pid3 $pid4
-    echo "terminate scene: "
-    bash ../scene/tearHR.sh
+    # echo "terminate scene: "
+    # bash ../scene/tearHR.sh
     echo "Processes terminated."
 }
 trap cleanup SIGINT
 
-echo "-------------------------------------------"
-echo "start scene: "
-original_pwd=$(pwd)
-cd ../scene
-bash ./deployHR.sh
-sleep 20
-kubectl get pods -A | grep purchase
-cd "$original_pwd"
-echo "-------------------------------------------"
+# echo "-------------------------------------------"
+# echo "start scene: "
+# original_pwd=$(pwd)
+# cd ../scene
+# bash ./deployHR.sh
+# sleep 20
+# kubectl get pods -A | grep purchase
+# cd "$original_pwd"
+# echo "-------------------------------------------"
 
 # 生成erinyes配置
 bash update-config.sh

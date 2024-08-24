@@ -25,10 +25,10 @@ function getPromise(url) {
     });
 }
 
-async function downloadFile(server, file) {
+async function downloadFile(url, file) {
     try {
 	console.log('Start of downloadFile');
-	var url = 'http://' + server + '/' + file;
+	// var url = 'http://' + server + '/' + file;
 	console.log('URL: ' + url);
 
 	let http_promise = getPromise(url);
