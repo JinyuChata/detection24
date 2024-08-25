@@ -118,6 +118,59 @@ module.exports = async (event, context, callback) => {
 			};
 			callback(null, response);
 		}
+	} else if (event.body.malicious == 'data_integrity') {
+		// logical
+		var result = {};
+		function getBalance() {
+			// 生成一个介于 0 到 1 之间的随机数，然后调整范围和精度
+			const base = 9500; // 基数，确保生成的余额不会低于 9500
+			const range = 1000; // 范围，生成的余额在 9500 到 10500 之间
+			return base + Math.random() * range; // 生成一个随机余额
+		};
+		if (event.body.creditCard) {
+			if (Math.random() < 0.01) { // Simulate failure in 1% of purchases (expected).
+				result.approved = 'false';
+				result.failureReason = 'Credit card authorization failed';
+			} else {
+				result.approved = 'true';
+				result.authorization = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+				result.balance = getBalance();
+			}
+			return callback(null, result);
+		} else {
+			var response = {
+				approved: 'false',
+				failureReason: 'Database access not implemented. Please supply creditCard in request.'
+			};
+			callback(null, response);
+		}
+	} else if (event.body.malicious == 'SAS-2') {
+		// times
+		var result = {};
+		function getBalance() {
+			// 生成一个介于 0 到 1 之间的随机数，然后调整范围和精度
+			const base = 9500; // 基数，确保生成的余额不会低于 9500
+			const range = 1000; // 范围，生成的余额在 9500 到 10500 之间
+			return base + Math.random() * range; // 生成一个随机余额
+		};
+		if (event.body.creditCard) {
+			if (Math.random() < 0.01) { // Simulate failure in 1% of purchases (expected).
+				result.approved = 'false';
+				result.failureReason = 'Credit card authorization failed';
+			} else {
+				result.approved = 'true'; 
+				result.authorization = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+				result.balance = getBalance();
+			}
+			return callback(null, result);
+		} else {
+			var response = {
+				approved: 'false',
+				failureReason: 'Database access not implemented. Please supply creditCard in request.'
+			};
+			callback(null, response);
+		}
+
 	} else {
 		var result = {};
 		if (event.body.creditCard) {
