@@ -8,7 +8,7 @@ def convert_svg(dot_file, svg_file):
     graph.write_svg(svg_file)
 
 
-def read_metadata(directory):
+def read_metadata(directory, disable_benign=False):
     metadata_path = os.path.join(directory, "metadata.json")
 
     # Check if the file exists
@@ -19,7 +19,8 @@ def read_metadata(directory):
         with open(metadata_path, "r") as file:
             metadata = json.load(file)
         print(f"Successfully read metadata.json from {directory}")
-        metadata = {k: v for k, v in metadata.items() if v['type'] == 'attack'}
+        if disable_benign:
+            metadata = {k: v for k, v in metadata.items() if v['type'] == 'attack'}
         return metadata
     except json.JSONDecodeError:
         print(f"Error: Invalid JSON format in {metadata_path}")
@@ -99,17 +100,18 @@ def run_dot(dotpath: str):
 if __name__ == "__main__":
     import sys
 
-    if len(sys.argv) != 3:
-        print(f"Usage: python generate-dot.py ./output/leak-20240625230313 all|split")
+    if len(sys.argv) != 4:
+        print(f"Usage: python generate-dot.py ./output/leak-20240625230313 all|split true|false")
         sys.exit(1)
 
     directory = sys.argv[1]
     strategy = sys.argv[2]
+    disable_benign = sys.argv[3]
     directory = directory.lstrip("./")
     dot_base = os.path.join(directory, "dot")
     svg_base = os.path.join(directory, "svg")
     if strategy == "split":
-        metadata = read_metadata(directory)
+        metadata = read_metadata(directory, disable_benign == "true")
         for uuid, info in metadata.items():
             data_type = info["type"]
             dot_type_base = os.path.join(dot_base, data_type)

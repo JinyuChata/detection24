@@ -11,6 +11,7 @@ while [[ "$#" -gt 0 ]]; do
         --data_attack_type) data_attack_type="$2"; shift ;;
         --graph_strategy) graph_strategy="$2"; shift ;;
         --rename) rename="$2"; shift ;;
+        --disable_benign) disable_benign="$2"; shift ;;   # 默认false
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
@@ -23,6 +24,11 @@ else
     echo "All arguments are set."
 fi
 
+if [ -z "$disable_benign" ]; then
+    disable_benign="false"
+fi
+
+echo $disable_benign
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 cd "$SCRIPT_DIR" || exit 1
@@ -30,7 +36,6 @@ cd "$SCRIPT_DIR" || exit 1
 # 获取当前时间戳
 timestamp=$(date +"%Y%m%d%H%M%S")
 
-#!/bin/bash
 
 # 执行命令并提取 pod 名称
 pod_names=$(kubectl get pods -n openfaas-fn | grep purchase | awk '{print $1}')
@@ -119,9 +124,9 @@ fi
 
 # 运行图生成脚本
 if [ "$graph_strategy" == "split" ]; then
-  python3.9 generate-dot.py "$log_dir" "$graph_strategy"
+  python3.9 generate-dot.py "$log_dir" "$graph_strategy" "$disable_benign"
 fi
-python3.9 generate-dot.py "$log_dir" "all"
+python3.9 generate-dot.py "$log_dir" "all" "false"
 # python3.9 prov.py "$log_dir" erinyes
 
 chown -R ubuntu:ubuntu "$log_dir"
