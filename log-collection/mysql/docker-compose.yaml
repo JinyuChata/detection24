@@ -1,0 +1,18 @@
+version: '2'
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'erinyes_mine'
+      MYSQL_USER: 'erinyes'
+      MYSQL_PASSWORD: 'Erinyes@2024'
+      MYSQL_ROOT_PASSWORD: 'Erinyes@2024'
+    ports:
+      - '3307:3306'
+    expose:
+      - '3307'
+    volumes:
+      - my-db1:/var/lib/mysql
+volumes:
+  my-db1:

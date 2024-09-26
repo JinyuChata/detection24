@@ -14,8 +14,10 @@ def generate_uuid():
 
 def send_request(url, headers, datas, request_type, uuid_dict):
     response_string = ""
+    print(f"datas: {datas}")
     for data in datas:
         try:
+            print(f"{json.dumps(data)}")
             response = requests.post(url, headers=headers, data=json.dumps(data))
             response_string = response.text
             print(f"Status Code: {response.status_code}")
@@ -41,6 +43,8 @@ def perform_requests(
     interval = total_time / total_requests
     tasks = []
     uuid_dict = {}
+    
+    print(f"data attack: {data_attack}")
 
     for _ in range(n_benign):
         headers_benign = headers_benign_template.copy()
@@ -56,8 +60,9 @@ def perform_requests(
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=total_requests) as executor:
         futures = []
-        start_time = time.time()
+        print(f"Task cnt: {len(tasks)}")
         for task in tasks:
+            start_time = time.time()
             futures.append(executor.submit(send_request, *task))
             elapsed_time = time.time() - start_time
             sleep_time = interval - elapsed_time % interval
@@ -161,7 +166,7 @@ if __name__ == "__main__":
     perform_requests(
         url,
         headers_benign_template,
-        data_benign,
+        [data_benign],
         headers_attack_template,
         data_attack,
         args.n_benign,

@@ -10,6 +10,7 @@ while [[ "$#" -gt 0 ]]; do
         --total_time) total_time="$2"; shift ;;
         --data_attack_type) data_attack_type="$2"; shift ;;
         --graph_strategy) graph_strategy="$2"; shift ;;
+        --rename) rename="$2"; shift ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
@@ -29,25 +30,32 @@ cd "$SCRIPT_DIR" || exit 1
 # 获取当前时间戳
 timestamp=$(date +"%Y%m%d%H%M%S")
 
-# 要查找的容器名称列表
-out_name=$data_attack_type
-# container_names=("jinyuzhu/zjy-2n-product-purchase-publish" "jinyuzhu/zjy-2n-product-purchase" "jinyuzhu/zjy-2n-product-purchase-get-price" "jinyuzhu/zjy-2n-product-purchase-authorize-cc")
-container_images=("jinyuzhu/zjy-2n-product-purchase-publish@sha256:c2fdba90baf8c4e8098c96e92b1149ae81bc77d1cbd0b9b664a76b8d87171262" "jinyuzhu/zjy-2n-product-purchase@sha256:653764d72ac2f66176c33f38b59266095c9f77e410346f3fd134a132fd9af974" "jinyuzhu/zjy-2n-product-purchase-get-price@sha256:eb677ee79edd3a8de3f249c33b231ff8c757a4d3a8510a26c6d131574fd5cde1" "jinyuzhu/zjy-2n-product-purchase-authorize-cc@sha256:06e48c5ba9768d7470098b1ad2a5011df28dc59ca042234757551980820d6059")
+#!/bin/bash
+
+# 执行命令并提取 pod 名称
+pod_names=$(kubectl get pods -n openfaas-fn | grep purchase | awk '{print $1}')
+
+# 初始化 container_ids 列表
+container_ids=()
+
+# 遍历 pod_names，提取 Container ID
+for pod_name in $pod_names; do
+    container_id=$(kubectl describe po $pod_name -n openfaas-fn | grep "Container ID" | awk '{print $3}' | cut -c 14-25)
+    container_ids+=("$container_id")
+done
+
+# 输出 container_ids 列表
+echo "${container_ids[@]}"
 
 # 创建日志目录
-log_dir="output/${out_name}-${timestamp}"
+log_dir="output/${data_attack_type}-${timestamp}"
 mkdir -p "$log_dir/net"
 mkdir -p "$log_dir/sysdig"
-
-# 打印找到的容器镜像
-for image in "${container_images[@]}"; do
-    echo "$image"
-done
 
 echo "-------------------------------------------"
 echo "Start running Sysdig -p ..."
 sudo sysdig -p "*%evt.datetime#%proc.name#%thread.tid#%proc.pid#%proc.vpid#%evt.dir#%evt.type#%fd.name#%proc.ppid#%proc.exepath#%evt.rawres#%container.id#%container.name#%evt.info" \
-"container.id!=host and container.name!=<N/A> and (container.image=${container_images[0]} or container.image=${container_images[1]} or container.image=${container_images[2]} or container.image=${container_images[3]}) and \
+"(container.id=${container_ids[0]} or container.id=${container_ids[1]} or container.id=${container_ids[2]} or container.id=${container_ids[3]}) and \
 (evt.type=open or evt.type=openat or evt.type=read or evt.type=write or evt.type=sendto or evt.type=recvfrom or evt.type=execve or evt.type=fork or evt.type=clone or evt.type=bind or evt.type=listen or evt.type=connect or evt.type=accept or evt.type=accept4 or evt.type=chmod or evt.type=connect)" \
 >> "${log_dir}/sysdig/sysdig.log" &
 pid1=$!
@@ -55,19 +63,10 @@ echo $pid1
 
 echo "Start running http-parse-complete ..."
 # sudo python3.5 ./http-parse-complete.py >> "${log_dir}/net.log" &
-if [ "$graph_strategy" == "split" ]; then
-    sudo python3.5 ./http-parse-complete.py | jq -r '"UUID: \(.payload | capture("(?i)uuid: (?<uuid>[^\r]*)").uuid) \(. | tojson)"' | while read -r line; do
-        uuid=$(echo $line | awk '{print $2}')
-        log=$(echo $line | sed 's/UUID: [^ ]* //')
-        echo $log >> "${log_dir}/net/${uuid}.log"
-    done &
-    pid2=$!
-    echo $pid2
-else
-    sudo python3.5 ./http-parse-complete.py > "${log_dir}/net/net.log" &
-    pid2=$!
-    echo $pid2
-fi
+sudo python3.5 ./http-parse-complete.py > "${log_dir}/net/net.log" &
+pid2=$!
+echo $pid2
+
 
 sleep 2
 pid3=$(pgrep -f "python3.5 ./http-parse-complete.py")
@@ -106,18 +105,31 @@ sleep 5
 echo "Requests send finished. Cleaning up..."
 cleanup
 
-# 分割Sysdig日志
+# 分割日志
 if [ "$graph_strategy" == "split" ]; then
   python3.9 sysdig-splitter.py --sysdig-path "${log_dir}/sysdig/sysdig.log"
   # rm -f "${log_dir}/sysdig/sysdig.log"
+  sudo cat "${log_dir}/net/net.log" | jq -r '"UUID: \(.payload | capture("(?i)uuid: (?<uuid>[^\r]*)").uuid) \(. | tojson)"' | while read -r line; do
+    uuid=$(echo $line | awk '{print $2}')
+    log=$(echo $line | sed 's/UUID: [^ ]* //')
+    echo $log >> "${log_dir}/net/${uuid}.log"
+  done
   sleep 5
 fi
 
 # 运行图生成脚本
-python3.9 generate-dot.py "$log_dir" "$graph_strategy"
-python3.9 prov.py "$log_dir" erinyes
+if [ "$graph_strategy" == "split" ]; then
+  python3.9 generate-dot.py "$log_dir" "$graph_strategy"
+fi
+python3.9 generate-dot.py "$log_dir" "all"
+# python3.9 prov.py "$log_dir" erinyes
+
+chown -R ubuntu:ubuntu "$log_dir"
+
+if [ -n "$rename" ]; then
+    new_log_dir="output/${data_attack_type}-${rename}-${timestamp}"
+    mv "$log_dir" "$new_log_dir"
+fi
 
 # 捕捉 SIGINT 信号，并调用 cleanup 函数
 wait $pid1 $pid2
-
-

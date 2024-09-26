@@ -19,6 +19,7 @@ def read_metadata(directory):
         with open(metadata_path, "r") as file:
             metadata = json.load(file)
         print(f"Successfully read metadata.json from {directory}")
+        metadata = {k: v for k, v in metadata.items() if v['type'] == 'attack'}
         return metadata
     except json.JSONDecodeError:
         print(f"Error: Invalid JSON format in {metadata_path}")
@@ -116,6 +117,7 @@ if __name__ == "__main__":
             dot_path = os.path.join(uuid_subgraph_base, f"{uuid}.dot")
             run_dot(dot_path, uuid[:8])
             svg_path = os.path.join(uuid_subgraph_base, f"{uuid}.svg")
+            print(dot_path)
             convert_svg(dot_path, svg_path)
     elif strategy == "alastor":
         pass
