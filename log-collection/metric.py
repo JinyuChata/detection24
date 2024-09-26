@@ -48,18 +48,20 @@ def calculate_all(gt_graph, sample_graph):
     gt_edges = list(map(lambda x: replace_node_label(x[0]) + " => " + replace_node_label(x[1]), gt_graph.edges()))
     sample_edges = list(map(lambda x: replace_node_label(x[0]) + " => " + replace_node_label(x[1]), sample_graph.edges()))
 
-    node_accuracy = calc(gt_nodes, sample_nodes)
-    edge_accuracy = calc(gt_edges, sample_edges)
+    node_accuracy = calc(gt_nodes, sample_nodes, "node")
+    edge_accuracy = calc(gt_edges, sample_edges, 'edge')
     
     return {'node': node_accuracy, 'edge': edge_accuracy}
 
-def calc(gt, sample):
+def calc(gt, sample, info):
     gt_count = Counter(gt)
     sample_count = Counter(sample)
 
     TP = sum(min(gt_count[node], sample_count[node]) for node in sample_count)
     FP = sum(sample_count[node] for node in sample_count) - TP
     FN = sum(gt_count[node] for node in gt_count) - TP
+    
+    print(f"benign {info}: {FP}")
 
     # Adjust FN based on the count
     FN = sum(gt_count[node] - min(gt_count[node], sample_count[node]) for node in gt_count)
@@ -79,12 +81,16 @@ def metric_main(info, gt_file, sample_path):
     gt_graph = load_graph(gt_file)
     sample_graph = load_graph(sample_path)
     
+    print(f"attack nodes: {len(gt_graph.nodes())}, edges: {len(gt_graph.edges())}")
+    print(f"sample nodes: {len(sample_graph.nodes())}, edges: {len(sample_graph.edges())}")
+    
     alls = calculate_all(gt_graph, sample_graph)
     n_tp, n_fp, n_fn, n_acc, n_pre, n_recall = alls['node']
     e_tp, e_fp, e_fn, e_acc, e_pre, e_recall = alls['edge']
     
     # print(f"{info}, Node: Pre {n_pre:.2f}, Recall {n_recall:.2f}, TP {n_tp}, FP {n_fp}, FN {n_fn}")
     print(f"{info}, Edge: Pre {e_pre:.2f}, Recall {e_recall:.2f}, TP {e_tp}, FP {e_fp}, FN {e_fn}")
+    print()
     
 def find_latest_timestamped_directory(base_dir, attack_type='modify', file_type='gt'):
     max_timestamp = -1
@@ -145,3 +151,8 @@ if __name__ == "__main__":
         metric_main("rc1_all", gt, rc1_all)
         metric_main("rc2_all", gt, rc2_all)
         metric_main("rc3_all", gt, rc3_all)
+        
+        print()
+        print()
+        
+        

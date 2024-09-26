@@ -27,4 +27,9 @@
 # # RC3, 50req/sec
 # sudo bash start-log.sh --n_benign 49 --n_attack 1 --total_time 1 --data_attack_type warm --graph_strategy split --rename rc3 --disable_benign true
 
-python3 metric.py
+# TODO: To add new scenes, 
+# 1. copy one block, uncomment, then modify `data_attack_type`
+# 2. add `data_attack_type` to list variable `attacks` in metric.py
+# 3. sudo bash start-lab1.sh
+
+python3 metric.py > result-lab1-effectiveness.txt
