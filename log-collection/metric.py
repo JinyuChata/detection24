@@ -135,7 +135,8 @@ def find_all_dot_file(base_dir):
 
 
 if __name__ == "__main__":
-    attacks = ['modify', 'leak', 'warm']
+    # attacks = ['modify', 'leak', 'warm', 'cfattack']
+    attacks = ['warm']
     for attack in attacks:
         gt_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='gt')
         rc1_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='rc1')

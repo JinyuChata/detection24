@@ -4,10 +4,10 @@ provider:
   gateway: http://127.0.0.1:31112
   #gateway: 10.244.31.106:8080
 functions:
-  zjy-2n-product-purchase-authorize-cc:
+  zch-2n-product-purchase-authorize-cc:
     lang: dockerfile
     handler: ./product-purchase-authorize-cc
-    image: jinyuzhu/zjy-2n-product-purchase-authorize-cc:latest
+    image: chzhang2527/zch-2n-product-purchase-authorize-cc:latest
     skip_build: true
     labels:
       com.openfaas.scale.min: 1
@@ -32,7 +32,7 @@ functions:
       com.openfaas.scale.factor: 20
     environment:
       URL_GETPRICE: 'http://gateway.openfaas.svc.cluster.local:8080/function/zjy-2n-product-purchase-get-price'
-      URL_AUTHORIZECC: 'http://gateway.openfaas.svc.cluster.local:8080/function/zjy-2n-product-purchase-authorize-cc'
+      URL_AUTHORIZECC: 'http://gateway.openfaas.svc.cluster.local:8080/function/zch-2n-product-purchase-authorize-cc'
       URL_PUBLISH: 'http://gateway.openfaas.svc.cluster.local:8080/function/zjy-2n-product-purchase-publish'
 
   zjy-2n-product-purchase-get-price:

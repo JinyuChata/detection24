@@ -5,7 +5,7 @@ set -e -o pipefail
 export OPENFAAS_URL=http://127.0.0.1:31112
 
 echo 'deploying hello-retail'
-faas-cli deploy -f ./hello-retail.yaml
+faas-cli deploy -f ./hello-retail-zch.yaml
 
 echo 'waiting for hello-retail to come up...'
 sleep 30

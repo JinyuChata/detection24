@@ -92,7 +92,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--data_attack_type",
-        choices=["modify", "leak", "warm1", "warm2", "warm"],
+        choices=["modify", "leak", "warm1", "warm2", "warm", "cfattack", "normal"],
         required=True,
         help="Type of attack data",
     )
@@ -106,7 +106,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    url = "http://localhost:31112/function/zjy-2n-product-purchase"
+    # url = "http://localhost:31112/function/zjy-2n-product-purchase"
+    url = "http://localhost:31112/function/zch-2n-product-purchase"
 
     headers_benign_template = {
         "Content-Type": "application/json",
@@ -152,6 +153,13 @@ if __name__ == "__main__":
         "attackserver": "attackserver",
     }
 
+    data_attack_cf = {
+        "id": 1,
+        "user": "alice",
+        "creditCard": "1234-5678-9",
+        "cfattack" : "true"
+    }
+
     if args.data_attack_type == "modify":
         data_attack = [data_attack_modify]
     elif args.data_attack_type == "leak":
@@ -162,6 +170,8 @@ if __name__ == "__main__":
         data_attack = [data_attack_warm_2]
     elif args.data_attack_type == "warm":
         data_attack = [data_attack_warm_1, data_attack_warm_2]
+    elif args.data_attack_type == "cfattack":
+        data_attack = [data_attack_cf]
 
     perform_requests(
         url,
