@@ -3,7 +3,7 @@
 services='zjy-alastor-2n-product-purchase-authorize-cc zjy-alastor-2n-product-purchase zjy-alastor-2n-product-purchase-get-price zjy-alastor-2n-product-purchase-publish'
 
 #services='attack-product-purchase'
- docker login -u jinyuzhu -p dckr_pat_CD-LbOjMi4BOF0sWYwHVCoYMKGY
+docker login -u jinyuzhu -p dckr_pat_CD-LbOjMi4BOF0sWYwHVCoYMKGY
 
 
 for service in $services
