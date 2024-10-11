@@ -1,0 +1,103 @@
+2024-10-10 15:07:58.834554208#fwatchdog#15355#15011#1#>#write#127.0.0.1:59202->127.0.0.1:3000#14986#/usr/bin/fwatchdog#<NA>#b10d4e8ff34a#<NA>#fd=11(<4t>127.0.0.1:59202->127.0.0.1:3000) size=381
+2024-10-10 15:07:58.834579486#fwatchdog#15355#15011#1#<#write#127.0.0.1:59202->127.0.0.1:3000#14986#/usr/bin/fwatchdog#381#b10d4e8ff34a#<NA>#res=381 data=POST / HTTP/1.1..Host: 10.1.80.148:8080..User-Agent: python-requests/2.32.3..Tra
+2024-10-10 15:07:58.834620752#fwatchdog#15355#15011#1#>#write#127.0.0.1:59202->127.0.0.1:3000#14986#/usr/bin/fwatchdog#<NA>#b10d4e8ff34a#<NA>#fd=11(<4t>127.0.0.1:59202->127.0.0.1:3000) size=61
+2024-10-10 15:07:58.834631318#fwatchdog#17498#15011#1#>#read#10.1.80.247:53842->10.1.80.148:8080#14986#/usr/bin/fwatchdog#<NA>#b10d4e8ff34a#<NA>#fd=10(<4t>10.1.80.247:53842->10.1.80.148:8080) size=1
+2024-10-10 15:07:58.834631318#fwatchdog#15355#15011#1#<#write#127.0.0.1:59202->127.0.0.1:3000#14986#/usr/bin/fwatchdog#61#b10d4e8ff34a#<NA>#res=61 data=37..{"id": 1, "user": "alice", "creditCard": "1234-5678-9"}..
+2024-10-10 15:07:58.834634228#fwatchdog#17498#15011#1#<#read#10.1.80.247:53842->10.1.80.148:8080#14986#/usr/bin/fwatchdog#-11#b10d4e8ff34a#<NA>#res=-11(EAGAIN) data=NULL
+2024-10-10 15:07:58.834634228#fwatchdog#15355#15011#1#>#write#127.0.0.1:59202->127.0.0.1:3000#14986#/usr/bin/fwatchdog#<NA>#b10d4e8ff34a#<NA>#fd=11(<4t>127.0.0.1:59202->127.0.0.1:3000) size=5
+2024-10-10 15:07:58.834639958#fwatchdog#15355#15011#1#<#write#127.0.0.1:59202->127.0.0.1:3000#14986#/usr/bin/fwatchdog#5#b10d4e8ff34a#<NA>#res=5 data=0....
+2024-10-10 15:07:58.835950225#node#16794#15074#11#>#open#<NA>#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#name=/etc/hosts flags=4097(O_RDONLY|O_CLOEXEC) mode=0
+2024-10-10 15:07:58.835965887#node#16794#15074#11#<#open#/etc/hosts#15011#/usr/local/bin/node#22#b10d4e8ff34a#<NA>#fd=22(<f>/etc/hosts) name=/etc/hosts flags=4097(O_RDONLY|O_CLOEXEC) mode=0 dev=CA01 ino=2336292
+2024-10-10 15:07:58.835983744#node#16794#15074#11#>#open#<NA>#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#name=/etc/resolv.conf flags=4097(O_RDONLY|O_CLOEXEC) mode=0
+2024-10-10 15:07:58.835987232#node#16794#15074#11#<#open#/etc/resolv.conf#15011#/usr/local/bin/node#22#b10d4e8ff34a#<NA>#fd=22(<f>/etc/resolv.conf) name=/etc/resolv.conf flags=4097(O_RDONLY|O_CLOEXEC) mode=0 dev=CA01 ino=2585297
+2024-10-10 15:07:58.836008730#node#16794#15074#11#>#bind##15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4>)
+2024-10-10 15:07:58.836012180#node#16794#15074#11#<#bind#0.0.0.0:0#15011#/usr/local/bin/node#0#b10d4e8ff34a#<NA>#res=0 addr=0.0.0.0:0
+2024-10-10 15:07:58.836015004#node#16794#15074#11#>#sendto#0.0.0.0:0#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4>0.0.0.0:0) size=82 tuple=0.0.0.0:51868->10.152.183.10:53
+2024-10-10 15:07:58.836091282#node#16794#15074#11#<#sendto#172.31.25.42:51868->10.152.183.10:53#15011#/usr/local/bin/node#82#b10d4e8ff34a#<NA>#res=82 data=.............gateway.openfaas.svc.cluster.local.openfaas-fn.svc.cluster.local...
+2024-10-10 15:07:58.836093011#node#16794#15074#11#>#sendto#172.31.25.42:51868->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:51868->10.152.183.10:53) size=82 tuple=0.0.0.0:51868->10.152.183.10:53
+2024-10-10 15:07:58.836109319#node#16794#15074#11#<#sendto#172.31.25.42:51868->10.152.183.10:53#15011#/usr/local/bin/node#82#b10d4e8ff34a#<NA>#res=82 data=.............gateway.openfaas.svc.cluster.local.openfaas-fn.svc.cluster.local...
+2024-10-10 15:07:58.836365445#node#16794#15074#11#>#recvfrom#172.31.25.42:51868->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:51868->10.152.183.10:53) size=512
+2024-10-10 15:07:58.836368688#node#16794#15074#11#<#recvfrom#172.31.25.42:51868->10.152.183.10:53#15011#/usr/local/bin/node#175#b10d4e8ff34a#<NA>#res=175 data=.............gateway.openfaas.svc.cluster.local.openfaas-fn.svc.cluster.local... tuple=10.152.183.10:53->0.0.0.0:51868
+2024-10-10 15:07:58.836370922#node#16794#15074#11#>#recvfrom#172.31.25.42:51868->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:51868->10.152.183.10:53) size=512
+2024-10-10 15:07:58.836371469#node#16794#15074#11#<#recvfrom#172.31.25.42:51868->10.152.183.10:53#15011#/usr/local/bin/node#-11#b10d4e8ff34a#<NA>#res=-11(EAGAIN) data=NULL tuple=NULL
+2024-10-10 15:07:58.836470947#node#16794#15074#11#>#recvfrom#172.31.25.42:51868->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:51868->10.152.183.10:53) size=512
+2024-10-10 15:07:58.836472849#node#16794#15074#11#<#recvfrom#172.31.25.42:51868->10.152.183.10:53#15011#/usr/local/bin/node#175#b10d4e8ff34a#<NA>#res=175 data=.............gateway.openfaas.svc.cluster.local.openfaas-fn.svc.cluster.local... tuple=10.152.183.10:53->0.0.0.0:51868
+2024-10-10 15:07:58.836488838#node#16794#15074#11#>#bind##15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4>)
+2024-10-10 15:07:58.836490516#node#16794#15074#11#<#bind#0.0.0.0:0#15011#/usr/local/bin/node#0#b10d4e8ff34a#<NA>#res=0 addr=0.0.0.0:0
+2024-10-10 15:07:58.836492776#node#16794#15074#11#>#sendto#0.0.0.0:0#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4>0.0.0.0:0) size=70 tuple=0.0.0.0:39574->10.152.183.10:53
+2024-10-10 15:07:58.836549503#node#16794#15074#11#<#sendto#172.31.25.42:39574->10.152.183.10:53#15011#/usr/local/bin/node#70#b10d4e8ff34a#<NA>#res=70 data=.............gateway.openfaas.svc.cluster.local.svc.cluster.local.....
+2024-10-10 15:07:58.836759618#node#16794#15074#11#>#sendto#172.31.25.42:39574->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:39574->10.152.183.10:53) size=70 tuple=0.0.0.0:39574->10.152.183.10:53
+2024-10-10 15:07:58.836789444#node#16794#15074#11#<#sendto#172.31.25.42:39574->10.152.183.10:53#15011#/usr/local/bin/node#70#b10d4e8ff34a#<NA>#res=70 data=.............gateway.openfaas.svc.cluster.local.svc.cluster.local.....
+2024-10-10 15:07:58.836797789#node#16794#15074#11#>#recvfrom#172.31.25.42:39574->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:39574->10.152.183.10:53) size=512
+2024-10-10 15:07:58.836797789#node#16794#15074#11#<#recvfrom#172.31.25.42:39574->10.152.183.10:53#15011#/usr/local/bin/node#163#b10d4e8ff34a#<NA>#res=163 data=.............gateway.openfaas.svc.cluster.local.svc.cluster.local......cluster.l tuple=10.152.183.10:53->0.0.0.0:39574
+2024-10-10 15:07:58.836800670#node#16794#15074#11#>#recvfrom#172.31.25.42:39574->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:39574->10.152.183.10:53) size=512
+2024-10-10 15:07:58.836802755#node#16794#15074#11#<#recvfrom#172.31.25.42:39574->10.152.183.10:53#15011#/usr/local/bin/node#-11#b10d4e8ff34a#<NA>#res=-11(EAGAIN) data=NULL tuple=NULL
+2024-10-10 15:07:58.836963703#node#16794#15074#11#>#recvfrom#172.31.25.42:39574->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:39574->10.152.183.10:53) size=512
+2024-10-10 15:07:58.836965955#node#16794#15074#11#<#recvfrom#172.31.25.42:39574->10.152.183.10:53#15011#/usr/local/bin/node#163#b10d4e8ff34a#<NA>#res=163 data=.............gateway.openfaas.svc.cluster.local.svc.cluster.local......cluster.l tuple=10.152.183.10:53->0.0.0.0:39574
+2024-10-10 15:07:58.836986153#node#16794#15074#11#>#bind##15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4>)
+2024-10-10 15:07:58.836987662#node#16794#15074#11#<#bind#0.0.0.0:0#15011#/usr/local/bin/node#0#b10d4e8ff34a#<NA>#res=0 addr=0.0.0.0:0
+2024-10-10 15:07:58.836990987#node#16794#15074#11#>#sendto#0.0.0.0:0#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4>0.0.0.0:0) size=66 tuple=0.0.0.0:56858->10.152.183.10:53
+2024-10-10 15:07:58.837054535#node#16794#15074#11#<#sendto#172.31.25.42:56858->10.152.183.10:53#15011#/usr/local/bin/node#66#b10d4e8ff34a#<NA>#res=66 data=|............gateway.openfaas.svc.cluster.local.cluster.local.....
+2024-10-10 15:07:58.837054535#node#16794#15074#11#>#sendto#172.31.25.42:56858->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:56858->10.152.183.10:53) size=66 tuple=0.0.0.0:56858->10.152.183.10:53
+2024-10-10 15:07:58.837069375#node#16794#15074#11#<#sendto#172.31.25.42:56858->10.152.183.10:53#15011#/usr/local/bin/node#66#b10d4e8ff34a#<NA>#res=66 data=.............gateway.openfaas.svc.cluster.local.cluster.local.....
+2024-10-10 15:07:58.837304536#node#16794#15074#11#>#recvfrom#172.31.25.42:56858->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:56858->10.152.183.10:53) size=512
+2024-10-10 15:07:58.837307494#node#16794#15074#11#<#recvfrom#172.31.25.42:56858->10.152.183.10:53#15011#/usr/local/bin/node#159#b10d4e8ff34a#<NA>#res=159 data=.............gateway.openfaas.svc.cluster.local.cluster.local......cluster.local tuple=10.152.183.10:53->0.0.0.0:56858
+2024-10-10 15:07:58.837309329#node#16794#15074#11#>#recvfrom#172.31.25.42:56858->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:56858->10.152.183.10:53) size=512
+2024-10-10 15:07:58.837309880#node#16794#15074#11#<#recvfrom#172.31.25.42:56858->10.152.183.10:53#15011#/usr/local/bin/node#-11#b10d4e8ff34a#<NA>#res=-11(EAGAIN) data=NULL tuple=NULL
+2024-10-10 15:07:58.837390322#node#16794#15074#11#>#recvfrom#172.31.25.42:56858->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:56858->10.152.183.10:53) size=512
+2024-10-10 15:07:58.837392755#node#16794#15074#11#<#recvfrom#172.31.25.42:56858->10.152.183.10:53#15011#/usr/local/bin/node#159#b10d4e8ff34a#<NA>#res=159 data=|............gateway.openfaas.svc.cluster.local.cluster.local......cluster.local tuple=10.152.183.10:53->0.0.0.0:56858
+2024-10-10 15:07:58.837408741#node#16794#15074#11#>#bind##15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4>)
+2024-10-10 15:07:58.837410664#node#16794#15074#11#<#bind#0.0.0.0:0#15011#/usr/local/bin/node#0#b10d4e8ff34a#<NA>#res=0 addr=0.0.0.0:0
+2024-10-10 15:07:58.837412894#node#16794#15074#11#>#sendto#0.0.0.0:0#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4>0.0.0.0:0) size=65 tuple=0.0.0.0:44545->10.152.183.10:53
+2024-10-10 15:07:58.837455565#node#16794#15074#11#<#sendto#172.31.25.42:44545->10.152.183.10:53#15011#/usr/local/bin/node#65#b10d4e8ff34a#<NA>#res=65 data=.............gateway.openfaas.svc.cluster.local.ec2.internal.....
+2024-10-10 15:07:58.837457031#node#16794#15074#11#>#sendto#172.31.25.42:44545->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:44545->10.152.183.10:53) size=65 tuple=0.0.0.0:44545->10.152.183.10:53
+2024-10-10 15:07:58.837471408#node#16794#15074#11#<#sendto#172.31.25.42:44545->10.152.183.10:53#15011#/usr/local/bin/node#65#b10d4e8ff34a#<NA>#res=65 data=.$...........gateway.openfaas.svc.cluster.local.ec2.internal.....
+2024-10-10 15:07:58.837627705#node#16794#15074#11#>#recvfrom#172.31.25.42:44545->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:44545->10.152.183.10:53) size=512
+2024-10-10 15:07:58.837629645#node#16794#15074#11#<#recvfrom#172.31.25.42:44545->10.152.183.10:53#15011#/usr/local/bin/node#140#b10d4e8ff34a#<NA>#res=140 data=.$...........gateway.openfaas.svc.cluster.local.ec2.internal...............@.a.r tuple=10.152.183.10:53->0.0.0.0:44545
+2024-10-10 15:07:58.837632405#node#16794#15074#11#>#recvfrom#172.31.25.42:44545->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:44545->10.152.183.10:53) size=512
+2024-10-10 15:07:58.837633000#node#16794#15074#11#<#recvfrom#172.31.25.42:44545->10.152.183.10:53#15011#/usr/local/bin/node#-11#b10d4e8ff34a#<NA>#res=-11(EAGAIN) data=NULL tuple=NULL
+2024-10-10 15:07:58.837727829#node#16794#15074#11#>#recvfrom#172.31.25.42:44545->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:44545->10.152.183.10:53) size=512
+2024-10-10 15:07:58.837730295#node#16794#15074#11#<#recvfrom#172.31.25.42:44545->10.152.183.10:53#15011#/usr/local/bin/node#140#b10d4e8ff34a#<NA>#res=140 data=.............gateway.openfaas.svc.cluster.local.ec2.internal...............@.a.r tuple=10.152.183.10:53->0.0.0.0:44545
+2024-10-10 15:07:58.837785796#node#16794#15074#11#>#bind##15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4>)
+2024-10-10 15:07:58.837788093#node#16794#15074#11#<#bind#0.0.0.0:0#15011#/usr/local/bin/node#0#b10d4e8ff34a#<NA>#res=0 addr=0.0.0.0:0
+2024-10-10 15:07:58.837790642#node#16794#15074#11#>#sendto#0.0.0.0:0#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4>0.0.0.0:0) size=52 tuple=0.0.0.0:40070->10.152.183.10:53
+2024-10-10 15:07:58.837842619#node#16794#15074#11#<#sendto#172.31.25.42:40070->10.152.183.10:53#15011#/usr/local/bin/node#52#b10d4e8ff34a#<NA>#res=52 data=.............gateway.openfaas.svc.cluster.local.....
+2024-10-10 15:07:58.837844184#node#16794#15074#11#>#sendto#172.31.25.42:40070->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:40070->10.152.183.10:53) size=52 tuple=0.0.0.0:40070->10.152.183.10:53
+2024-10-10 15:07:58.837858450#node#16794#15074#11#<#sendto#172.31.25.42:40070->10.152.183.10:53#15011#/usr/local/bin/node#52#b10d4e8ff34a#<NA>#res=52 data=.............gateway.openfaas.svc.cluster.local.....
+2024-10-10 15:07:58.838021627#node#16794#15074#11#>#recvfrom#172.31.25.42:40070->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:40070->10.152.183.10:53) size=512
+2024-10-10 15:07:58.838024332#node#16794#15074#11#<#recvfrom#172.31.25.42:40070->10.152.183.10:53#15011#/usr/local/bin/node#145#b10d4e8ff34a#<NA>#res=145 data=.............gateway.openfaas.svc.cluster.local......cluster.local..........D.ns tuple=10.152.183.10:53->0.0.0.0:40070
+2024-10-10 15:07:58.838025786#node#16794#15074#11#>#recvfrom#172.31.25.42:40070->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:40070->10.152.183.10:53) size=512
+2024-10-10 15:07:58.838026338#node#16794#15074#11#<#recvfrom#172.31.25.42:40070->10.152.183.10:53#15011#/usr/local/bin/node#-11#b10d4e8ff34a#<NA>#res=-11(EAGAIN) data=NULL tuple=NULL
+2024-10-10 15:07:58.838161781#node#16794#15074#11#>#recvfrom#172.31.25.42:40070->10.152.183.10:53#15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4u>172.31.25.42:40070->10.152.183.10:53) size=512
+2024-10-10 15:07:58.838164090#node#16794#15074#11#<#recvfrom#172.31.25.42:40070->10.152.183.10:53#15011#/usr/local/bin/node#102#b10d4e8ff34a#<NA>#res=102 data=.............gateway.openfaas.svc.cluster.local......gateway.openfaas.svc.cluste tuple=10.152.183.10:53->0.0.0.0:40070
+2024-10-10 15:07:58.838175132#node#16794#15074#11#>#write##15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=8(<e>) size=8
+2024-10-10 15:07:58.838185742#node#16794#15074#11#<#write##15011#/usr/local/bin/node#8#b10d4e8ff34a#<NA>#res=8 data=........
+2024-10-10 15:07:58.838194582#node#15074#15074#11#>#read##15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=8(<e>) size=1024
+2024-10-10 15:07:58.838196342#node#15074#15074#11#<#read##15011#/usr/local/bin/node#8#b10d4e8ff34a#<NA>#res=8 data=........
+2024-10-10 15:07:58.838260964#node#15074#15074#11#>#connect##15011#/usr/local/bin/node#<NA>#b10d4e8ff34a#<NA>#fd=22(<4>) addr=10.152.183.194:8080
+2024-10-10 15:07:58.838344923#node#15074#15074#11#<#connect#10.1.80.148:43230->10.152.183.194:8080#15011#/usr/local/bin/node#-115#b10d4e8ff34a#<NA>#res=-115(EINPROGRESS) tuple=10.1.80.148:43230->10.152.183.194:8080 fd=22(<4t>10.1.80.148:43230->10.152.183.194:8080)
+2024-10-10 15:07:58.839917001#fwatchdog#15197#15139#1#>#read#10.1.80.247:34534->10.1.80.147:8080#15102#/usr/bin/fwatchdog#<NA>#ef03aa1de3fe#<NA>#fd=10(<4t>10.1.80.247:34534->10.1.80.147:8080) size=4096
+2024-10-10 15:07:58.839942469#fwatchdog#15197#15139#1#<#read#10.1.80.247:34534->10.1.80.147:8080#15102#/usr/bin/fwatchdog#476#ef03aa1de3fe#<NA>#res=476 data=POST / HTTP/1.1..Host: 10.1.80.147:8080..User-Agent: openfaas-ce-gateway/0.27.9.
+2024-10-10 15:07:58.840008209#fwatchdog#15197#15139#1#>#write#pipe:[320783281]#15102#/usr/bin/fwatchdog#<NA>#ef03aa1de3fe#<NA>#fd=1(<p>pipe:[320783281]) size=66
+2024-10-10 15:07:58.840177093#fwatchdog#15197#15139#1#>#write#127.0.0.1:59212->127.0.0.1:3000#15102#/usr/bin/fwatchdog#<NA>#ef03aa1de3fe#<NA>#fd=11(<4t>127.0.0.1:59212->127.0.0.1:3000) size=415
+2024-10-10 15:07:58.840200377#fwatchdog#15197#15139#1#<#write#127.0.0.1:59212->127.0.0.1:3000#15102#/usr/bin/fwatchdog#415#ef03aa1de3fe#<NA>#res=415 data=POST / HTTP/1.1..Host: 10.1.80.147:8080..User-Agent: openfaas-ce-gateway/0.27.9.
+2024-10-10 15:07:58.840228184#node#15199#15199#12#>#read#127.0.0.1:59212->127.0.0.1:3000#15139#/usr/local/bin/node#<NA>#ef03aa1de3fe#<NA>#fd=21(<4t>127.0.0.1:59212->127.0.0.1:3000) size=65536
+2024-10-10 15:07:58.840232292#node#15199#15199#12#<#read#127.0.0.1:59212->127.0.0.1:3000#15139#/usr/local/bin/node#415#ef03aa1de3fe#<NA>#res=415 data=POST / HTTP/1.1..Host: 10.1.80.147:8080..User-Agent: openfaas-ce-gateway/0.27.9.
+2024-10-10 15:07:58.840240559#fwatchdog#15197#15139#1#>#write#127.0.0.1:59212->127.0.0.1:3000#15102#/usr/bin/fwatchdog#<NA>#ef03aa1de3fe#<NA>#fd=11(<4t>127.0.0.1:59212->127.0.0.1:3000) size=56
+2024-10-10 15:07:58.840248511#fwatchdog#15197#15139#1#<#write#127.0.0.1:59212->127.0.0.1:3000#15102#/usr/bin/fwatchdog#56#ef03aa1de3fe#<NA>#res=56 data=32..{"id":1,"user":"alice","creditCard":"1234-5678-9"}..
+2024-10-10 15:07:58.840250997#fwatchdog#15197#15139#1#>#write#127.0.0.1:59212->127.0.0.1:3000#15102#/usr/bin/fwatchdog#<NA>#ef03aa1de3fe#<NA>#fd=11(<4t>127.0.0.1:59212->127.0.0.1:3000) size=5
+2024-10-10 15:07:58.840256135#fwatchdog#15197#15139#1#<#write#127.0.0.1:59212->127.0.0.1:3000#15102#/usr/bin/fwatchdog#5#ef03aa1de3fe#<NA>#res=5 data=0....
+2024-10-10 15:07:58.840292171#fwatchdog#15312#15139#1#>#read#10.1.80.247:34534->10.1.80.147:8080#15102#/usr/bin/fwatchdog#<NA>#ef03aa1de3fe#<NA>#fd=10(<4t>10.1.80.247:34534->10.1.80.147:8080) size=1
+2024-10-10 15:07:58.840294517#fwatchdog#15312#15139#1#<#read#10.1.80.247:34534->10.1.80.147:8080#15102#/usr/bin/fwatchdog#-11#ef03aa1de3fe#<NA>#res=-11(EAGAIN) data=NULL
+2024-10-10 15:07:58.840668709#node#15199#15199#12#>#write#pipe:[320784729]#15139#/usr/local/bin/node#<NA>#ef03aa1de3fe#<NA>#fd=1(<p>pipe:[320784729]) size=49
+2024-10-10 15:07:58.840742646#node#15199#15199#12#>#read#127.0.0.1:59212->127.0.0.1:3000#15139#/usr/local/bin/node#<NA>#ef03aa1de3fe#<NA>#fd=21(<4t>127.0.0.1:59212->127.0.0.1:3000) size=65536
+2024-10-10 15:07:58.840763098#node#15199#15199#12#<#read#127.0.0.1:59212->127.0.0.1:3000#15139#/usr/local/bin/node#61#ef03aa1de3fe#<NA>#res=61 data=32..{"id":1,"user":"alice","creditCard":"1234-5678-9"}..0....
+2024-10-10 15:07:58.841305146#fwatchdog#15311#15139#1#>#read#127.0.0.1:59212->127.0.0.1:3000#15102#/usr/bin/fwatchdog#<NA>#ef03aa1de3fe#<NA>#fd=11(<4t>127.0.0.1:59212->127.0.0.1:3000) size=4096
+2024-10-10 15:07:58.841308792#fwatchdog#15311#15139#1#<#read#127.0.0.1:59212->127.0.0.1:3000#15102#/usr/bin/fwatchdog#278#ef03aa1de3fe#<NA>#res=278 data=HTTP/1.1 200 OK..uuid: 4e9e3379-458b-4738-adcc-e76deae3c459..Content-Type: text/
+2024-10-10 15:07:58.841366712#fwatchdog#15311#15139#1#>#read#127.0.0.1:59212->127.0.0.1:3000#15102#/usr/bin/fwatchdog#<NA>#ef03aa1de3fe#<NA>#fd=11(<4t>127.0.0.1:59212->127.0.0.1:3000) size=4096
+2024-10-10 15:07:58.841368170#fwatchdog#15311#15139#1#<#read#127.0.0.1:59212->127.0.0.1:3000#15102#/usr/bin/fwatchdog#-11#ef03aa1de3fe#<NA>#res=-11(EAGAIN) data=NULL
+2024-10-10 15:07:58.841380321#fwatchdog#15311#15139#1#>#write#pipe:[320783282]#15102#/usr/bin/fwatchdog#<NA>#ef03aa1de3fe#<NA>#fd=2(<p>pipe:[320783282]) size=56
+2024-10-10 15:07:58.841388985#node#15199#15199#12#>#write#pipe:[320784729]#15139#/usr/local/bin/node#<NA>#ef03aa1de3fe#<NA>#fd=1(<p>pipe:[320784729]) size=53
+2024-10-10 15:07:58.841391422#fwatchdog#15311#15139#1#<#write#pipe:[320783282]#15102#/usr/bin/fwatchdog#56#ef03aa1de3fe#<NA>#res=56 data=2024/10/10 15:07:58 POST / - 200 OK - ContentLength: 52.
+2024-10-10 15:07:58.841428451#fwatchdog#15311#15139#1#>#write#pipe:[320783281]#15102#/usr/bin/fwatchdog#<NA>#ef03aa1de3fe#<NA>#fd=1(<p>pipe:[320783281]) size=64
+2024-10-10 15:07:58.946014278#node#15199#15199#12#>#write#pipe:[320784729]#15139#/usr/local/bin/node#<NA>#ef03aa1de3fe#<NA>#fd=1(<p>pipe:[320784729]) size=49

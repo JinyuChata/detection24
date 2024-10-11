@@ -1,0 +1,96 @@
+1728218930.735650 open("/etc/hosts", O_RDONLY|O_CLOEXEC) = 96
+1728218930.735781 open("/etc/resolv.conf", O_RDONLY|O_CLOEXEC) = 96
+1728218930.735912 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 96
+1728218930.735947 bind(96, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.735999 sendto(96, "\337\367\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 82, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 82
+1728218930.736711 sendto(96, "\31\305\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 82, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 82
+1728218930.744603 recvfrom(96, "\337\367\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 175
+1728218930.744679 recvfrom(96, "\31\305\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 175
+1728218930.744779 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 96
+1728218930.744812 bind(96, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.744861 sendto(96, ",\220\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 70, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 70
+1728218930.745506 sendto(96, "gQ\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 70, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 70
+1728218930.770444 recvfrom(96, ",\220\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 163
+1728218930.778401 recvfrom(96, "gQ\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 163
+1728218930.778791 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 96
+1728218930.778876 bind(96, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.779053 sendto(96, "\305h\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 66, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 66
+1728218930.779413 sendto(96, "\276\246\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 66, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 66
+1728218930.792481 recvfrom(96, "\305h\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 159
+1728218930.797076 recvfrom(96, "\276\246\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 159
+1728218930.812841 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 99
+1728218930.815969 bind(99, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.816188 sendto(99, "\205\223\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 65, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 65
+1728218930.816592 sendto(99, "}\231\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 65, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 65
+1728218930.817537 recvfrom(99, "\205\223\205\203\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 140
+1728218930.817652 recvfrom(99, "}\231\205\203\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 140
+1728218930.817903 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 96
+1728218930.817957 bind(96, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.818122 sendto(96, "\26\0\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 52, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 52
+1728218930.818524 sendto(96, "\270\36\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 52, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 52
+1728218930.818973 recvfrom(96, "\26\0\205\0\0\1\0\1\0\0\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 102
+1728218930.819063 recvfrom(96, "\270\36\205\0\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 145
+1728218930.819323 open("/etc/hosts", O_RDONLY|O_CLOEXEC) = 99
+1728218930.822142 open("/etc/resolv.conf", O_RDONLY|O_CLOEXEC) = 99
+1728218930.822873 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 99
+1728218930.823133 bind(99, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.823319 sendto(99, "\17\362\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 82, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 82
+1728218930.823588 sendto(99, "\272,\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 82, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 82
+1728218930.823960 recvfrom(99, "\17\362\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 175
+1728218930.824026 recvfrom(99, "\272,\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 175
+1728218930.824476 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 99
+1728218930.824538 bind(99, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.824650 sendto(99, "\25\377\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 70, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 70
+1728218930.824916 sendto(99, "&\272\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 70, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 70
+1728218930.825270 recvfrom(99, "\25\377\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 163
+1728218930.827151 recvfrom(99, "&\272\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 163
+1728218930.827975 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 96
+1728218930.828474 bind(96, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.830005 sendto(96, "v\177\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 66, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 66
+1728218930.830528 sendto(96, "H\377\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 66, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 66
+1728218930.832317 recvfrom(96, "v\177\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 159
+1728218930.832412 recvfrom(96, "H\377\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 159
+1728218930.832687 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 99
+1728218930.833254 bind(99, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.834848 sendto(99, "0)\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 65, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 65
+1728218930.835863 sendto(99, "\2135\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 65, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 65
+1728218930.837952 recvfrom(99, "0)\205\203\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 140
+1728218930.838054 recvfrom(99, "\2135\205\203\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 140
+1728218930.838341 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 99
+1728218930.838670 bind(99, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.839718 sendto(99, "Y\266\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 52, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 52
+1728218930.840692 sendto(99, "z\363\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 52, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 52
+1728218930.841089 recvfrom(99, "Y\266\205\0\0\1\0\1\0\0\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 102
+1728218930.841186 recvfrom(99, "z\363\205\0\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 145
+1728218930.843020 open("/etc/hosts", O_RDONLY|O_CLOEXEC) = 99
+1728218930.845603 open("/etc/resolv.conf", O_RDONLY|O_CLOEXEC) = 96
+1728218930.846037 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 99
+1728218930.847935 bind(99, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.848194 sendto(99, "\245n\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 82, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 82
+1728218930.848558 sendto(99, "\251\r\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 82, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 82
+1728218930.849294 recvfrom(99, "\245n\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 175
+1728218930.849562 recvfrom(99, "\251\r\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 175
+1728218930.851189 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 96
+1728218930.851259 bind(96, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.851448 sendto(96, "Q\365\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 70, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 70
+1728218930.851802 sendto(96, "\217\310\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 70, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 70
+1728218930.852434 recvfrom(96, "Q\365\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 163
+1728218930.852563 recvfrom(96, "\217\310\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 163
+1728218930.865348 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 99
+1728218930.865453 bind(99, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.867666 sendto(99, ";\302\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 66, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 66
+1728218930.868213 sendto(99, "\224\327\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 66, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 66
+1728218930.868589 recvfrom(99, ";\302\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 159
+1728218930.874299 recvfrom(99, "\224\327\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 159
+1728218930.875088 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 99
+1728218930.875198 bind(99, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.877643 sendto(99, "\215\362\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 65, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 65
+1728218930.878061 sendto(99, "r?\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 65, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 65
+1728218930.879415 recvfrom(99, "\215\362\205\203\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 140
+1728218930.879495 recvfrom(99, "r?\205\203\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 140
+1728218930.879975 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 99
+1728218930.880242 bind(99, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728218930.880444 sendto(99, "\351\305\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 52, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 52
+1728218930.880739 sendto(99, "\311\304\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 52, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 52
+1728218930.881179 recvfrom(99, "\351\305\205\0\0\1\0\1\0\0\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 102
+1728218930.881328 recvfrom(99, "\311\304\205\0\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 145

@@ -1,0 +1,33 @@
+1728220240.279414 open("/etc/hosts", O_RDONLY|O_CLOEXEC) = 20
+1728220240.279677 open("/etc/resolv.conf", O_RDONLY|O_CLOEXEC) = 20
+1728220240.279918 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 20
+1728220240.279991 bind(20, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728220240.280099 sendto(20, "/\313\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 82, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 82
+1728220240.280440 sendto(20, "\311\201\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 82, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 82
+1728220240.356240 recvfrom(20, "\311\201\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 175
+1728220240.356390 recvfrom(20, "/\313\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 175
+1728220240.356701 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 20
+1728220240.356792 bind(20, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728220240.356945 sendto(20, "\4\225\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 70, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 70
+1728220240.357104 sendto(20, "\10\27\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 70, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 70
+1728220240.357655 recvfrom(20, "\10\27\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 163
+1728220240.357802 recvfrom(20, "\4\225\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 163
+1728220240.358087 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 20
+1728220240.358166 bind(20, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728220240.358300 sendto(20, "X\3\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 66, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 66
+1728220240.358723 sendto(20, "F\217\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 66, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 66
+1728220240.359210 recvfrom(20, "X\3\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 159
+1728220240.359339 recvfrom(20, "F\217\205\3\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 159
+1728220240.359667 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 20
+1728220240.359746 bind(20, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728220240.359888 sendto(20, "\234 \1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 65, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 65
+1728220240.360146 sendto(20, "\213\300\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 65, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 65
+1728220240.373063 recvfrom(20, "\213\300\201\203\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 140
+1728220240.373243 recvfrom(20, "\234 \201\203\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 140
+1728220240.373561 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 20
+1728220240.373640 bind(20, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1728220240.373791 sendto(20, "w\327\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 52, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 52
+1728220240.373930 sendto(20, "c\\\1\0\0\1\0\0\0\0\0\0\7gateway\10openfaas\3sv"..., 52, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 52
+1728220240.374838 recvfrom(20, "c\\\205\0\0\1\0\0\0\1\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 145
+1728220240.374948 recvfrom(20, 0x7f4596690d00, 512, 0, 0x7f45966909b0, [16]) = -1 EAGAIN (Resource temporarily unavailable)
+1728220240.375455 recvfrom(20, "w\327\205\0\0\1\0\1\0\0\0\0\7gateway\10openfaas\3sv"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 102

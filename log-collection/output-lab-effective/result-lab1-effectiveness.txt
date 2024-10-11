@@ -1,48 +1,87 @@
 ===== modify =====
-attack nodes: 25, edges: 36
-sample nodes: 25, edges: 35
+attack nodes: 39, edges: 49
+sample nodes: 27, edges: 37
 benign node: 0
 benign edge: 0
-rc1, Edge: Pre 100.00, Recall 97.22, TP 35, FP 0, FN 1
+rc1, Edge: Pre 100.00, Recall 75.51, TP 37, FP 0, FN 12
 
-attack nodes: 25, edges: 36
-sample nodes: 25, edges: 33
+attack nodes: 39, edges: 49
+sample nodes: 27, edges: 34
 benign node: 0
 benign edge: 0
-rc2, Edge: Pre 100.00, Recall 91.67, TP 33, FP 0, FN 3
+rc2, Edge: Pre 100.00, Recall 69.39, TP 34, FP 0, FN 15
 
-attack nodes: 25, edges: 36
-sample nodes: 25, edges: 32
-benign node: 0
-benign edge: 0
-rc3, Edge: Pre 100.00, Recall 88.89, TP 32, FP 0, FN 4
+attack nodes: 39, edges: 49
+sample nodes: 24, edges: 30
+benign node: 1
+benign edge: 2
+rc3, Edge: Pre 93.33, Recall 57.14, TP 28, FP 2, FN 21
 
-attack nodes: 25, edges: 36
-sample nodes: 99, edges: 241
-benign node: 74
-benign edge: 205
-rc1_all, Edge: Pre 14.94, Recall 100.00, TP 36, FP 205, FN 0
+attack nodes: 39, edges: 49
+sample nodes: 103, edges: 241
+benign node: 76
+benign edge: 204
+rc1_all, Edge: Pre 15.35, Recall 75.51, TP 37, FP 204, FN 12
 
-attack nodes: 25, edges: 36
-sample nodes: 117, edges: 436
-benign node: 92
-benign edge: 400
-rc2_all, Edge: Pre 8.26, Recall 100.00, TP 36, FP 400, FN 0
+attack nodes: 39, edges: 49
+sample nodes: 114, edges: 424
+benign node: 87
+benign edge: 387
+rc2_all, Edge: Pre 8.73, Recall 75.51, TP 37, FP 387, FN 12
 
-attack nodes: 25, edges: 36
-sample nodes: 150, edges: 776
-benign node: 125
-benign edge: 740
-rc3_all, Edge: Pre 4.64, Recall 100.00, TP 36, FP 740, FN 0
+attack nodes: 39, edges: 49
+sample nodes: 142, edges: 771
+benign node: 115
+benign edge: 734
+rc3_all, Edge: Pre 4.80, Recall 75.51, TP 37, FP 734, FN 12
 
 
 
 ===== leak =====
-attack nodes: 19, edges: 28
-sample nodes: 19, edges: 27
+attack nodes: 21, edges: 29
+sample nodes: 21, edges: 29
+benign node: 1
+benign edge: 2
+rc1, Edge: Pre 93.10, Recall 93.10, TP 27, FP 2, FN 2
+
+attack nodes: 21, edges: 29
+sample nodes: 19, edges: 25
 benign node: 0
-benign edge: 0
-rc1, Edge: Pre 100.00, Recall 96.43, TP 27, FP 0, FN 1
+benign edge: 1
+rc2, Edge: Pre 96.00, Recall 82.76, TP 24, FP 1, FN 5
+
+attack nodes: 21, edges: 29
+sample nodes: 19, edges: 25
+benign node: 0
+benign edge: 2
+rc3, Edge: Pre 92.00, Recall 79.31, TP 23, FP 2, FN 6
+
+attack nodes: 21, edges: 29
+sample nodes: 88, edges: 221
+benign node: 67
+benign edge: 192
+rc1_all, Edge: Pre 13.12, Recall 100.00, TP 29, FP 192, FN 0
+
+attack nodes: 21, edges: 29
+sample nodes: 112, edges: 428
+benign node: 91
+benign edge: 399
+rc2_all, Edge: Pre 6.78, Recall 100.00, TP 29, FP 399, FN 0
+
+attack nodes: 21, edges: 29
+sample nodes: 166, edges: 813
+benign node: 145
+benign edge: 784
+rc3_all, Edge: Pre 3.57, Recall 100.00, TP 29, FP 784, FN 0
+
+
+
+===== warm =====
+attack nodes: 19, edges: 28
+sample nodes: 19, edges: 28
+benign node: 1
+benign edge: 2
+rc1, Edge: Pre 92.86, Recall 92.86, TP 26, FP 2, FN 2
 
 attack nodes: 19, edges: 28
 sample nodes: 19, edges: 25
@@ -51,67 +90,67 @@ benign edge: 0
 rc2, Edge: Pre 100.00, Recall 89.29, TP 25, FP 0, FN 3
 
 attack nodes: 19, edges: 28
-sample nodes: 19, edges: 25
-benign node: 0
-benign edge: 0
-rc3, Edge: Pre 100.00, Recall 89.29, TP 25, FP 0, FN 3
+sample nodes: 21, edges: 29
+benign node: 4
+benign edge: 8
+rc3, Edge: Pre 72.41, Recall 75.00, TP 21, FP 8, FN 7
 
 attack nodes: 19, edges: 28
-sample nodes: 93, edges: 230
-benign node: 74
-benign edge: 202
-rc1_all, Edge: Pre 12.17, Recall 100.00, TP 28, FP 202, FN 0
+sample nodes: 84, edges: 227
+benign node: 65
+benign edge: 199
+rc1_all, Edge: Pre 12.33, Recall 100.00, TP 28, FP 199, FN 0
 
 attack nodes: 19, edges: 28
-sample nodes: 107, edges: 419
-benign node: 88
+sample nodes: 109, edges: 419
+benign node: 90
 benign edge: 391
 rc2_all, Edge: Pre 6.68, Recall 100.00, TP 28, FP 391, FN 0
 
 attack nodes: 19, edges: 28
-sample nodes: 141, edges: 751
-benign node: 122
-benign edge: 723
-rc3_all, Edge: Pre 3.73, Recall 100.00, TP 28, FP 723, FN 0
+sample nodes: 139, edges: 757
+benign node: 120
+benign edge: 729
+rc3_all, Edge: Pre 3.70, Recall 100.00, TP 28, FP 729, FN 0
 
 
 
-===== warm =====
-attack nodes: 23, edges: 37
-sample nodes: 23, edges: 37
+===== cfattack =====
+attack nodes: 26, edges: 34
+sample nodes: 20, edges: 28
 benign node: 0
 benign edge: 0
-rc1, Edge: Pre 100.00, Recall 100.00, TP 37, FP 0, FN 0
+rc1, Edge: Pre 100.00, Recall 82.35, TP 28, FP 0, FN 6
 
-attack nodes: 23, edges: 37
-sample nodes: 23, edges: 34
+attack nodes: 26, edges: 34
+sample nodes: 20, edges: 26
 benign node: 0
 benign edge: 0
-rc2, Edge: Pre 100.00, Recall 91.89, TP 34, FP 0, FN 3
+rc2, Edge: Pre 100.00, Recall 76.47, TP 26, FP 0, FN 8
 
-attack nodes: 23, edges: 37
-sample nodes: 31, edges: 51
-benign node: 8
-benign edge: 14
-rc3, Edge: Pre 72.55, Recall 100.00, TP 37, FP 14, FN 0
+attack nodes: 26, edges: 34
+sample nodes: 20, edges: 26
+benign node: 0
+benign edge: 0
+rc3, Edge: Pre 100.00, Recall 76.47, TP 26, FP 0, FN 8
 
-attack nodes: 23, edges: 37
-sample nodes: 116, edges: 273
-benign node: 93
-benign edge: 236
-rc1_all, Edge: Pre 13.55, Recall 100.00, TP 37, FP 236, FN 0
+attack nodes: 26, edges: 34
+sample nodes: 104, edges: 256
+benign node: 83
+benign edge: 227
+rc1_all, Edge: Pre 11.33, Recall 85.29, TP 29, FP 227, FN 5
 
-attack nodes: 23, edges: 37
-sample nodes: 132, edges: 454
-benign node: 109
-benign edge: 417
-rc2_all, Edge: Pre 8.15, Recall 100.00, TP 37, FP 417, FN 0
+attack nodes: 26, edges: 34
+sample nodes: 123, edges: 437
+benign node: 102
+benign edge: 408
+rc2_all, Edge: Pre 6.64, Recall 85.29, TP 29, FP 408, FN 5
 
-attack nodes: 23, edges: 37
-sample nodes: 194, edges: 863
-benign node: 171
-benign edge: 826
-rc3_all, Edge: Pre 4.29, Recall 100.00, TP 37, FP 826, FN 0
+attack nodes: 26, edges: 34
+sample nodes: 152, edges: 777
+benign node: 131
+benign edge: 748
+rc3_all, Edge: Pre 3.73, Recall 85.29, TP 29, FP 748, FN 5
 
 
 

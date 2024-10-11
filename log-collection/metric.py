@@ -135,8 +135,8 @@ def find_all_dot_file(base_dir):
 
 
 if __name__ == "__main__":
-    # attacks = ['modify', 'leak', 'warm', 'cfattack']
-    attacks = ['warm']
+    # attacks = ['modify', 'leak', 'warm', 'cfattack', 'escape']
+    attacks = ['cfattack', 'escape']
     for attack in attacks:
         gt_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='gt')
         rc1_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='rc1')
@@ -154,6 +154,7 @@ if __name__ == "__main__":
         metric_main("rc3_all", gt, rc3_all)
         
         print()
+        
         print()
         
         

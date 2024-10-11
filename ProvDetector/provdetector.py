@@ -1,4 +1,5 @@
 import os
+import shutil
 
 import numpy as np
 
@@ -22,7 +23,7 @@ def set_para(_T, _K, _t):
     K = _K
     THRESHOLD = _t
 
-set_para(150, 25, 2)
+set_para(150, 5, 4)
 
 
 def detect(train_data: list, test_data: list):
@@ -51,7 +52,7 @@ def detect(train_data: list, test_data: list):
     # test_path_list = [os.path.join(test_data, i) for i in test_file_name_list]
 
     # print(train_path_list + test_path_list)
-    G = graphBuilding(train_data + test_data)  # 构建数据源图
+    G, train_path_list, test_path_list = graphBuilding(train_data, test_data)  # 构建数据源图
     print("=============================== Graphbuilding Completed~! ===============================")
     extraction(G, T)  # 提取所有图中边的表示数据
     print("=============================== Extraction Completed~! ===============================")
@@ -60,18 +61,21 @@ def detect(train_data: list, test_data: list):
 
     doc_ans_train = []
     doc_ans_test = []
+    
     for i in range(len(G)):
-        if i >= len(train_data):
+        if i >= len(train_path_list):
             break
-        print(f"working on train {i}: {train_data[i]}")
+        print(f"working on train {i}: {train_path_list[i]}")
         doc_ans_train += work(G[i], K)  # 对于指定的图，计算路径异常指数并找到排名前K条边;训练时需要多张图的话，可以分别对每张图G[i]执行此操作，将结果合并到一个doc_ans中即可
 
     for i in range(len(G)):
-        if i < len(train_data):
+        if i < len(train_path_list):
             continue
-        print(f"working on test {i}: {test_data[i - len(train_data)]}")
+        print(f"working on test {i}: {test_path_list[i - len(train_path_list)]}")
         doc_ans_test += work(G[i], K)
     # print('work complete')
+    # for i in doc_ans_test:
+    #     print(i)
     print("=============================== Start Embedding~! ===============================")
     train_vec, vec_ans = embedding(doc_ans_train, doc_ans_test, K)  # 路径特征嵌入，得到测试集中提取的每条路径各自的特征
     print("=============================== End Embedding~! ===============================")
@@ -83,23 +87,25 @@ def detect(train_data: list, test_data: list):
 
     os.makedirs('result', exist_ok=True)
     with open(f'result/train_{THRESHOLD}_.txt', 'w') as f:
-        for index, db_name in enumerate(train_data):
+        for index, path_name in enumerate(train_path_list):
             doc = doc_ans_train[index * K: (index + 1) * K]
             for j in range(len(doc)):
                 f.write(
-                    f'{db_name}\t{str(doc[j])}\n')
+                    f'{path_name}\t{str(doc[j])}\n')
 
+    print("alert of each log: ")
     alert = []
     with open(f'result/alert_{THRESHOLD}_.txt', 'w') as f:
-        for index, db_name in enumerate(test_data):
+        for index, path_name in enumerate(test_path_list):
             detection = predict_ans[index * K: (index + 1) * K]
             doc = doc_ans_test[index * K: (index + 1) * K]
             for j in range(len(detection)):
                 f.write(
-                    f'{db_name}\t{str(np.count_nonzero((detection == -1)))}\t{str(detection[j])}\t{str(doc[j])}\n')
+                    f'{path_name}\t{str(np.count_nonzero((detection == -1)))}\t{str(detection[j])}\t{str(doc[j])}\n')
+            print(path_name + ": " + str(np.count_nonzero((detection == -1))))
             if np.count_nonzero((detection == -1)) > THRESHOLD:
-                alert.append(db_name)
-    return(alert)
+                alert.append(path_name)
+    return alert, train_path_list, test_path_list
 
 
 def provdector_test(train_data_list, test_data_list):
@@ -129,19 +135,23 @@ def provdector_test(train_data_list, test_data_list):
     print('precision:', precision, ' recall:', recall, ' f1_score:', f1_score)
 
 def process_data(train_data, test_data, count_ori_attack, count_attack, count_all):
-    test_result = detect(train_data, test_data)
+    test_result, train_path_list, test_path_list = detect(train_data, test_data)
     print("++++++++++++++++++++test_result++++++++++++++++++++++++")
     print(test_result)
     count_attack_local = 0
     # count_normal_local = 0
     count_ori_attack_local = 0
     count_all_local = 0
-    for dbname in test_data:
-        if "_a_" in dbname:
+    for path_name in test_path_list:
+        # print(path_name)
+        # count_all_local += 1
+        if "b89e73bd" in path_name or "6c42a29b" in path_name or "eb6d3fb5" in path_name:
             count_ori_attack_local += 1
-    for dbname in test_result:
+    print("++++++++++++++++++++++++")
+    for path_name in test_result:
+        # print(path_name)
         count_all_local += 1
-        if "_a_" in dbname:
+        if "b89e73bd" in path_name or "6c42a29b" in path_name or "eb6d3fb5" in path_name:
             count_attack_local += 1
 
     with count_ori_attack.get_lock():
@@ -205,6 +215,17 @@ if __name__ == "__main__":
     # result = detect(train_data='../../data/scenes/cve-2016-4971-small/normal/graph',
     #        test_data='../../data/scenes/cve-2016-4971-small/attack/graph')
     # print(result)
+    folder_path = "./G_log"
+    if os.path.exists(folder_path):
+        if os.path.isdir(folder_path):
+            # 如果文件夹不为空，使用 shutil.rmtree 递归删除
+            if len(os.listdir(folder_path)) > 0:
+                shutil.rmtree(folder_path)
+            else:
+                # 如果文件夹为空，可以直接使用 os.rmdir 删除
+                os.rmdir(folder_path)
+    os.makedirs(folder_path)
+
     multiprocessing.set_start_method('spawn')
 
     print(T, K, THRESHOLD)

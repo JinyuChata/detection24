@@ -1,0 +1,70 @@
+digraph G {
+	"1_fwatchdog#ServerID_6dcbcc88d5-mmq29"->"10.1.80.247:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"10.1.80.247:42150#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6dcbcc88d5-mmq29"[ label="POST" ];
+	"1_fwatchdog#ServerID_8665dd9487-8ztxg"->"10.1.80.247:38798#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"10.1.80.247:38798#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_8665dd9487-8ztxg"[ label="POST" ];
+	"10.1.80.247:8080#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6dcbcc88d5-mmq29"[ label="RESPONSE" ];
+	"gateway:8080#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6dcbcc88d5-mmq29"[ label="RESPONSE" ];
+	"1_fwatchdog#ServerID_6dcbcc88d5-mmq29"->"gateway:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"10.1.80.247:43784#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_76c96688d7-5sj98"[ label="POST" ];
+	"1_fwatchdog#ServerID_b10d4e8ff34a"->"localhost:3000#ServerID_b10d4e8ff34a"[ label="write" ];
+	"1_fwatchdog#ServerID_76c96688d7-5sj98"->"10.1.80.247:43784#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"1_fwatchdog#ServerID_6dcbcc88d5-mmq29"->"10.1.80.247:42150#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"10.1.80.247:42150#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_b10d4e8ff34a"[ label="read" ];
+	"10.1.80.247:51362#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_ef03aa1de3fe"[ label="read" ];
+	"10.152.183.10:53#ServerID_OuterContainerID"->"11_node#ServerID_b10d4e8ff34a"[ label="recvfrom" ];
+	"11_node#ServerID_b10d4e8ff34a"->"10.152.183.10:53#ServerID_OuterContainerID"[ label="sendto" ];
+	"11_node#ServerID_b10d4e8ff34a"->"gateway:8080#ServerID_OuterContainerID"[ label="connect" ];
+	"gateway:8080#ServerID_OuterContainerID"->"11_node#ServerID_b10d4e8ff34a"[ label="read" ];
+	"localhost:3000#ServerID_b10d4e8ff34a"->"11_node#ServerID_b10d4e8ff34a"[ label="read" ];
+	"10.1.80.1:56160#ServerID_OuterContainerID"->"10.1.80.247:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"10.1.80.247:8080#ServerID_OuterContainerID"->"10.1.80.1:56160#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"10.1.80.247:8080#ServerID_OuterContainerID"->"10.0.88.125:31112#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	subgraph "clusterServerID_6dcbcc88d5-mmq29" {
+	label="clusterServerID_6dcbcc88d5-mmq29";
+	"1_fwatchdog#ServerID_6dcbcc88d5-mmq29" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_76c96688d7-5sj98" {
+	label="clusterServerID_76c96688d7-5sj98";
+	"1_fwatchdog#ServerID_76c96688d7-5sj98" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_8665dd9487-8ztxg" {
+	label="clusterServerID_8665dd9487-8ztxg";
+	"1_fwatchdog#ServerID_8665dd9487-8ztxg" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_OuterContainerID" {
+	label="clusterServerID_OuterContainerID";
+	"10.0.88.125:31112#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.1:56160#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.247:38798#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.247:42150#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.247:43784#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.247:51362#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.247:8080#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.152.183.10:53#ServerID_OuterContainerID" [ shape=diamond ];
+	"gateway:8080#ServerID_OuterContainerID" [ shape=diamond ];
+
+}
+;
+	subgraph "clusterServerID_b10d4e8ff34a" {
+	label="clusterServerID_b10d4e8ff34a";
+	"11_node#ServerID_b10d4e8ff34a" [ shape=box ];
+	"1_fwatchdog#ServerID_b10d4e8ff34a" [ shape=box ];
+	"localhost:3000#ServerID_b10d4e8ff34a" [ shape=diamond ];
+
+}
+;
+	subgraph "clusterServerID_ef03aa1de3fe" {
+	label="clusterServerID_ef03aa1de3fe";
+	"1_fwatchdog#ServerID_ef03aa1de3fe" [ shape=box ];
+
+}
+;
+
+}

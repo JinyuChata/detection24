@@ -28,9 +28,7 @@ def load_graph(file_path):
     return nx.drawing.nx_pydot.read_dot(file_path)
 
 def replace_node_label(node_label):
-    node_label = re.sub(r'\[\d+\]', '[RD_ID]', node_label)
-    node_label = re.sub(r'\b\d+_', 'PID_', node_label)
-    node_label = re.sub(r'_[a-f0-9]{12}', '_UUID', node_label)
+    node_label = re.sub(r'Process##\d+', 'Process##PID', node_label)
     node_label = re.sub(r':\d{5}', ':RD_PORT', node_label)
     return node_label
 
@@ -144,7 +142,7 @@ def find_dot_file(base_dir):
 
 if __name__ == "__main__":
     # attacks = ['modify', 'leak', 'warm', 'cfattack']
-    attacks = ['modify', 'leak', 'warm', 'cfattack']
+    attacks = ['escape', 'cfattack']
     for attack in attacks:
         gt_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='gt')
         rc1_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='rc1')

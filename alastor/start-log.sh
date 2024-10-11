@@ -26,12 +26,13 @@ timestamp=$(date +"%Y%m%d%H%M%S")
 
 echo "==== deploy containers"
 curr_dir=$(pwd)
-cd ../scene
-bash ../scene/deployHRAlastor.sh
+# cd ../scene
+# bash ../scene/deployHRAlastor.sh
 cd $curr_dir
 
 # 获取与 "zjy-alastor-2n-product-purchase" 相关的 pod 列表
-pod_names=$(kubectl get pods -A | grep zjy-alastor-2n-product-purchase | awk '{print $2}')
+# pod_names=$(kubectl get pods -A | grep zjy-alastor-2n-product-purchase | awk '{print $2}')
+pod_names=$(kubectl get pods -A | grep 2n-product-purchase | awk '{print $2}')
 echo "Pods found: $pod_names"
 
 # 创建日志目录
@@ -91,4 +92,4 @@ if [ -n "$rename" ]; then
 fi
 
 echo "==== closing old containers"
-bash ../scene/tearHRAlastor.sh
+# bash ../scene/tearHRAlastor.sh

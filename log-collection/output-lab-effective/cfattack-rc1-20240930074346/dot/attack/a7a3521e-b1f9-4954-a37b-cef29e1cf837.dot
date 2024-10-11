@@ -1,0 +1,81 @@
+digraph G {
+	"1_fwatchdog#ServerID_6dcbcc88d5-4vpdn"->"gateway:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"10.1.80.247:34112#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6dcbcc88d5-4vpdn"[ label="POST" ];
+	"1_fwatchdog#ServerID_8665dd9487-x4b6d"->"10.1.80.247:37574#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"1_fwatchdog#ServerID_6dcbcc88d5-4vpdn"->"10.1.80.247:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"10.1.80.247:37574#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_8665dd9487-x4b6d"[ label="POST" ];
+	"10.1.80.247:8080#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6dcbcc88d5-4vpdn"[ label="RESPONSE" ];
+	"gateway:8080#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6dcbcc88d5-4vpdn"[ label="RESPONSE" ];
+	"10.1.80.247:44832#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_76c96688d7-2rgjp"[ label="POST" ];
+	"1_fwatchdog#ServerID_76c96688d7-2rgjp"->"10.1.80.247:44832#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"1_fwatchdog#ServerID_6dcbcc88d5-4vpdn"->"10.1.80.247:34112#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"1_fwatchdog#ServerID_d4de233c55aa"->"localhost:3000#ServerID_d4de233c55aa"[ label="connect" ];
+	"localhost:3000#ServerID_d4de233c55aa"->"1_fwatchdog#ServerID_d4de233c55aa"[ label="read" ];
+	"1_fwatchdog#ServerID_d4de233c55aa"->"localhost:3000#ServerID_d4de233c55aa"[ label="write" ];
+	"/etc/hosts#ServerID_d4de233c55aa"->"10_node#ServerID_d4de233c55aa"[ label="read" ];
+	"10.1.80.247:34112#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_d4de233c55aa"[ label="read" ];
+	"/etc/resolv.conf#ServerID_d4de233c55aa"->"10_node#ServerID_d4de233c55aa"[ label="read" ];
+	"10_node#ServerID_d4de233c55aa"->"10.152.183.10:53#ServerID_OuterContainerID"[ label="sendto" ];
+	"10.152.183.10:53#ServerID_OuterContainerID"->"10_node#ServerID_d4de233c55aa"[ label="recvfrom" ];
+	"1_fwatchdog#ServerID_8df4e6f0b536"->"localhost:3000#ServerID_8df4e6f0b536"[ label="connect" ];
+	"10_node#ServerID_d4de233c55aa"->"gateway:8080#ServerID_OuterContainerID"[ label="connect" ];
+	"1_fwatchdog#ServerID_8df4e6f0b536"->"localhost:3000#ServerID_8df4e6f0b536"[ label="write" ];
+	"localhost:3000#ServerID_8df4e6f0b536"->"1_fwatchdog#ServerID_8df4e6f0b536"[ label="read" ];
+	"10.1.80.247:37574#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_8df4e6f0b536"[ label="read" ];
+	"localhost:3000#ServerID_8df4e6f0b536"->"12_node#ServerID_8df4e6f0b536"[ label="read" ];
+	"1_fwatchdog#ServerID_8df4e6f0b536"->"pipe:[273416825]#ServerID_8df4e6f0b536"[ label="write" ];
+	"10.1.80.1:19257#ServerID_OuterContainerID"->"10.1.80.247:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"10.1.80.247:8080#ServerID_OuterContainerID"->"10.1.80.1:19257#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"10.1.80.247:8080#ServerID_OuterContainerID"->"10.0.88.125:31112#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	subgraph "clusterServerID_6dcbcc88d5-4vpdn" {
+	label="clusterServerID_6dcbcc88d5-4vpdn";
+	"1_fwatchdog#ServerID_6dcbcc88d5-4vpdn" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_76c96688d7-2rgjp" {
+	label="clusterServerID_76c96688d7-2rgjp";
+	"1_fwatchdog#ServerID_76c96688d7-2rgjp" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_8665dd9487-x4b6d" {
+	label="clusterServerID_8665dd9487-x4b6d";
+	"1_fwatchdog#ServerID_8665dd9487-x4b6d" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_8df4e6f0b536" {
+	label="clusterServerID_8df4e6f0b536";
+	"12_node#ServerID_8df4e6f0b536" [ shape=box ];
+	"1_fwatchdog#ServerID_8df4e6f0b536" [ shape=box ];
+	"localhost:3000#ServerID_8df4e6f0b536" [ shape=diamond ];
+	"pipe:[273416825]#ServerID_8df4e6f0b536" [ shape=ellipse ];
+
+}
+;
+	subgraph "clusterServerID_OuterContainerID" {
+	label="clusterServerID_OuterContainerID";
+	"10.0.88.125:31112#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.1:19257#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.247:34112#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.247:37574#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.247:44832#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.247:8080#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.152.183.10:53#ServerID_OuterContainerID" [ shape=diamond ];
+	"gateway:8080#ServerID_OuterContainerID" [ shape=diamond ];
+
+}
+;
+	subgraph "clusterServerID_d4de233c55aa" {
+	label="clusterServerID_d4de233c55aa";
+	"/etc/hosts#ServerID_d4de233c55aa" [ shape=ellipse ];
+	"/etc/resolv.conf#ServerID_d4de233c55aa" [ shape=ellipse ];
+	"10_node#ServerID_d4de233c55aa" [ shape=box ];
+	"1_fwatchdog#ServerID_d4de233c55aa" [ shape=box ];
+	"localhost:3000#ServerID_d4de233c55aa" [ shape=diamond ];
+
+}
+;
+
+}

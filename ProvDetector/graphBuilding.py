@@ -30,9 +30,8 @@ def search_node(id_, cursor):
     print("id_ NOT Found!")
     return "", ""
 
-
-def graphBuilding(db_list):
-    G = []
+def generate_log(db_list):
+    path_list = []
     for each in db_list: # path_list可以变为数据库名称的list！！！
         G_now = Graph()
         cnt = 0
@@ -64,28 +63,53 @@ def graphBuilding(db_list):
                     re_dst, type_dst = search_node(row[2], cursor=cursor)
                     # print(re_src)
                     # print(type_src)
-                    temp = [re_src] + [type_src] + [re_dst] + [type_dst] + [row[5]] + [row[6]]
+                    temp = [re_src] + [type_src] + [re_dst] + [type_dst] + [row[5]] + [row[6]] + [row[7]]
                     line_now.append(temp)
-                    print(temp)
+                    # print(temp)
 
         finally:
             # 关闭连接
             connection.close()
 
+        G_dict = {}
+        for line in line_now:
+            if line[6] in G_dict:
+                G_dict[line[6]].append(line)
+            elif line[6] not in G_dict:
+                G_dict[line[6]] = []
+                G_dict[line[6]].append(line)
+        for key, value in G_dict.items():
+            # print(f'Key: {key}')
+            path_list.append(f'./G_log/{each}-{key}.log')
+
+            with open(f'./G_log/{each}-{key}.log', 'w') as f:
+                # if key != '' and key != 'unknown':
+                #     for j in range(20):
+                #         for i in value:
+                #             f.write(str(i) + '\n')
+                # else:
+                #     for i in value:
+                #         f.write(str(i) + '\n')
+                for i in value:
+                    f.write(str(i) + '\n')               
+            
+
+    return path_list
 
 
-################################################################################        
+def graphBuilding(train_db_list, test_db_list):
+    G = []
+    train_path_list = generate_log(train_db_list)
+    test_path_list = generate_log(test_db_list)
 
-        # f_now = open(i, 'r', encoding='utf-8')
-        # ts_now = []
-        # for line in f_now:
-        #     line_now.append(line)
-        #     ts_now.append(float(line.strip('\n').split('\t')[5]))
-        # sorted_index = np.argsort(ts_now, axis=0)
-        # line_now = np.array(line_now)[sorted_index]
+    for i in train_path_list + test_path_list:     
+        f_now = open(i, 'r', encoding='utf-8')
+        G_now = Graph()
+        line_now = []
+        for each in f_now:
+            line_now.append(eval(each))
 
-        for line in line_now:  # srcId srcType dstId dstType edgeType timestamp
-            # line = line.strip('\n').split('\t')
+        for line in line_now:  # srcId srcType dstId dstType edgeType timestamp uuid
             temp = float(line[5])
             if G_now.min_ts < 0: G_now.min_ts = temp
             if G_now.max_ts < 0: G_now.max_ts = temp
@@ -158,4 +182,4 @@ def graphBuilding(db_list):
                 G_now.edge_cnt += 1
 
         G.append(G_now)
-    return G
+    return G, train_path_list, test_path_list
