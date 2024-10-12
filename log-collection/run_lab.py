@@ -106,8 +106,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    # url = "http://localhost:31112/function/zjy-2n-product-purchase"
-    url = "http://localhost:31112/function/zch-2n-product-purchase"
+    url = "http://localhost:31112/function/zjy-2n-product-purchase"
+    # url = "http://localhost:31112/function/zch-2n-product-purchase"
 
     headers_benign_template = {
         "Content-Type": "application/json",

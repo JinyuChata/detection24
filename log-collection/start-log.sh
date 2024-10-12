@@ -105,6 +105,7 @@ bash update-config.sh
 
 # 运行 Python 脚本，并传递参数
 python3.9 run_lab.py --n_benign "$n_benign" --n_attack "$n_attack" --total_time "$total_time" --data_attack_type "$data_attack_type" --metadata_out_path "$log_dir"
+# python3.9 run_lab.py --n_benign 1 --n_attack 1 --total_time 2 --data_attack_type modify --metadata_out_path ./output
 
 sleep 5
 echo "Requests send finished. Cleaning up..."
