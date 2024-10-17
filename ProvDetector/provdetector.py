@@ -1,5 +1,4 @@
 import os
-import shutil
 
 import numpy as np
 
@@ -23,10 +22,16 @@ def set_para(_T, _K, _t):
     K = _K
     THRESHOLD = _t
 
-set_para(150, 5, 4)
+set_para(3000, 15, 3)
+
+attack_list = ['/home/ubuntu/detection24/log-collection/output-test/cfattack-rc3-20241014030723/sysdig/6090d45f-6bff-4942-a94c-cbf57e61ecd3.log',
+                '/home/ubuntu/detection24/log-collection/output-test/escape-rc3-20241014030844/sysdig/32f29e67-c64f-46de-90b7-7925a51a358b.log',
+                '/home/ubuntu/detection24/log-collection/output-test/leak-rc3-20241014030456/sysdig/93d804d9-24f2-40a3-a6e6-a988bb95c63b.log',
+                '/home/ubuntu/detection24/log-collection/output-test/modify-rc3-20241014030338/sysdig/e211b010-e78e-48b7-b37a-813292b9e7cc.log',
+                '/home/ubuntu/detection24/log-collection/output-test/warm-rc3-20241014030611/sysdig/d08ea06c-e7db-4373-9fc4-71e1513edc73.log']
 
 
-def detect(train_data: list, test_data: list):
+def detect(train_path_list: list, test_path_list: list):
     '''
     main scripts for provdetector
     Args:
@@ -46,13 +51,11 @@ def detect(train_data: list, test_data: list):
     # folder_json_to_tuple(train_data, train_dataset)
     # folder_json_to_tuple(test_data, test_dataset)
 
-    # train_file_name_list = os.listdir(train_data)
-    # train_path_list = [os.path.join(train_data, i) for i in train_file_name_list]
-    # test_file_name_list = os.listdir(test_data)
-    # test_path_list = [os.path.join(test_data, i) for i in test_file_name_list]
-
     # print(train_path_list + test_path_list)
-    G, train_path_list, test_path_list = graphBuilding(train_data, test_data)  # 构建数据源图
+    print("训练集数量：" + str(len(train_path_list)))
+    print("测试集数量：" + str(len(test_path_list)))
+
+    G = graphBuilding(train_path_list + test_path_list)  # 构建数据源图
     print("=============================== Graphbuilding Completed~! ===============================")
     extraction(G, T)  # 提取所有图中边的表示数据
     print("=============================== Extraction Completed~! ===============================")
@@ -61,51 +64,52 @@ def detect(train_data: list, test_data: list):
 
     doc_ans_train = []
     doc_ans_test = []
-    
     for i in range(len(G)):
         if i >= len(train_path_list):
             break
-        print(f"working on train {i}: {train_path_list[i]}")
+        # print(f"working on train {i}: {train_path_list[i]}")
         doc_ans_train += work(G[i], K)  # 对于指定的图，计算路径异常指数并找到排名前K条边;训练时需要多张图的话，可以分别对每张图G[i]执行此操作，将结果合并到一个doc_ans中即可
 
     for i in range(len(G)):
         if i < len(train_path_list):
             continue
-        print(f"working on test {i}: {test_path_list[i - len(train_path_list)]}")
+        # print(f"working on test {i}: {test_path_list[i - len(train_path_list)]}")
         doc_ans_test += work(G[i], K)
     # print('work complete')
-    # for i in doc_ans_test:
-    #     print(i)
+
     print("=============================== Start Embedding~! ===============================")
     train_vec, vec_ans = embedding(doc_ans_train, doc_ans_test, K)  # 路径特征嵌入，得到测试集中提取的每条路径各自的特征
     print("=============================== End Embedding~! ===============================")
     # exit(0)
-    print("=============================== Start LOF~! ===============================")
+
     # print("predict")
+    print("=============================== Start LOF~! ===============================")
     predict_ans = LOF(train_vec, vec_ans, doc_ans_train, doc_ans_test)  # 使用离群点检测算法得到每条路径的异常预测
+    print(len(predict_ans))
     print("=============================== End LOF~! ===============================")
 
     os.makedirs('result', exist_ok=True)
-    with open(f'result/train_{THRESHOLD}_.txt', 'w') as f:
-        for index, path_name in enumerate(train_path_list):
+    with open(f'result/train_{THRESHOLD}_zch.txt', 'w') as f:
+        for index, file_name in enumerate(train_path_list):
             doc = doc_ans_train[index * K: (index + 1) * K]
             for j in range(len(doc)):
                 f.write(
-                    f'{path_name}\t{str(doc[j])}\n')
+                    f'{file_name}\t{str(doc[j])}\n')
 
     print("alert of each log: ")
     alert = []
-    with open(f'result/alert_{THRESHOLD}_.txt', 'w') as f:
-        for index, path_name in enumerate(test_path_list):
+    with open(f'result/alert_{THRESHOLD}_zch.txt', 'w') as f:
+        for index, file_name in enumerate(test_path_list):
             detection = predict_ans[index * K: (index + 1) * K]
             doc = doc_ans_test[index * K: (index + 1) * K]
             for j in range(len(detection)):
                 f.write(
-                    f'{path_name}\t{str(np.count_nonzero((detection == -1)))}\t{str(detection[j])}\t{str(doc[j])}\n')
-            print(path_name + ": " + str(np.count_nonzero((detection == -1))))
-            if np.count_nonzero((detection == -1)) > THRESHOLD:
-                alert.append(path_name)
-    return alert, train_path_list, test_path_list
+                    f'{file_name}\t{str(np.count_nonzero((detection == -1)))}\t{str(detection[j])}\t{str(doc[j])}\n')
+            if file_name in attack_list:
+                print(file_name + ": " + str(np.count_nonzero((detection == -1))))
+            if np.count_nonzero((detection == -1)) >= THRESHOLD:
+                alert.append(file_name.split('.')[0])
+    return(alert)
 
 
 def provdector_test(train_data_list, test_data_list):
@@ -119,15 +123,15 @@ def provdector_test(train_data_list, test_data_list):
         test_result = detect(train_data, test_data)
         # 遍历文件名列表
         for filename in os.listdir(test_data):
-            if "_a_" in filename:
+            if "attack" in filename:
                 count_ori_attack += 1
         for filename in test_result:
             count_all += 1
             # 判断文件名是否包含"attack"
-            if "_a_" in filename:
+            if "attack" in filename:
                 count_attack += 1
             # 判断文件名是否包含"normal"
-            elif "_n_" in filename:
+            elif "normal" in filename:
                 count_normal += 1
     recall = count_attack / count_ori_attack
     precision = count_attack / count_all
@@ -135,23 +139,21 @@ def provdector_test(train_data_list, test_data_list):
     print('precision:', precision, ' recall:', recall, ' f1_score:', f1_score)
 
 def process_data(train_data, test_data, count_ori_attack, count_attack, count_all):
-    test_result, train_path_list, test_path_list = detect(train_data, test_data)
-    print("++++++++++++++++++++test_result++++++++++++++++++++++++")
-    print(test_result)
+    test_result = detect(train_data, test_data)
     count_attack_local = 0
-    # count_normal_local = 0
+    count_normal_local = 0
     count_ori_attack_local = 0
     count_all_local = 0
-    for path_name in test_path_list:
-        # print(path_name)
-        # count_all_local += 1
-        if "b89e73bd" in path_name or "6c42a29b" in path_name or "eb6d3fb5" in path_name:
+    
+    for filename in test_data:
+        if filename in attack_list:
             count_ori_attack_local += 1
-    print("++++++++++++++++++++++++")
-    for path_name in test_result:
-        # print(path_name)
+    
+    print("++++++++++++++++++++test_result++++++++++++++++++++++++")
+    for filename in test_result:
+        # print(filename)
         count_all_local += 1
-        if "b89e73bd" in path_name or "6c42a29b" in path_name or "eb6d3fb5" in path_name:
+        if filename+'.log' in attack_list:
             count_attack_local += 1
 
     with count_ori_attack.get_lock():
@@ -169,17 +171,18 @@ def provdector_test_multi(train_data_list, test_data_list):
     func = partial(process_data, count_ori_attack=count_ori_attack, count_attack=count_attack, count_all=count_all)
 
     processes = []
-    for train_data, test_data in zip(train_data_list, test_data_list):
-        p = multiprocessing.Process(target=func, args=(train_data, test_data))
-        processes.append(p)
-        p.start()
+
+    p = multiprocessing.Process(target=func, args=(train_data_list, test_data_list))
+    processes.append(p)
+    p.start()
 
     for p in processes:
         p.join()
 
-    print(count_ori_attack.value)
-    print(count_attack.value)
-    print(count_all.value)
+    print("--------------------------------------")
+    print("实际的攻击数量：" + str(count_ori_attack.value))
+    print("检测出的攻击数量：" + str(count_attack.value))
+    print("测试攻击结果总数:" + str(count_all.value))
     print("--------------------------------------")
     recall = count_attack.value / count_ori_attack.value
     precision = count_attack.value / count_all.value
@@ -188,25 +191,29 @@ def provdector_test_multi(train_data_list, test_data_list):
 
 
 def run_method_folder():
-    # train_db_list1 = ["erinyes_normal_1", "erinyes_normal_2", "erinyes_normal_3", "erinyes_normal_4", "erinyes_normal_5", "erinyes_normal_0"]
-    # test_db_list1 = ["erinyes_normal_6", "erinyes_normal_7", "erinyes_normal_8", "erinyes_normal_9", "erinyes_attack_1", "erinyes_attack_2", "erinyes_attack_3", "erinyes_attack_4", "erinyes_attack_5"]
-    # train_db_list2 = ["erinyes_normal_1", "erinyes_normal_2", "erinyes_normal_3", "erinyes_normal_4", "erinyes_normal_5", "erinyes_normal_0"]
-    # test_db_list2 = ["erinyes_normal_6", "erinyes_normal_7", "erinyes_normal_8", "erinyes_normal_9", "erinyes_attack_1", "erinyes_attack_2", "erinyes_attack_3", "erinyes_attack_4", "erinyes_attack_5"]
-    # train_db_list3 = ["erinyes_normal_1", "erinyes_normal_2", "erinyes_normal_3", "erinyes_normal_4", "erinyes_normal_5", "erinyes_normal_0"]
-    # test_db_list3 = ["erinyes_normal_6", "erinyes_normal_7", "erinyes_normal_8", "erinyes_normal_9", "erinyes_attack_1", "erinyes_attack_2", "erinyes_attack_3", "erinyes_attack_4", "erinyes_attack_5"]
-    # train_db_list4 = ["erinyes_normal_1", "erinyes_normal_2", "erinyes_normal_3", "erinyes_normal_4", "erinyes_normal_5", "erinyes_normal_0"]
-    # test_db_list4 = ["erinyes_normal_6", "erinyes_normal_7", "erinyes_normal_8", "erinyes_normal_9", "erinyes_attack_1", "erinyes_attack_2", "erinyes_attack_3", "erinyes_attack_4", "erinyes_attack_5"]
-    # train_db_list5 = ["erinyes_normal_1", "erinyes_normal_2", "erinyes_normal_3", "erinyes_normal_4", "erinyes_normal_5", "erinyes_normal_0"]
-    # test_db_list5 = ["erinyes_normal_6", "erinyes_normal_7", "erinyes_normal_8", "erinyes_normal_9", "erinyes_attack_1", "erinyes_attack_2", "erinyes_attack_3", "erinyes_attack_4", "erinyes_attack_5"]
-
-    train_db_list1 = ["erinyes_n_1", "erinyes_n_2", "erinyes_n_3"]
-    test_db_list1 = ["erinyes_n_4", "erinyes_n_5", "erinyes_n_6", "erinyes_a_cf", "erinyes_a_leak", "erinyes_a_warm"] #], "erinyes_a_modify"]
+    folder_1 = '/home/ubuntu/detection24/log-collection/output-train'
+    folder_2 = '/home/ubuntu/detection24/log-collection/output-test'
+    train_list = [f.path for f in os.scandir(folder_1) if f.is_dir() and 'rc3' in f.path]
+    test_list = [f.path for f in os.scandir(folder_2) if f.is_dir() and 'rc3' in f.path]
     train_data_list = []
     test_data_list = []
-    # train_data_list = [train_db_list1] + [train_db_list2]+ [train_db_list3]+ [train_db_list4]+ [train_db_list5]
-    # test_data_list = [test_db_list1]+ [test_db_list2]+ [test_db_list3]+ [test_db_list4]+ [test_db_list5]
-    train_data_list = [train_db_list1]
-    test_data_list = [test_db_list1]
+    for f in train_list:
+        pa = os.path.join(f, "sysdig")
+        for i in os.listdir(pa):
+            if "sysdig" in i:
+                continue
+            full_path = os.path.join(pa, i)
+            # print(full_path)
+            train_data_list.append(full_path)
+    for f in test_list:
+        pa = os.path.join(f, "sysdig")
+        for i in os.listdir(pa):
+            if "sysdig" in i:
+                continue
+            full_path = os.path.join(pa, i)
+            # print(full_path)
+            test_data_list.append(full_path)
+
 
     provdector_test_multi(train_data_list, test_data_list)
 
@@ -215,17 +222,6 @@ if __name__ == "__main__":
     # result = detect(train_data='../../data/scenes/cve-2016-4971-small/normal/graph',
     #        test_data='../../data/scenes/cve-2016-4971-small/attack/graph')
     # print(result)
-    folder_path = "./G_log"
-    if os.path.exists(folder_path):
-        if os.path.isdir(folder_path):
-            # 如果文件夹不为空，使用 shutil.rmtree 递归删除
-            if len(os.listdir(folder_path)) > 0:
-                shutil.rmtree(folder_path)
-            else:
-                # 如果文件夹为空，可以直接使用 os.rmdir 删除
-                os.rmdir(folder_path)
-    os.makedirs(folder_path)
-
     multiprocessing.set_start_method('spawn')
 
     print(T, K, THRESHOLD)
@@ -234,7 +230,7 @@ if __name__ == "__main__":
     run_method_folder()
     end_time = time.time()
     elapsed_time = end_time - start_time
-    print("Time cost: " + str(elapsed_time))
+    print(elapsed_time)
     # train_data_list = ['data/reduced_data_made/CPR/cve-2014-6271-multi/folder_1/train_dataset',
     #                    'data/reduced_data_made/CPR/cve-2014-6271-multi/folder_2/train_dataset',
     #                    'data/reduced_data_made/CPR/cve-2014-6271-multi/folder_3/train_dataset',

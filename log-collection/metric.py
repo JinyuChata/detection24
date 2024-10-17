@@ -135,23 +135,24 @@ def find_all_dot_file(base_dir):
 
 
 if __name__ == "__main__":
-    # attacks = ['modify', 'leak', 'warm', 'cfattack', 'escape']
-    attacks = ['cfattack', 'escape']
+    attacks = ['modify', 'leak', 'warm', 'cfattack', 'escape']
+    # attacks = ['leak', 'warm', 'cfattack', 'escape']
     for attack in attacks:
         gt_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='gt')
-        rc1_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='rc1')
-        rc2_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='rc2')
+        # rc1_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='rc1')
+        # rc2_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='rc2')
         rc3_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='rc3')
-        gt, rc1, rc2, rc3 = find_dot_file(gt_base), find_dot_file(rc1_base), find_dot_file(rc2_base), find_dot_file(rc3_base)
-        rc1_all, rc2_all, rc3_all = find_all_dot_file(rc1_base), find_all_dot_file(rc2_base), find_all_dot_file(rc3_base)
+        # gt, rc1, rc2, rc3 = find_dot_file(gt_base), find_dot_file(rc1_base), find_dot_file(rc2_base), find_dot_file(rc3_base)
+        # rc1_all, rc2_all, rc3_all = find_all_dot_file(rc1_base), find_all_dot_file(rc2_base), find_all_dot_file(rc3_base)
+        gt, rc3 = find_dot_file(gt_base), find_dot_file(rc3_base)
         print(f"===== {attack} =====")
-        metric_main("rc1", gt, rc1)
-        metric_main("rc2", gt, rc2)
+        # metric_main("rc1", gt, rc1)
+        # metric_main("rc2", gt, rc2)
         metric_main("rc3", gt, rc3)
         
-        metric_main("rc1_all", gt, rc1_all)
-        metric_main("rc2_all", gt, rc2_all)
-        metric_main("rc3_all", gt, rc3_all)
+        # metric_main("rc1_all", gt, rc1_all)
+        # metric_main("rc2_all", gt, rc2_all)
+        # metric_main("rc3_all", gt, rc3_all)
         
         print()
         

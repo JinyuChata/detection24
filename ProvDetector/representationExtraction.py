@@ -129,5 +129,4 @@ def work(_G, k):
                 else:
                     temp += _G.nodeType_map[_G.e_dst[j]] + ' ' +  _G.nodeName_map[_G.e_dst[j]]
         doc_ans.append(temp)
-    print("完成")
     return doc_ans

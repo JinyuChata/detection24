@@ -1,0 +1,103 @@
+digraph G {
+	"gateway:8080#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6dcbcc88d5-4tfqr"[ label="RESPONSE" ];
+	"10.1.80.247:8080#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6dcbcc88d5-4tfqr"[ label="RESPONSE" ];
+	"10.1.80.247:45358#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_8665dd9487-xf9d7"[ label="POST" ];
+	"1_fwatchdog#ServerID_6dcbcc88d5-4tfqr"->"gateway:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"1_fwatchdog#ServerID_7d8c847bf2c1"->"localhost:3000#ServerID_7d8c847bf2c1"[ label="connect" ];
+	"localhost:3000#ServerID_7d8c847bf2c1"->"1_fwatchdog#ServerID_7d8c847bf2c1"[ label="read" ];
+	"1_fwatchdog#ServerID_6dcbcc88d5-4tfqr"->"10.1.80.247:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"1_fwatchdog#ServerID_8665dd9487-xf9d7"->"10.1.80.247:45358#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"10.1.80.247:42880#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6dcbcc88d5-4tfqr"[ label="POST" ];
+	"1_fwatchdog#ServerID_7d8c847bf2c1"->"localhost:3000#ServerID_7d8c847bf2c1"[ label="write" ];
+	"10.1.80.247:36538#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_76c96688d7-zxd6t"[ label="POST" ];
+	"1_fwatchdog#ServerID_76c96688d7-zxd6t"->"10.1.80.247:36538#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"10.1.80.247:42880#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_7d8c847bf2c1"[ label="read" ];
+	"1_fwatchdog#ServerID_6dcbcc88d5-4tfqr"->"10.1.80.247:42880#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"11_node#ServerID_7d8c847bf2c1"->"10.152.183.10:53#ServerID_OuterContainerID"[ label="sendto" ];
+	"/etc/hosts#ServerID_7d8c847bf2c1"->"11_node#ServerID_7d8c847bf2c1"[ label="read" ];
+	"/etc/resolv.conf#ServerID_7d8c847bf2c1"->"11_node#ServerID_7d8c847bf2c1"[ label="read" ];
+	"10.152.183.10:53#ServerID_OuterContainerID"->"11_node#ServerID_7d8c847bf2c1"[ label="recvfrom" ];
+	"11_node#ServerID_7d8c847bf2c1"->"gateway:8080#ServerID_OuterContainerID"[ label="connect" ];
+	"10.1.80.247:45358#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_446fa7743022"[ label="read" ];
+	"10.1.80.1:35698#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_7d8c847bf2c1"[ label="read" ];
+	"1_fwatchdog#ServerID_7d8c847bf2c1"->"10.1.80.1:35698#ServerID_OuterContainerID"[ label="write" ];
+	"1_fwatchdog#ServerID_446fa7743022"->"localhost:3000#ServerID_446fa7743022"[ label="write" ];
+	"10.1.80.1:35696#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_7d8c847bf2c1"[ label="read" ];
+	"1_fwatchdog#ServerID_446fa7743022"->"localhost:3000#ServerID_446fa7743022"[ label="connect" ];
+	"1_fwatchdog#ServerID_7d8c847bf2c1"->"10.1.80.1:35696#ServerID_OuterContainerID"[ label="write" ];
+	"localhost:3000#ServerID_446fa7743022"->"10_node#ServerID_446fa7743022"[ label="read" ];
+	"localhost:3000#ServerID_446fa7743022"->"1_fwatchdog#ServerID_446fa7743022"[ label="read" ];
+	"/home/app/node_modules#ServerID_446fa7743022"->"10_node#ServerID_446fa7743022"[ label="read" ];
+	"/etc/localtime#ServerID_446fa7743022"->"10_node#ServerID_446fa7743022"[ label="read" ];
+	"/usr/share/zoneinfo/#ServerID_446fa7743022"->"10_node#ServerID_446fa7743022"[ label="read" ];
+	"/usr/share/zoneinfo/#ServerID_cb455cab48ff"->"17_node#ServerID_cb455cab48ff"[ label="read" ];
+	"/etc/localtime#ServerID_cb455cab48ff"->"17_node#ServerID_cb455cab48ff"[ label="read" ];
+	"1_fwatchdog#ServerID_446fa7743022"->"pipe:[339145314]#ServerID_446fa7743022"[ label="write" ];
+	"10.1.80.1:4383#ServerID_OuterContainerID"->"10.1.80.247:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"10.1.80.247:8080#ServerID_OuterContainerID"->"10.1.80.1:4383#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"10.1.80.247:8080#ServerID_OuterContainerID"->"10.0.88.125:31112#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	subgraph "clusterServerID_446fa7743022" {
+	label="clusterServerID_446fa7743022";
+	"/etc/localtime#ServerID_446fa7743022" [ shape=ellipse ];
+	"/home/app/node_modules#ServerID_446fa7743022" [ shape=ellipse ];
+	"/usr/share/zoneinfo/#ServerID_446fa7743022" [ shape=ellipse ];
+	"10_node#ServerID_446fa7743022" [ shape=box ];
+	"1_fwatchdog#ServerID_446fa7743022" [ shape=box ];
+	"localhost:3000#ServerID_446fa7743022" [ shape=diamond ];
+	"pipe:[339145314]#ServerID_446fa7743022" [ shape=ellipse ];
+
+}
+;
+	subgraph "clusterServerID_6dcbcc88d5-4tfqr" {
+	label="clusterServerID_6dcbcc88d5-4tfqr";
+	"1_fwatchdog#ServerID_6dcbcc88d5-4tfqr" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_76c96688d7-zxd6t" {
+	label="clusterServerID_76c96688d7-zxd6t";
+	"1_fwatchdog#ServerID_76c96688d7-zxd6t" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_7d8c847bf2c1" {
+	label="clusterServerID_7d8c847bf2c1";
+	"/etc/hosts#ServerID_7d8c847bf2c1" [ shape=ellipse ];
+	"/etc/resolv.conf#ServerID_7d8c847bf2c1" [ shape=ellipse ];
+	"11_node#ServerID_7d8c847bf2c1" [ shape=box ];
+	"1_fwatchdog#ServerID_7d8c847bf2c1" [ shape=box ];
+	"localhost:3000#ServerID_7d8c847bf2c1" [ shape=diamond ];
+
+}
+;
+	subgraph "clusterServerID_8665dd9487-xf9d7" {
+	label="clusterServerID_8665dd9487-xf9d7";
+	"1_fwatchdog#ServerID_8665dd9487-xf9d7" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_OuterContainerID" {
+	label="clusterServerID_OuterContainerID";
+	"10.0.88.125:31112#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.1:35696#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.1:35698#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.1:4383#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.247:36538#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.247:42880#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.247:45358#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.247:8080#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.152.183.10:53#ServerID_OuterContainerID" [ shape=diamond ];
+	"gateway:8080#ServerID_OuterContainerID" [ shape=diamond ];
+
+}
+;
+	subgraph "clusterServerID_cb455cab48ff" {
+	label="clusterServerID_cb455cab48ff";
+	"/etc/localtime#ServerID_cb455cab48ff" [ shape=ellipse ];
+	"/usr/share/zoneinfo/#ServerID_cb455cab48ff" [ shape=ellipse ];
+	"17_node#ServerID_cb455cab48ff" [ shape=box ];
+
+}
+;
+
+}
