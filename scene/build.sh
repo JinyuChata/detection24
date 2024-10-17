@@ -1,6 +1,7 @@
 #! /bin/bash
 
 services='zjy-2n-product-purchase-authorize-cc zjy-2n-product-purchase zjy-2n-product-purchase-get-price zjy-2n-product-purchase-publish'
+# services='zjy-2n-product-purchase-get-price zjy-2n-product-purchase-publish'
 
 #services='attack-product-purchase'
  docker login -u jinyuzhu -p dckr_pat_CD-LbOjMi4BOF0sWYwHVCoYMKGY

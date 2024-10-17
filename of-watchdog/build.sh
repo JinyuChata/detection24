@@ -22,3 +22,6 @@ docker cp buildoutput:/go/src/github.com/openfaas/of-watchdog/of-watchdog ./of-w
 #docker cp buildoutput:/go/src/github.com/openfaas/of-watchdog/of-watchdog.exe ./of-watchdog.exe
 
 docker rm buildoutput
+
+docker login -u jinyuzhu -p dckr_pat_CD-LbOjMi4BOF0sWYwHVCoYMKGY
+docker push jinyuzhu/of-watchdog:latest-dev-x86_64

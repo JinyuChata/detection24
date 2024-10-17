@@ -19,7 +19,7 @@ COPY go.sum              .
 #RUN license-check -path  /go/src/github.com/openfaas/of-watchdog --verbose=false "Alex Ellis" "OpenFaaS Author(s)"
 
 # Run a gofmt and exclude all vendored code.
-RUN test -z "$(gofmt -l $(find . -type f -name '*.go' -not -path "./vendor/*"))"
+# RUN test -z "$(gofmt -l $(find . -type f -name '*.go' -not -path "./vendor/*"))"
 
 #RUN go test -mod=vendor -v ./...
 

@@ -1,5 +1,5 @@
 curl -X POST \
-  http://localhost:31112/function/zjy-2n-product-purchase \
+  http://localhost:31112/function/zjy-alastor-2n-product-purchase \
   -H "Content-Type: application/json" \
   -H "uuid: credentials-modify-attack-2" \
   -d '{

@@ -31,8 +31,33 @@ timestamp=$(date +"%Y%m%d%H%M%S")
 
 # 要查找的容器名称列表
 out_name=$data_attack_type
-# container_names=("jinyuzhu/zjy-2n-product-purchase-publish" "jinyuzhu/zjy-2n-product-purchase" "jinyuzhu/zjy-2n-product-purchase-get-price" "jinyuzhu/zjy-2n-product-purchase-authorize-cc")
-container_images=("jinyuzhu/zjy-2n-product-purchase-publish@sha256:c2fdba90baf8c4e8098c96e92b1149ae81bc77d1cbd0b9b664a76b8d87171262" "jinyuzhu/zjy-2n-product-purchase@sha256:653764d72ac2f66176c33f38b59266095c9f77e410346f3fd134a132fd9af974" "jinyuzhu/zjy-2n-product-purchase-get-price@sha256:eb677ee79edd3a8de3f249c33b231ff8c757a4d3a8510a26c6d131574fd5cde1" "jinyuzhu/zjy-2n-product-purchase-authorize-cc@sha256:06e48c5ba9768d7470098b1ad2a5011df28dc59ca042234757551980820d6059")
+container_names=("jinyuzhu/zjy-2n-product-purchase-publish" "chzhang2527/zch-2n-product-purchase" "jinyuzhu/zjy-2n-product-purchase-get-price" "chzhang2527/zch-2n-product-purchase-authorize-cc")
+# container_images=("jinyuzhu/zjy-2n-product-purchase-publish@sha256:c2fdba90baf8c4e8098c96e92b1149ae81bc77d1cbd0b9b664a76b8d87171262" "jinyuzhu/zjy-2n-product-purchase@sha256:653764d72ac2f66176c33f38b59266095c9f77e410346f3fd134a132fd9af974" "jinyuzhu/zjy-2n-product-purchase-get-price@sha256:eb677ee79edd3a8de3f249c33b231ff8c757a4d3a8510a26c6d131574fd5cde1" "jinyuzhu/zjy-2n-product-purchase-authorize-cc@sha256:06e48c5ba9768d7470098b1ad2a5011df28dc59ca042234757551980820d6059")
+for container_name in "${container_names[@]}"; do
+    echo "Searching for container: $container_name"
+
+    # 使用 docker ps 和 grep 全字匹配容器名称
+    container_id=$(sudo docker ps --filter "ancestor=$container_name" --format "{{.ID}}")
+
+    if [ -n "$container_id" ]; then
+        echo "Found container ID: $container_id for container name: $container_name"
+        # 获取容器信息
+        image=$(sudo docker inspect "$container_id" | grep -o '"Image": ".*"' | sed -n '2p' | awk -F': ' '{print $2}' | tr -d '"')
+    container_images+=("$image")
+    echo "-------------------------------------------"
+    else
+        echo "No matching container found for name: $container_name"
+        echo "-------------------------------------------"
+    fi
+done
+
+echo "${container_images[0]}"
+echo "${container_images[1]}"
+echo "${container_images[2]}"
+echo "${container_images[3]}"
+# echo "${container_images[4]}"
+echo "-------------------------------------------"
+
 
 # 创建日志目录
 log_dir="output/${out_name}-${timestamp}"
@@ -97,12 +122,14 @@ trap cleanup SIGINT
 # echo "-------------------------------------------"
 
 # 生成erinyes配置
+echo "Generate erinyes config..."
 bash update-config.sh
 
 # 运行 Python 脚本，并传递参数
+echo "Running rub_lab.py"
 python3.9 run_lab.py --n_benign "$n_benign" --n_attack "$n_attack" --total_time "$total_time" --data_attack_type "$data_attack_type" --metadata_out_path "$log_dir"
 
-sleep 5
+sleep 400
 echo "Requests send finished. Cleaning up..."
 cleanup
 
@@ -113,7 +140,11 @@ if [ "$graph_strategy" == "split" ]; then
   sleep 5
 fi
 
+echo "remove cleanup stat from net.log"
+sed -i '/cleanup exception./d' "${log_dir}/net/net.log"
+
 # 运行图生成脚本
+echo "Running graph-gen bash script"
 python3.9 generate-dot.py "$log_dir" "$graph_strategy"
 python3.9 prov.py "$log_dir" erinyes
 

@@ -14,6 +14,8 @@
  Date: 28/12/2023 15:48:22
 */
 
+create database erinyes_normal;
+use erinyes_normal;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;

@@ -29,7 +29,7 @@ const api = {
 		var getPriceData = {
 			"id": event.body["id"]
 		};
-		if (event.body.cfattack) {
+		if (event.body.cfattack == "true") {
 			var reqs = [
 			    request(functions.getRequestObject(getPriceData, constants.URL_GETPRICE), constants.URL_GETPRICE)
 			    ];
@@ -74,13 +74,15 @@ const api = {
 			    });
 			});
 
-			return;
+			// return;
 
 		}
 		/////////////////////////// end /////////////////////////// 
+		else {
+			const res = await request(functions.getRequestObject(authorizeCCData, constants.URL_AUTHORIZECC), constants.URL_AUTHORIZECC);
+			callback(null, res);
+		}
 
-		const res = await request(functions.getRequestObject(authorizeCCData, constants.URL_AUTHORIZECC), constants.URL_AUTHORIZECC);
-		callback(null, res);
 	}
 }
 

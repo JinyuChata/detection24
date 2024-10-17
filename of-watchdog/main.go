@@ -210,36 +210,38 @@ func createLockFile() (string, error) {
 }
 
 func makeAfterBurnRequestHandler(watchdogConfig config.WatchdogConfig) func(http.ResponseWriter, *http.Request) {
+	fmt.Printf("Not supported\n")
 
-	commandName, arguments := watchdogConfig.Process()
-	functionInvoker := executor.AfterBurnFunctionRunner{
-		Process:     commandName,
-		ProcessArgs: arguments,
-	}
+	// commandName, arguments := watchdogConfig.Process()
+	// functionInvoker := executor.AfterBurnFunctionRunner{
+	// 	Process:     commandName,
+	// 	ProcessArgs: arguments,
+	// }
 
-	fmt.Printf("Forking %s %s\n", commandName, arguments)
-	functionInvoker.Start()
+	// fmt.Printf("Forking %s %s\n", commandName, arguments)
+	// functionInvoker.Start()
 
-	return func(w http.ResponseWriter, r *http.Request) {
+	// return func(w http.ResponseWriter, r *http.Request) {
 
-		req := executor.FunctionRequest{
-			Process:      commandName,
-			ProcessArgs:  arguments,
-			InputReader:  r.Body,
-			OutputWriter: w,
-		}
+	// 	req := executor.FunctionRequest{
+	// 		Process:      commandName,
+	// 		ProcessArgs:  arguments,
+	// 		InputReader:  r.Body,
+	// 		OutputWriter: w,
+	// 	}
 
-		functionInvoker.Mutex.Lock()
+	// 	functionInvoker.Mutex.Lock()
 
-		err := functionInvoker.Run(req, r.ContentLength, r, w)
+	// 	err := functionInvoker.Run(req, r.ContentLength, r, w)
 
-		if err != nil {
-			w.WriteHeader(500)
-			w.Write([]byte(err.Error()))
-		}
+	// 	if err != nil {
+	// 		w.WriteHeader(500)
+	// 		w.Write([]byte(err.Error()))
+	// 	}
 
-		functionInvoker.Mutex.Unlock()
-	}
+	// 	functionInvoker.Mutex.Unlock()
+	// }
+	return nil
 }
 
 func makeSerializingForkRequestHandler(watchdogConfig config.WatchdogConfig) func(http.ResponseWriter, *http.Request) {
