@@ -1,0 +1,21 @@
+1730038898.080492 open("/etc/hosts", O_RDONLY|O_CLOEXEC) = 3
+1730038898.081012 open("/etc/resolv.conf", O_RDONLY|O_CLOEXEC) = 3
+1730038898.081753 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 3
+1730038898.081912 bind(3, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1730038898.082129 sendto(3, "\340r\1\0\0\1\0\0\0\0\0\0\nkubernetes\7default\3"..., 70, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 70
+1730038898.082630 sendto(3, "\307\357\1\0\0\1\0\0\0\0\0\0\nkubernetes\7default\3"..., 70, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 70
+1730038898.083027 recvfrom(3, "\340r\205\3\0\1\0\0\0\1\0\0\nkubernetes\7default\3"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 163
+1730038898.083209 recvfrom(3, "\307\357\205\3\0\1\0\0\0\1\0\0\nkubernetes\7default\3"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 163
+1730038898.083579 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 3
+1730038898.083650 bind(3, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1730038898.083844 sendto(3, "\252\32\1\0\0\1\0\0\0\0\0\0\nkubernetes\7default\3"..., 58, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 58
+1730038898.084207 sendto(3, "}\245\1\0\0\1\0\0\0\0\0\0\nkubernetes\7default\3"..., 58, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 58
+1730038898.084583 recvfrom(3, "\252\32\205\3\0\1\0\0\0\1\0\0\nkubernetes\7default\3"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 151
+1730038898.084747 recvfrom(3, "}\245\205\3\0\1\0\0\0\1\0\0\nkubernetes\7default\3"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 151
+1730038898.085037 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 3
+1730038898.085185 bind(3, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+1730038898.085345 sendto(3, "x\266\1\0\0\1\0\0\0\0\0\0\nkubernetes\7default\3"..., 54, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 54
+1730038898.085668 sendto(3, "\27%\1\0\0\1\0\0\0\0\0\0\nkubernetes\7default\3"..., 54, MSG_NOSIGNAL, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, 16) = 54
+1730038898.086098 recvfrom(3, "x\266\205\0\0\1\0\1\0\0\0\0\nkubernetes\7default\3"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 106
+1730038898.086231 recvfrom(3, "\27%\205\0\0\1\0\0\0\1\0\0\nkubernetes\7default\3"..., 512, 0, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("10.152.183.10")}, [16]) = 147
+1730038898.086818 +++ exited with 0 +++

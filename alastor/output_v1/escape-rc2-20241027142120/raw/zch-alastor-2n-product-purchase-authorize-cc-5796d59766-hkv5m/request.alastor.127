@@ -1,0 +1,22 @@
+1730038873.544970 execve("/usr/bin/curl", ["curl", "--cacert", "/var/run/secrets/kubernetes.io/s"..., "--header", "Authorization: Bearer eyJhbGciOi"..., "--header", "Content-Type: application/yaml", "-X", "POST", "https://kubernetes.default.svc/a"..., "-d", "apiVersion: v1\r\nkind: Service\r\nm"...], 0x55df0af92610 /* 85 vars */) = 0
+1730038873.545573 open("/etc/ld-musl-x86_64.path", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+1730038873.545661 open("/lib/libcurl.so.4", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+1730038873.545735 open("/usr/local/lib/libcurl.so.4", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+1730038873.545819 open("/usr/lib/libcurl.so.4", O_RDONLY|O_CLOEXEC) = 3
+1730038873.546360 open("/lib/libz.so.1", O_RDONLY|O_CLOEXEC) = 3
+1730038873.546850 open("/lib/libnghttp2.so.14", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+1730038873.546939 open("/usr/local/lib/libnghttp2.so.14", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+1730038873.547015 open("/usr/lib/libnghttp2.so.14", O_RDONLY|O_CLOEXEC) = 3
+1730038873.547515 open("/lib/libssh2.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+1730038873.547609 open("/usr/local/lib/libssh2.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+1730038873.547687 open("/usr/lib/libssh2.so.1", O_RDONLY|O_CLOEXEC) = 3
+1730038873.548186 open("/lib/libssl.so.45", O_RDONLY|O_CLOEXEC) = 3
+1730038873.548644 open("/lib/libcrypto.so.43", O_RDONLY|O_CLOEXEC) = 3
+1730038873.552878 open("/etc/ssl/openssl.cnf", O_RDONLY) = 3
+1730038873.553703 socket(AF_INET6, SOCK_DGRAM, IPPROTO_IP) = 3
+1730038873.554016 open("/home/app/.curlrc", O_RDONLY) = -1 ENOENT (No such file or directory)
+1730038873.555794 clone(child_stack=0x7f178991cac8, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID|0x400000, parent_tidptr=0x7f178991cb20, tls=0x7f178991cae8, child_tidptr=0x7f178991cb20) = 128
+1730038873.578797 socket(AF_INET, SOCK_STREAM, IPPROTO_TCP) = 3
+1730038873.579392 connect(3, {sa_family=AF_INET, sin_port=htons(443), sin_addr=inet_addr("10.152.183.1")}, 16) = -1 EINPROGRESS (Operation in progress)
+1730038873.581050 open("/var/run/secrets/kubernetes.io/serviceaccount/ca.crt", O_RDONLY) = 4
+1730038873.630166 +++ exited with 0 +++

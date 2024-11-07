@@ -9,7 +9,7 @@ from sklearn.neighbors import LocalOutlierFactor
 def LOF(train_vec, vec_ans, doc_train, doc_ans):
     data_train = train_vec
     data = vec_ans
-    clf = LocalOutlierFactor(n_neighbors=2, algorithm='auto', leaf_size=30, metric='minkowski', p=2, metric_params=None,
+    clf = LocalOutlierFactor(n_neighbors=3, algorithm='brute', leaf_size=30, metric='minkowski', p=2, metric_params=None,
                              n_jobs=4, novelty=True)
     clf = clf.fit(data_train)
     predict = clf.predict(data)

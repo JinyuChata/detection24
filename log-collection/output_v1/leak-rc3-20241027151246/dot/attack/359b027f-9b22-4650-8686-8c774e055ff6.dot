@@ -1,0 +1,73 @@
+digraph G {
+	"1_fwatchdog#ServerID_6dcbcc88d5-mp48t"->"gateway:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"10.1.80.183:53810#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6dcbcc88d5-mp48t"[ label="POST" ];
+	"10.1.80.183:8080#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6dcbcc88d5-mp48t"[ label="RESPONSE" ];
+	"gateway:8080#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6dcbcc88d5-mp48t"[ label="RESPONSE" ];
+	"1_fwatchdog#ServerID_667d78fb58-847xt"->"10.1.80.183:37908#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"10.1.80.183:37908#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_667d78fb58-847xt"[ label="POST" ];
+	"1_fwatchdog#ServerID_6dcbcc88d5-mp48t"->"10.1.80.183:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"1_fwatchdog#ServerID_6dcbcc88d5-mp48t"->"10.1.80.183:53810#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"1_fwatchdog#ServerID_e47e2b15aff4"->"localhost:3000#ServerID_e47e2b15aff4"[ label="write" ];
+	"10.152.183.10:53#ServerID_OuterContainerID"->"9_node#ServerID_e47e2b15aff4"[ label="recvfrom" ];
+	"10.1.80.183:53810#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_e47e2b15aff4"[ label="read" ];
+	"/etc/hosts#ServerID_e47e2b15aff4"->"9_node#ServerID_e47e2b15aff4"[ label="read" ];
+	"/etc/resolv.conf#ServerID_e47e2b15aff4"->"9_node#ServerID_e47e2b15aff4"[ label="read" ];
+	"9_node#ServerID_e47e2b15aff4"->"10.152.183.10:53#ServerID_OuterContainerID"[ label="sendto" ];
+	"10.1.80.183:37642#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_1f4f60deee3d"[ label="read" ];
+	"9_node#ServerID_e47e2b15aff4"->"gateway:8080#ServerID_OuterContainerID"[ label="connect" ];
+	"1_fwatchdog#ServerID_1f4f60deee3d"->"localhost:3000#ServerID_1f4f60deee3d"[ label="write" ];
+	"localhost:3000#ServerID_1f4f60deee3d"->"10_node#ServerID_1f4f60deee3d"[ label="read" ];
+	"localhost:3000#ServerID_1f4f60deee3d"->"1_fwatchdog#ServerID_1f4f60deee3d"[ label="read" ];
+	"10.1.80.183:37908#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_1f4f60deee3d"[ label="read" ];
+	"1_fwatchdog#ServerID_1f4f60deee3d"->"pipe:[77303348]#ServerID_1f4f60deee3d"[ label="write" ];
+	"/home/app/credentials.txt#ServerID_1f4f60deee3d"->"10_node#ServerID_1f4f60deee3d"[ label="read" ];
+	"10.1.80.1:14414#ServerID_OuterContainerID"->"10.1.80.183:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"10.1.80.183:8080#ServerID_OuterContainerID"->"10.1.80.1:14414#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"10.1.80.183:8080#ServerID_OuterContainerID"->"10.0.88.125:31112#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	subgraph "clusterServerID_1f4f60deee3d" {
+	label="clusterServerID_1f4f60deee3d";
+	"/home/app/credentials.txt#ServerID_1f4f60deee3d" [ shape=ellipse ];
+	"10_node#ServerID_1f4f60deee3d" [ shape=box ];
+	"1_fwatchdog#ServerID_1f4f60deee3d" [ shape=box ];
+	"localhost:3000#ServerID_1f4f60deee3d" [ shape=diamond ];
+	"pipe:[77303348]#ServerID_1f4f60deee3d" [ shape=ellipse ];
+
+}
+;
+	subgraph "clusterServerID_667d78fb58-847xt" {
+	label="clusterServerID_667d78fb58-847xt";
+	"1_fwatchdog#ServerID_667d78fb58-847xt" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_6dcbcc88d5-mp48t" {
+	label="clusterServerID_6dcbcc88d5-mp48t";
+	"1_fwatchdog#ServerID_6dcbcc88d5-mp48t" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_OuterContainerID" {
+	label="clusterServerID_OuterContainerID";
+	"10.0.88.125:31112#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.183:37642#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.183:37908#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.183:53810#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.183:8080#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.1:14414#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.152.183.10:53#ServerID_OuterContainerID" [ shape=diamond ];
+	"gateway:8080#ServerID_OuterContainerID" [ shape=diamond ];
+
+}
+;
+	subgraph "clusterServerID_e47e2b15aff4" {
+	label="clusterServerID_e47e2b15aff4";
+	"/etc/hosts#ServerID_e47e2b15aff4" [ shape=ellipse ];
+	"/etc/resolv.conf#ServerID_e47e2b15aff4" [ shape=ellipse ];
+	"1_fwatchdog#ServerID_e47e2b15aff4" [ shape=box ];
+	"9_node#ServerID_e47e2b15aff4" [ shape=box ];
+	"localhost:3000#ServerID_e47e2b15aff4" [ shape=diamond ];
+
+}
+;
+
+}

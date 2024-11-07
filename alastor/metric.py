@@ -77,8 +77,6 @@ def calc(gt, sample, info):
     FP = sum(sample_count[node] for node in sample_count) - TP
     FN = sum(gt_count[node] for node in gt_count) - TP
     
-    print(f"benign {info}: {FP}")
-
     # Adjust FN based on the count
     FN = sum(gt_count[node] - min(gt_count[node], sample_count[node]) for node in gt_count)
 
@@ -91,9 +89,6 @@ def calc(gt, sample, info):
 
 
 def metric_main(info, gt_file, sample_path):
-    edge_accuracies = []
-    node_accuracies = []
-    
     gt_graph = load_graph(gt_file)
     sample_graph = load_graph(sample_path)
     

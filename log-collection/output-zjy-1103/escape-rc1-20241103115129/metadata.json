@@ -1,0 +1,14 @@
+{
+    "305e6989-4760-44f3-8755-e9f61d2718fa": {
+        "type": "benign",
+        "resp": "{\"approved\":\"true\",\"authorization\":7554263144582427}"
+    },
+    "d5caf461-3d08-4b50-a90d-63cec6e44de9": {
+        "type": "benign",
+        "resp": "{\"approved\":\"true\",\"authorization\":1160541084089497}"
+    },
+    "bef464d3-3973-42eb-9f22-0902c4bd7b61": {
+        "type": "attack",
+        "resp": "{\"approved\":\"false\",\"failureReason\":{\"out\":\"{\\n  \\\"kind\\\": \\\"Status\\\",\\n  \\\"apiVersion\\\": \\\"v1\\\",\\n  \\\"metadata\\\": {},\\n  \\\"status\\\": \\\"Failure\\\",\\n  \\\"message\\\": \\\"Service \\\\\\\"escapeserver2\\\\\\\" is invalid: spec.ports[0].nodePort: Invalid value: 30001: provided port is already allocated\\\",\\n  \\\"reason\\\": \\\"Invalid\\\",\\n  \\\"details\\\": {\\n    \\\"name\\\": \\\"escapeserver2\\\",\\n    \\\"kind\\\": \\\"Service\\\",\\n    \\\"causes\\\": [\\n      {\\n        \\\"reason\\\": \\\"FieldValueInvalid\\\",\\n        \\\"message\\\": \\\"Invalid value: 30001: provided port is already allocated\\\",\\n        \\\"field\\\": \\\"spec.ports[0].nodePort\\\"\\n      }\\n    ]\\n  },\\n  \\\"code\\\": 422\\n}{\\n  \\\"kind\\\": \\\"Status\\\",\\n  \\\"apiVersion\\\": \\\"v1\\\",\\n  \\\"metadata\\\": {},\\n  \\\"status\\\": \\\"Failure\\\",\\n  \\\"message\\\": \\\"deployments.apps \\\\\\\"escapeserver2\\\\\\\" already exists\\\",\\n  \\\"reason\\\": \\\"AlreadyExists\\\",\\n  \\\"details\\\": {\\n    \\\"name\\\": \\\"escapeserver2\\\",\\n    \\\"group\\\": \\\"apps\\\",\\n    \\\"kind\\\": \\\"deployments\\\"\\n  },\\n  \\\"code\\\": 409\\n}\",\"err\":\"Connecting to gitee.com (182.255.35.53:443)\\nescapeserver2_servic 100% |*******************************|   282   0:00:00 ETA\\n\\nConnecting to gitee.com (182.255.33.134:443)\\nescapeserver2_pod.ya 100% |*******************************|   699   0:00:00 ETA\\n\\n  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\\n                                 Dload  Upload   Total   Spent    Left  Speed\\n\\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\\r100   810  100   528  100   282  21120  11280 --:--:-- --:--:-- --:--:-- 32400\\n  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\\n                                 Dload  Upload   Total   Spent    Left  Speed\\n\\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\\r100   990  100   291  100   699  17117  41117 --:--:-- --:--:-- --:--:-- 58235\\n\"}}"
+    }
+}

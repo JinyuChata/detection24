@@ -107,7 +107,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # url = "http://localhost:31112/function/zjy-alastor-2n-product-purchase"
-    url = "http://localhost:31112/function/zch-2n-product-purchase"
+    url = "http://localhost:31112/function/zch-alastor-2n-product-purchase"
 
     headers_benign_template = {
         "Content-Type": "application/json",
@@ -190,6 +190,8 @@ if __name__ == "__main__":
         data_attack = [data_attack_cf]
     elif args.data_attack_type == "escape":
         data_attack = [data_attack_escape_1, data_attack_escape_2]
+    elif args.data_attack_type == "normal":
+        data_attack = []
 
     perform_requests(
         url,

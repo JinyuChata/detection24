@@ -56,6 +56,9 @@ def calculate_all(gt_graph, sample_graph):
 def calc(gt, sample, info):
     gt_count = Counter(gt)
     sample_count = Counter(sample)
+    remaining_count = sample_count - gt_count
+    remaining_total = sum(remaining_count.values())
+    print(f"BENIGN: {remaining_total}")
 
     TP = sum(min(gt_count[node], sample_count[node]) for node in sample_count)
     FP = sum(sample_count[node] for node in sample_count) - TP
@@ -83,7 +86,7 @@ def metric_main(info, gt_file, sample_path):
     
     print(f"attack nodes: {len(gt_graph.nodes())}, edges: {len(gt_graph.edges())}")
     print(f"sample nodes: {len(sample_graph.nodes())}, edges: {len(sample_graph.edges())}")
-    
+    # benign nodes = sample nodes - attack nodes
     alls = calculate_all(gt_graph, sample_graph)
     n_tp, n_fp, n_fn, n_acc, n_pre, n_recall = alls['node']
     e_tp, e_fp, e_fn, e_acc, e_pre, e_recall = alls['edge']
@@ -135,27 +138,22 @@ def find_all_dot_file(base_dir):
 
 
 if __name__ == "__main__":
-    attacks = ['modify', 'leak', 'warm', 'cfattack', 'escape']
-    # attacks = ['leak', 'warm', 'cfattack', 'escape']
+    # attacks = ['modify', 'leak', 'warm', 'cfattack', 'escape']
+    attacks = ['cfattack', 'escape']
     for attack in attacks:
         gt_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='gt')
-        # rc1_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='rc1')
-        # rc2_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='rc2')
+        rc1_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='rc1')
+        rc2_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='rc2')
         rc3_base = find_latest_timestamped_directory("./output", attack_type=attack, file_type='rc3')
         # gt, rc1, rc2, rc3 = find_dot_file(gt_base), find_dot_file(rc1_base), find_dot_file(rc2_base), find_dot_file(rc3_base)
-        # rc1_all, rc2_all, rc3_all = find_all_dot_file(rc1_base), find_all_dot_file(rc2_base), find_all_dot_file(rc3_base)
-        gt, rc3 = find_dot_file(gt_base), find_dot_file(rc3_base)
+        gt, rc1_all, rc2_all, rc3_all = find_all_dot_file(gt_base), find_all_dot_file(rc1_base), find_all_dot_file(rc2_base), find_all_dot_file(rc3_base)
         print(f"===== {attack} =====")
         # metric_main("rc1", gt, rc1)
         # metric_main("rc2", gt, rc2)
-        metric_main("rc3", gt, rc3)
+        # metric_main("rc3", gt, rc3)
         
-        # metric_main("rc1_all", gt, rc1_all)
-        # metric_main("rc2_all", gt, rc2_all)
-        # metric_main("rc3_all", gt, rc3_all)
-        
-        print()
-        
-        print()
+        metric_main("rc1_all", gt, rc1_all)
+        metric_main("rc2_all", gt, rc2_all)
+        metric_main("rc3_all", gt, rc3_all)
         
         

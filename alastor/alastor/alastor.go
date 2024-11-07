@@ -361,7 +361,7 @@ func main() {
 	dotBase := os.Args[2]
 
 	containerBaseList := make([]string, 0)
-	entries, err := filepath.Glob(filepath.Join(logBase, "zjy-alastor-*"))
+	entries, err := filepath.Glob(filepath.Join(logBase, "*-alastor-*"))
 	if err != nil {
 		fmt.Println(err)
 	}

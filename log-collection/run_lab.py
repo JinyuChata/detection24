@@ -15,17 +15,18 @@ def generate_uuid():
 def send_request(url, headers, datas, request_type, uuid_dict):
     response_string = ""
     print(f"datas: {datas}")
-    for data in datas:
-        try:
-            print(f"{json.dumps(data)}")
-            response = requests.post(url, headers=headers, data=json.dumps(data))
-            response_string = response.text
-            print(f"Status Code: {response.status_code}")
-        except Exception as e:
-            response_string = str(e)
-            print(f"Error: {e}")
-        finally:
-            uuid_dict[headers["uuid"]] = {"type": request_type, "resp": response_string}
+    data = datas[0]
+    # for data in datas:
+    try:
+        print(f"{json.dumps(data)}")
+        response = requests.post(url, headers=headers, data=json.dumps(data))
+        response_string = response.text
+        print(f"Status Code: {response.status_code}")
+    except Exception as e:
+        response_string = str(e)
+        print(f"Error: {e}")
+    finally:
+        uuid_dict[headers["uuid"]] = {"type": request_type, "resp": response_string}
 
 
 def perform_requests(

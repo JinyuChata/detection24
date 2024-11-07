@@ -1,0 +1,104 @@
+digraph G {
+	"1_fwatchdog#ServerID_6df85d7674-kxx8d"->"10.1.80.93:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"10.1.80.93:40982#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6df85d7674-kxx8d"[ label="POST" ];
+	"10.1.80.93:8080#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6df85d7674-kxx8d"[ label="RESPONSE" ];
+	"1_fwatchdog#ServerID_6df85d7674-kxx8d"->"10.1.80.93:40982#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"1_fwatchdog#ServerID_5f846fd567-wptbp"->"10.1.80.93:54628#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"10.1.80.93:54628#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_5f846fd567-wptbp"[ label="POST" ];
+	"1_fwatchdog#ServerID_6df85d7674-kxx8d"->"gateway:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"gateway:8080#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_6df85d7674-kxx8d"[ label="RESPONSE" ];
+	"1_fwatchdog#ServerID_62fde1e95276"->"localhost:3000#ServerID_62fde1e95276"[ label="connect" ];
+	"1_fwatchdog#ServerID_62fde1e95276"->"localhost:3000#ServerID_62fde1e95276"[ label="write" ];
+	"localhost:3000#ServerID_62fde1e95276"->"1_fwatchdog#ServerID_62fde1e95276"[ label="read" ];
+	"10.1.80.93:40982#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_62fde1e95276"[ label="read" ];
+	"15_node#ServerID_62fde1e95276"->"pipe:[18737782]#ServerID_62fde1e95276"[ label="write" ];
+	"/etc/hosts#ServerID_62fde1e95276"->"15_node#ServerID_62fde1e95276"[ label="read" ];
+	"/etc/resolv.conf#ServerID_62fde1e95276"->"15_node#ServerID_62fde1e95276"[ label="read" ];
+	"15_node#ServerID_62fde1e95276"->"10.152.183.10:53#ServerID_OuterContainerID"[ label="sendto" ];
+	"10.152.183.10:53#ServerID_OuterContainerID"->"15_node#ServerID_62fde1e95276"[ label="recvfrom" ];
+	"10.1.80.1:55624#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_c8cd456c8f13"[ label="read" ];
+	"1_fwatchdog#ServerID_c8cd456c8f13"->"10.1.80.1:55624#ServerID_OuterContainerID"[ label="write" ];
+	"1_fwatchdog#ServerID_c8cd456c8f13"->"10.1.80.1:55622#ServerID_OuterContainerID"[ label="write" ];
+	"10.1.80.1:55622#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_c8cd456c8f13"[ label="read" ];
+	"15_node#ServerID_62fde1e95276"->"gateway:8080#ServerID_OuterContainerID"[ label="connect" ];
+	"localhost:3000#ServerID_d4490627de97"->"1_fwatchdog#ServerID_d4490627de97"[ label="read" ];
+	"10.1.80.93:54628#ServerID_OuterContainerID"->"1_fwatchdog#ServerID_d4490627de97"[ label="read" ];
+	"1_fwatchdog#ServerID_d4490627de97"->"localhost:3000#ServerID_d4490627de97"[ label="connect" ];
+	"1_fwatchdog#ServerID_d4490627de97"->"localhost:3000#ServerID_d4490627de97"[ label="write" ];
+	"localhost:3000#ServerID_d4490627de97"->"10_node#ServerID_d4490627de97"[ label="read" ];
+	"10_node#ServerID_d4490627de97"->"pipe:[18738585]#ServerID_d4490627de97"[ label="write" ];
+	"/dev/null#ServerID_d4490627de97"->"10_node#ServerID_d4490627de97"[ label="read" ];
+	"pipe:[18738640]#ServerID_d4490627de97"->"10_node#ServerID_d4490627de97"[ label="read" ];
+	"10_node#ServerID_d4490627de97"->"pipe:[18738640]#ServerID_d4490627de97"[ label="write" ];
+	"10_node#ServerID_d4490627de97"->"24_node#ServerID_d4490627de97"[ label="fork" ];
+	"24_node#ServerID_d4490627de97"->"24_sh#ServerID_d4490627de97"[ label="execve" ];
+	"24_sh#ServerID_d4490627de97"->"25_sh#ServerID_d4490627de97"[ label="fork" ];
+	"25_sh#ServerID_d4490627de97"->"25_touch#ServerID_d4490627de97"[ label="execve" ];
+	"24_sh#ServerID_d4490627de97"->"/home/app/3.txt#ServerID_d4490627de97"[ label="write" ];
+	"10_node#ServerID_d4490627de97"->"/dev/null#ServerID_d4490627de97"[ label="write" ];
+	"1_fwatchdog#ServerID_d4490627de97"->"pipe:[18738434]#ServerID_d4490627de97"[ label="write" ];
+	"10.1.80.1:5023#ServerID_OuterContainerID"->"10.1.80.93:8080#ServerID_OuterContainerID"[ label="POST" ];
+	"10.1.80.93:8080#ServerID_OuterContainerID"->"10.1.80.1:5023#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	"10.1.80.93:8080#ServerID_OuterContainerID"->"10.0.88.125:31112#ServerID_OuterContainerID"[ label="RESPONSE" ];
+	subgraph "clusterServerID_5f846fd567-wptbp" {
+	label="clusterServerID_5f846fd567-wptbp";
+	"1_fwatchdog#ServerID_5f846fd567-wptbp" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_62fde1e95276" {
+	label="clusterServerID_62fde1e95276";
+	"/etc/hosts#ServerID_62fde1e95276" [ shape=ellipse ];
+	"/etc/resolv.conf#ServerID_62fde1e95276" [ shape=ellipse ];
+	"15_node#ServerID_62fde1e95276" [ shape=box ];
+	"1_fwatchdog#ServerID_62fde1e95276" [ shape=box ];
+	"localhost:3000#ServerID_62fde1e95276" [ shape=diamond ];
+	"pipe:[18737782]#ServerID_62fde1e95276" [ shape=ellipse ];
+
+}
+;
+	subgraph "clusterServerID_6df85d7674-kxx8d" {
+	label="clusterServerID_6df85d7674-kxx8d";
+	"1_fwatchdog#ServerID_6df85d7674-kxx8d" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_OuterContainerID" {
+	label="clusterServerID_OuterContainerID";
+	"10.0.88.125:31112#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.1:5023#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.1:55622#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.1:55624#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.93:40982#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.93:54628#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.1.80.93:8080#ServerID_OuterContainerID" [ shape=diamond ];
+	"10.152.183.10:53#ServerID_OuterContainerID" [ shape=diamond ];
+	"gateway:8080#ServerID_OuterContainerID" [ shape=diamond ];
+
+}
+;
+	subgraph "clusterServerID_c8cd456c8f13" {
+	label="clusterServerID_c8cd456c8f13";
+	"1_fwatchdog#ServerID_c8cd456c8f13" [ shape=box ];
+
+}
+;
+	subgraph "clusterServerID_d4490627de97" {
+	label="clusterServerID_d4490627de97";
+	"/dev/null#ServerID_d4490627de97" [ shape=ellipse ];
+	"/home/app/3.txt#ServerID_d4490627de97" [ shape=ellipse ];
+	"10_node#ServerID_d4490627de97" [ shape=box ];
+	"1_fwatchdog#ServerID_d4490627de97" [ shape=box ];
+	"24_node#ServerID_d4490627de97" [ shape=box ];
+	"24_sh#ServerID_d4490627de97" [ shape=box ];
+	"25_sh#ServerID_d4490627de97" [ shape=box ];
+	"25_touch#ServerID_d4490627de97" [ shape=box ];
+	"localhost:3000#ServerID_d4490627de97" [ shape=diamond ];
+	"pipe:[18738434]#ServerID_d4490627de97" [ shape=ellipse ];
+	"pipe:[18738585]#ServerID_d4490627de97" [ shape=ellipse ];
+	"pipe:[18738640]#ServerID_d4490627de97" [ shape=ellipse ];
+
+}
+;
+
+}
