@@ -12,14 +12,14 @@ module.exports = (event, context, callback) => {
     var response = {};
 
     if (Math.random() < 0.9) {
-	response.gotPrice = 'true';
-	response.price = randomPrice();
+        response.gotPrice = 'true';
+        response.price = randomPrice();
 
-	callback(null, response);
+        callback(null, response);
     } else {
-	response.gotPrice = 'false';
-	response.failureReason = 'No price in the catalog.';
+        response.gotPrice = 'false';
+        response.failureReason = 'No price in the catalog.';
 
-	callback(null, response);
+        callback(null, response);
     }
 };

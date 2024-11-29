@@ -34,27 +34,6 @@ def replace_node_label(node_label):
 
 
 
-# def calculate_all(gt_graph, sample_graph):
-#     gt_nodes = set(list(map(lambda x: replace_node_label(x), gt_graph.nodes())))
-#     sample_nodes = set(list(map(lambda x: replace_node_label(x), sample_graph.nodes())))
-    
-#     gt_edges = set(list(map(lambda x: replace_node_label(x[0]) + " => " + replace_node_label(x[1]), gt_graph.edges())))
-#     sample_edges = set(list(map(lambda x: replace_node_label(x[0]) + " => " + replace_node_label(x[1]), sample_graph.edges())))
-#     node_accuracy = calc(gt_nodes, sample_nodes)
-#     edge_accuracy = calc(gt_edges, sample_edges)
-#     return {'node': node_accuracy, 'edge': edge_accuracy}
-
-# def calc(gt, sample):
-#     TP = len(gt & sample)
-#     FP = len(sample - gt)
-#     FN = len(gt - sample)
-    
-#     accuracy = TP / (TP + FP + FN) if (TP + FP + FN) > 0 else 0
-#     precision = TP / (TP + FP) if (TP + FP) > 0 else 0
-#     recall = TP / (TP + FN) if (TP + FN) > 0 else 0
-    
-#     return TP, FP, FN, accuracy * 100, precision * 100, recall * 100
-
 from collections import Counter
 
 def calculate_all(gt_graph, sample_graph):

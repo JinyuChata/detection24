@@ -30,29 +30,6 @@ def LOF(train_vec, vec_ans, doc_train, doc_ans):
         'text': doc_train + doc_ans
     })
 
-    # print(data)
-    # exit()
-    # fig = px.scatter(data, x='x', y='y', hover_data=['text'], color='predict')
-
-    # # 添加悬停提示
-    # fig.update_traces(
-    #     hovertext=data['text'],  # 属性信息显示在悬停提示中
-    #     hoverinfo='text'  # 显示文本信息
-    # )
-
-    # fig.show()
-
-    # 设置图表布局
-
-    # plt.figure(figsize=(8, 8))
-    #
-    # plt.scatter(x_tsne[train_and_predict == 0, 0], x_tsne[train_and_predict == 0, 1], c='#576690', s=5, alpha=0.7, label='Train Set')
-    # plt.scatter(x_tsne[train_and_predict == -1, 0], x_tsne[train_and_predict == -1, 1], c='red', s=5, alpha=0.7,label='Test Set(alert)')
-    # plt.scatter(x_tsne[train_and_predict == 1, 0], x_tsne[train_and_predict == 1, 1], c='#9AC8E2', s=5,alpha=0.7, label='Test Set(safe)')
-    #
-    # plt.title("Local Outlier Factor (LOF)")
-    # plt.legend()
-    # plt.savefig('result/lof_provdetector.svg')
-    # plt.show()
+    print(data)
 
     return predict

@@ -11,7 +11,7 @@ functions:
     skip_build: true
     labels:
       com.openfaas.scale.min: 1
-      com.openfaas.scale.max: 5
+      com.openfaas.scale.max: 1
       com.openfaas.scale.factor: 20
     environment:
       DBNAME: 'helloRetail'
@@ -28,7 +28,7 @@ functions:
     skip_build: true
     labels:
       com.openfaas.scale.min: 1
-      com.openfaas.scale.max: 5
+      com.openfaas.scale.max: 1
       com.openfaas.scale.factor: 20
     environment:
       URL_GETPRICE: 'http://gateway.openfaas.svc.cluster.local:8080/function/zjy-alastor-2n-product-purchase-get-price'
@@ -42,7 +42,7 @@ functions:
     skip_build: true
     labels:
       com.openfaas.scale.min: 1
-      com.openfaas.scale.max: 5
+      com.openfaas.scale.max: 1
       com.openfaas.scale.factor: 20
   
   zjy-alastor-2n-product-purchase-publish:
@@ -52,5 +52,5 @@ functions:
     skip_build: true
     labels:
       com.openfaas.scale.min: 1
-      com.openfaas.scale.max: 5
+      com.openfaas.scale.max: 1
       com.openfaas.scale.factor: 20

@@ -42,9 +42,9 @@ def read_corpus(docs, K, tokens_only=False):
 
 def embedding(train_docs, test_docs, K):
     train_corpus = list(read_corpus(train_docs,K))
-
+    # print(train_corpus)
     # print("now embedding, train corpus")
-    model = gensim.models.doc2vec.Doc2Vec(vector_size=300, min_count=5, epochs=50)
+    model = gensim.models.doc2vec.Doc2Vec(vector_size=100, min_count=2, epochs=50)
     model.build_vocab(train_corpus)
     model.train(train_corpus, total_examples=model.corpus_count, epochs=model.epochs)
     train_vec = []

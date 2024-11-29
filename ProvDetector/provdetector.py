@@ -22,7 +22,7 @@ def set_para(_T, _K, _t):
     K = _K
     THRESHOLD = _t
 
-set_para(10000, 5, 1)
+set_para(1000, 35, 3)
 
 attack_list = [
                 # '/home/ubuntu/detection24/log-collection/output-test/cfattack-rc3-20241014030723/sysdig/6090d45f-6bff-4942-a94c-cbf57e61ecd3.log', # cfattack
@@ -30,8 +30,12 @@ attack_list = [
                 # '/home/ubuntu/detection24/log-collection/output-test/leak-rc3-20241014030456/sysdig/93d804d9-24f2-40a3-a6e6-a988bb95c63b.log', # leak
                 # '/home/ubuntu/detection24/log-collection/output-test/modify-rc3-20241014030338/sysdig/e211b010-e78e-48b7-b37a-813292b9e7cc.log', #modify
                 # '/home/ubuntu/detection24/log-collection/output-test/warm-rc3-20241014030611/sysdig/d08ea06c-e7db-4373-9fc4-71e1513edc73.log', # warm
-                # '/home/ubuntu/detection24/log-collection/output-zjy-1103/warm-rc3-20241102150238/sysdig/793e6390-5866-407a-b47a-6a07ae1f7a73.log'
-                '/home/ubuntu/detection24/log-collection/output-zjy-1103/leak-rc3-20241102145927/sysdig/caef75f1-56ce-444f-9c69-a8493831aa04.log'
+                # '/home/ubuntu/detection24/log-collection/output-zjy-1103/warm-rc3-20241102150238/sysdig/793e6390-5866-407a-b47a-6a07ae1f7a73.log',
+                # '/home/ubuntu/detection24/log-collection/output-zjy-1103/leak-rc3-20241102145927/sysdig/caef75f1-56ce-444f-9c69-a8493831aa04.log',
+                # '/home/ubuntu/detection24/log-collection/output-zch-1105/cfattack-rc3-20241105025834/sysdig/64c27743-d6a9-419c-9ba2-8efe5f368954.log',
+                # '/home/ubuntu/detection24/log-collection/output-zjy-1103/escape-rc3-20241103115253/sysdig/f7be7c72-064b-42fe-bdc0-381548cda100.log'
+                # '/home/ubuntu/detection24/log-collection/output-zjy-1103/modify-rc3-20241102145613/sysdig/1f52a896-3aea-4082-a068-2ce4b371b41d.log'
+                '/home/ubuntu/detection24/log-collection/output-1031/warm-rc3-20241031021718/sysdig/27003612-0670-4b1a-ba7e-eeaa0afceb25.log'
                 ]
 
 
@@ -176,9 +180,12 @@ def provdector_test_multi(train_data_list, test_data_list):
 
 def run_method_folder():
     folder_1 = '/home/ubuntu/detection24/log-collection/output-train'
-    folder_2 = '/home/ubuntu/detection24/log-collection/output-zjy-1103'
+    # folder_2 = '/home/ubuntu/detection24/log-collection/output-zjy-1103'
+    # folder_2 = '/home/ubuntu/detection24/log-collection/output-zch-1105'
+    # folder_2 = '/home/ubuntu/detection24/log-collection/output-1102'
+    folder_2 = '/home/ubuntu/detection24/log-collection/output-1031'
     train_list = [f.path for f in os.scandir(folder_1) if f.is_dir() and 'rc3' in f.path]
-    test_list = [f.path for f in os.scandir(folder_2) if f.is_dir() and 'rc3' in f.path and 'leak' in f.path]
+    test_list = [f.path for f in os.scandir(folder_2) if f.is_dir() and 'rc3' in f.path and 'warm-rc3-20241031021718' in f.path]
     train_data_list = []
     test_data_list = []
     for f in train_list:
