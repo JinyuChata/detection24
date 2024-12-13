@@ -20,11 +20,7 @@ def send_request(url, headers, datas, request_type, uuid_dict):
     try:
         print(f"{json.dumps(data)}")
         response = requests.post(url, headers=headers, data=json.dumps(data))
-        print( "response")
-        print( response)
-        print( "response_string")
         response_string = response.text
-        print( response_string)
         print(f"Status Code: {response.status_code}")
     except Exception as e:
         response_string = str(e)
@@ -33,6 +29,27 @@ def send_request(url, headers, datas, request_type, uuid_dict):
         uuid_dict[headers["uuid"]] = {"type": request_type, "resp": response_string}
 
 
+def perform_benign_requests(
+    url,
+    headers_benign_template,
+    benign_dict,
+    n_per,
+    metadata_out_path,
+):
+    uuid_dict = {}
+    for benign_name, benign_data in benign_dict.items():
+        print(f"==== {benign_name} ====")
+        for _ in range(n_per):
+            headers_benign = headers_benign_template.copy()
+            headers_benign["uuid"] = generate_uuid()
+            send_request(url, headers_benign, benign_data, benign_name, uuid_dict)
+    print("UUID dictionary:")
+    # for uuid_key, value in uuid_dict.items():
+    #     request_type, response_string = value.type, value.resp
+    #     print(f"{uuid_key}: ({request_type}, {response_string})")
+    with open(os.path.join(metadata_out_path, "metadata.json"), "w") as f:
+        json.dump(uuid_dict, f, ensure_ascii=False, indent=4)
+        
 def perform_requests(
     url,
     headers_benign_template,
@@ -87,19 +104,10 @@ def perform_requests(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process some integers.")
     parser.add_argument(
-        "--n_benign", type=int, required=True, help="Number of benign requests"
+        "--n_per", type=int, required=True, help="Number of per benign requests"
     )
     parser.add_argument(
-        "--n_attack", type=int, required=True, help="Number of attack requests"
-    )
-    parser.add_argument(
-        "--total_time", type=int, required=True, help="Total time for sending requests"
-    )
-    parser.add_argument(
-        "--data_attack_type",
-        choices=["modify", "leak", "warm1", "warm2", "warm", "cfattack", "escape", "normal" , "read", "sql"],
-        required=True,
-        help="Type of attack data",
+        "--typ", type=str, required=True, help="benign | attack"
     )
     parser.add_argument(
         "--metadata_out_path",
@@ -112,7 +120,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     url = "http://localhost:31112/function/zjy-2n-product-purchase"
-    # url = "http://localhost:31112/function/zch-2n-product-purchase"
 
     headers_benign_template = {
         "Content-Type": "application/json",
@@ -180,55 +187,64 @@ if __name__ == "__main__":
         "malicious": "escape_S2",
         "payload": ""
     }
-
-
-    data_attack_read = {  
-        "id": 1,  
-        "user": "alice",  
-        "creditCard": "1234-5678-9",  
-        "malicious": "readFiles",   
-        "fileName": "./handler.js", 
+    
+    data_benign_pic = {
+        "id": 1,
+        "user": "alice",
+        "creditCard": "1234-5678-9",
+        "pic": 1
     }
-
-    data_attack_sql = {  
-        "id": 1,  
-        "user": "alice",  
-        "creditCard": "1234-5678-9",    
-        "malicious": "sqlInjection",    
-        "sql" : "1;",
-       # "sql": "1; SELECT LOAD_FILE('/etc/passwd') --",  
-        "fileName" : "2.txt"
+    
+    data_benign_query_price = {
+        "id": 1,
+        "user": "alice",
+        "creditCard": "1234-5678-9",
+        "pricedata": 1
     }
-
-    if args.data_attack_type == "modify":
-        data_attack = [data_attack_modify]
-    elif args.data_attack_type == "leak":
-        data_attack = [data_attack_leak]
-    elif args.data_attack_type == "warm1":
-        data_attack = [data_attack_warm_1]
-    elif args.data_attack_type == "warm2":
-        data_attack = [data_attack_warm_2]
-    elif args.data_attack_type == "warm":
-        data_attack = [data_attack_warm_1, data_attack_warm_2]
-    elif args.data_attack_type == "cfattack":
-        data_attack = [data_attack_cf]
-    elif args.data_attack_type == "escape":
-        # data_attack = [data_attack_escape_1, data_attack_escape_2]
-        print('111')
-        data_attack = [data_attack_escape_2]
-    elif args.data_attack_type == "read":
-        data_attack = [data_attack_read]
-    elif args.data_attack_type == "sql":
-        data_attack = [data_attack_sql]
-
-    perform_requests(
-        url,
-        headers_benign_template,
-        [data_benign],
-        headers_attack_template,
-        data_attack,
-        args.n_benign,
-        args.n_attack,
-        args.total_time,
-        args.metadata_out_path,
-    )
+    
+    data_benign_publish = {
+        "id": 1,
+        "user": "alice",
+        "creditCard": "1234-5678-9",
+        "publish": 1
+    }
+    
+    data_benign_authroize = {
+        "id": 1,
+        "user": "alice",
+        "creditCard": "1234-5678-9"
+    }
+    
+    # url,
+    # headers_benign_template,
+    # benign_dict,
+    # n_per,
+    # metadata_out_path,
+    if args.typ == "benign":
+        perform_benign_requests(
+            url,
+            headers_benign_template,
+            {
+                "benign_pic": [data_benign_pic],
+                "benign_authorize": [data_benign_authroize],
+                "benign_publish": [data_benign_publish],
+                "benign_query_price": [data_benign_query_price],
+            },
+            args.n_per,
+            args.metadata_out_path,
+        )
+    elif args.typ == "attack":
+        perform_benign_requests(
+            url,
+            headers_benign_template,
+            {
+                # "attack_modify": [data_attack_modify],
+                # "attack_leak": [data_attack_leak],
+                # "attack_warm": [data_attack_warm_1, data_attack_warm_2],
+                # "attack_cfa": [data_attack_cf],
+                "attack_escape": [data_attack_escape_2],
+                # "attack_escape": [data_attack_escape_1, data_attack_escape_2],
+            },
+            args.n_per,
+            args.metadata_out_path,
+        )

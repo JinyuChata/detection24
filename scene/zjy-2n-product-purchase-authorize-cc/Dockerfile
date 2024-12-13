@@ -17,6 +17,14 @@ RUN npm install
 ENV fprocess="node index.js"
 ENV mode="http"
 ENV http_upstream_url="http://127.0.0.1:3000"
+
+
+ENV DB_HOST="cc-db"               
+ENV DB_USER="root"                
+ENV DB_PASS="pass"                  
+ENV DB_NAME="helloRetail"         
+
+
 ENV exec_timeout="0s"
 
 HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
