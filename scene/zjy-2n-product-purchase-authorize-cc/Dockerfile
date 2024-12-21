@@ -13,6 +13,7 @@ USER app
 WORKDIR /home/app
 COPY . .
 RUN npm install
+RUN npm install mysql  
 
 ENV fprocess="node index.js"
 ENV mode="http"

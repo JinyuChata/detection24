@@ -63,7 +63,7 @@ sleep 5
 echo "Requests send finished. Cleaning up..."
 cleanup
 
-chown -R ubuntu:ubuntu "$log_dir"
+chown -R thu1:thu1 "$log_dir"
 
 if [ -n "$rename" ]; then
     new_log_dir="output/${data_attack_type}-${rename}-${timestamp}"

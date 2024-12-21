@@ -42,9 +42,10 @@ import subprocess
 
 def run_build_all(dir: str):
     command = [
-        "go",
-        "run",
-        "main.go",
+        # "go",
+        # "run",
+        # "main.go",
+        "./erinyes",
         "graph",
         os.path.join("../", dir, "sysdig", f"sysdig.log"),
         os.path.join("../", dir, "net", f"net.log"),
@@ -68,9 +69,10 @@ def run_build_all(dir: str):
 def run_dot(dotpath: str, uuid: str):
     # go run main.go dot ../output/leak-20240625230313/outputa.dot
     command = [
-        "go",
-        "run",
-        "main.go",
+        # "go",
+        # "run",
+        # "main.go",
+        "./erinyes",
         "dot",
         os.path.join("../", dot_path),
         uuid,

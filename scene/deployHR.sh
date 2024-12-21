@@ -4,6 +4,11 @@ set -e -o pipefail
 
 export OPENFAAS_URL=http://127.0.0.1:31112
 
+
+# 启动 Docker Compose 服务  
+echo 'Starting services...'  
+kubectl apply -f ./cc-db.yaml 
+
 echo 'deploying hello-retail'
 faas-cli deploy -f ./hello-retail.yaml
 

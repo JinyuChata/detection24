@@ -86,6 +86,7 @@ cleanup() {
     sudo kill -9 $pid1 $pid2 $pid3 $pid4
     # echo "terminate scene: "
     # bash ../scene/tearHR.sh
+    
     echo "Processes terminated."
 }
 trap cleanup SIGINT
@@ -114,11 +115,12 @@ cleanup
 if [ "$graph_strategy" == "split" ]; then
   python3.9 sysdig-splitter.py --sysdig-path "${log_dir}/sysdig/sysdig.log"
   # rm -f "${log_dir}/sysdig/sysdig.log"
-  sudo cat "${log_dir}/net/net.log" | jq -r '"UUID: \(.payload | capture("(?i)uuid: (?<uuid>[^\r]*)").uuid) \(. | tojson)"' | while read -r line; do
-    uuid=$(echo $line | awk '{print $2}')
-    log=$(echo $line | sed 's/UUID: [^ ]* //')
-    echo $log >> "${log_dir}/net/${uuid}.log"
-  done
+#   sudo cat "${log_dir}/net/net.log" | jq -r '"UUID: \(.payload | capture("(?i)uuid: (?<uuid>[^\r]*)").uuid) \(. | tojson)"' | while read -r line; do
+#     uuid=$(echo $line | awk '{print $2}')
+#     log=$(echo $line | sed 's/UUID: [^ ]* //')
+#     echo $log >> "${log_dir}/net/${uuid}.log"
+#   done
+  python3.9 split-http.py -d "${log_dir}"
   sleep 5
 fi
 
@@ -129,7 +131,9 @@ fi
 python3.9 generate-dot.py "$log_dir" "all" "false"
 # python3.9 prov.py "$log_dir" erinyes
 
-chown -R ubuntu:ubuntu "$log_dir"
+echo "python3.9 generate-dot.py" "${log_dir}" "${graph_strategy}" "${disable_benign}"
+
+chown -R thu1:thu1 "$log_dir"
 
 if [ -n "$rename" ]; then
     new_log_dir="output/${data_attack_type}-${rename}-${timestamp}"

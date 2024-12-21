@@ -1,0 +1,29 @@
+version: '2'  
+
+services:  
+  cc-db:  
+    image: mysql:5.7  
+    restart: always  
+    environment:  
+      MYSQL_DATABASE: 'helloRetail'  
+      MYSQL_ROOT_PASSWORD: 'pass'  
+    ports:  
+      - '3308:3306'  
+    volumes:  
+      - cc-db-data:/var/lib/mysql  
+
+  zjy-2n-product-purchase-authorize-cc:  
+    image: jinyuzhu/zjy-2n-product-purchase-authorize-cc  
+    depends_on:  
+      - cc-db  
+    environment:  
+      - DB_HOST=cc-db  
+      - DB_PORT=3306  
+      - DB_USER=root  
+      - DB_PASSWORD=pass  
+      - DB_NAME=helloRetail  
+    links:  
+      - cc-db  
+
+volumes:  
+  cc-db-data:

@@ -129,7 +129,7 @@ fi
 python3.9 generate-dot.py "$log_dir" "all" "false"
 # python3.9 prov.py "$log_dir" erinyes
 
-chown -R ubuntu:ubuntu "$log_dir"
+chown -R thu1:thu1 "$log_dir"
 
 if [ -n "$rename" ]; then
     new_log_dir="output/${data_attack_type}-${rename}-${timestamp}"

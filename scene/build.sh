@@ -14,6 +14,13 @@ do
      docker push $tag
 done
 
+cc_db_service='cc-db'
+# 构建并推送 dattapubali/ 命名空间的 cc-db 服务
+cc_db_tag="dattapubali/${cc_db_service}:latest"
+echo "Building $cc_db_tag"
+(cd $cc_db_service && docker build -f Dockerfile -t $cc_db_tag .)
+#docker push $cc_db_tag
+
 #for service in $services
 #do
 #	old_tag="${service}:latest"

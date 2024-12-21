@@ -1,0 +1,148 @@
+version: 1.0  
+provider:  
+  name: openfaas  
+  gateway: http://127.0.0.1:31112  
+  #gateway: 10.244.31.106:8080  
+functions:  
+  product-purchase-authorize-cc:  
+    lang: dockerfile  
+    handler: ./product-purchase-authorize-cc  
+    image: koinikki/product-purchase-authorize-cc:latest  
+    skip_build: true  
+    labels:  
+      com.openfaas.scale.min: 1  
+      com.openfaas.scale.max: 5  
+      com.openfaas.scale.factor: 20  
+    environment:  
+      DBNAME: 'helloRetail'  
+      HOST: 'cc-db'  
+      USER: 'root'  
+      PASS: 'pass'  
+      TABLE_CREDIT_CARDS_NAME: 'creditCards'  
+      #ATTACKSERVER: 'http://10.99.88.86:8888'  
+  
+  product-purchase:  
+    lang: dockerfile  
+    handler: ./product-purchase  
+    image: koinikki/product-purchase:latest  
+    skip_build: true  
+    labels:  
+      com.openfaas.scale.min: 1  
+      com.openfaas.scale.max: 5  
+      com.openfaas.scale.factor: 20  
+    environment:  
+      URL_GETPRICE: 'http://gateway.openfaas.svc.cluster.local:8080/function/product-purchase-get-price'  
+      URL_AUTHORIZECC: 'http://gateway.openfaas.svc.cluster.local:8080/function/product-purchase-authorize-cc'  
+      URL_PUBLISH: 'http://gateway.openfaas.svc.cluster.local:8080/function/product-purchase-publish'
+      URL_PLACE_ORDER: 'http://gateway.openfaas.svc.cluster.local:8080/function/place-order'  
+
+  # product-purchase-get-price:  
+  #   lang: dockerfile  
+  #   handler: ./product-purchase-get-price  
+  #   image: koinikki/product-purchase-get-price:latest  
+  #   skip_build: true  
+  #   labels:  
+  #     com.openfaas.scale.min: 1  
+  #     com.openfaas.scale.max: 5  
+  #     com.openfaas.scale.factor: 20  
+  
+  # product-purchase-publish:  
+  #   lang: dockerfile  
+  #   handler: ./product-purchase-get-price  
+  #   image: koinikki/product-purchase-publish:latest  
+  #   skip_build: true  
+  #   labels:  
+  #     com.openfaas.scale.min: 1  
+  #     com.openfaas.scale.max: 5  
+  #     com.openfaas.scale.factor: 20  
+
+  place-order:  
+    lang: dockerfile  
+    handler: ./place-order  
+    image: koinikki/place-order:latest  
+    skip_build: true  
+    labels:  
+      com.openfaas.scale.min: 1  
+      com.openfaas.scale.max: 5  
+      com.openfaas.scale.factor: 20  
+    environment:  
+      URL_VALIDATE_CART: 'http://gateway.openfaas.svc.cluster.local:8080/function/validate-cart'  
+      URL_CREATE_ORDER: 'http://gateway.openfaas.svc.cluster.local:8080/function/create-order'  
+      URL_PROCESS_PAYMENT: 'http://gateway.openfaas.svc.cluster.local:8080/function/process-payment'  
+      URL_UPDATE_STOCK: 'http://gateway.openfaas.svc.cluster.local:8080/function/update-stock'  
+
+  validate-cart:  
+    lang: dockerfile  
+    handler: ./validate-cart  
+    image: koinikki/validate-cart:latest  
+    skip_build: true  
+    labels:  
+      com.openfaas.scale.min: 1  
+      com.openfaas.scale.max: 5  
+      com.openfaas.scale.factor: 20  
+    environment:  
+      URL_CHECK_STOCK: 'http://gateway.openfaas.svc.cluster.local:8080/function/check-stock'  
+
+  create-order:  
+    lang: dockerfile  
+    handler: ./create-order  
+    image: koinikki/create-order:latest  
+    skip_build: true  
+    labels:  
+      com.openfaas.scale.min: 1  
+      com.openfaas.scale.max: 5  
+      com.openfaas.scale.factor: 20  
+    environment:  
+      URL_CALCULATE_DISCOUNT: 'http://gateway.openfaas.svc.cluster.local:8080/function/calculate-discount'  
+
+  process-payment:  
+    lang: dockerfile  
+    handler: ./process-payment  
+    image: koinikki/process-payment:latest  
+    skip_build: true  
+    labels:  
+      com.openfaas.scale.min: 1  
+      com.openfaas.scale.max: 5  
+      com.openfaas.scale.factor: 20  
+    environment:  
+      URL_VERIFY_PAYMENT: 'http://gateway.openfaas.svc.cluster.local:8080/function/verify-payment'  
+
+  update-stock:  
+    lang: dockerfile  
+    handler: ./update-stock  
+    image: koinikki/update-stock:latest  
+    skip_build: true  
+    labels:  
+      com.openfaas.scale.min: 1  
+      com.openfaas.scale.max: 5  
+      com.openfaas.scale.factor: 20  
+
+  check-stock:  
+    lang: dockerfile  
+    handler: ./check-stock  
+    image: koinikki/check-stock:latest  
+    skip_build: true  
+    labels:  
+      com.openfaas.scale.min: 1  
+      com.openfaas.scale.max: 5  
+      com.openfaas.scale.factor: 20  
+
+  calculate-discount:  
+    lang: dockerfile  
+    handler: ./calculate-discount  
+    image: koinikki/calculate-discount:latest  
+    skip_build: true  
+    labels:  
+      com.openfaas.scale.min: 1  
+      com.openfaas.scale.max: 5  
+      com.openfaas.scale.factor: 20  
+
+  verify-payment:  
+    lang: dockerfile  
+    handler: ./verify-payment  
+    image: koinikki/verify-payment:latest  
+    skip_build: true  
+    labels:  
+      com.openfaas.scale.min: 1  
+      com.openfaas.scale.max: 5  
+      com.openfaas.scale.factor: 20

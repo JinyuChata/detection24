@@ -45,9 +45,10 @@ def run_build(dir: str, uuid_sysdig: str, uuid_net: str = None):
     if uuid_net is None:
         uuid_net = uuid_sysdig
     command = [
-        "go",
-        "run",
-        "main.go",
+        # "go",
+        # "run",
+        # "main.go",
+        "./erinyes",
         "graph",
         os.path.join("../", dir, "sysdig", f"{uuid_sysdig}.log"),
         os.path.join("../", dir, "net", f"{uuid_net}.log"),
@@ -74,9 +75,10 @@ import subprocess
 def run_dot(dotpath: str):
     # go run main.go dot ../output/leak-20240625230313/outputa.dot
     command = [
-        "go",
-        "run",
-        "main.go",
+        # "go",
+        # "run",
+        # "main.go",
+        "./erinyes",
         "dot",
         os.path.join("../", dot_path),
         # "../output/leak-20240625230313/sysdig/5de98637-66c0-4ed6-bbb0-09050b2cfd0e.log",

@@ -83,7 +83,7 @@ go run alastor.go "../$log_dir/raw" "../$log_dir/dot"
 cd $curr_dir
 
 # 修改日志目录的权限
-chown -R ubuntu:ubuntu "./output"
+chown -R thu1:thu1 "./output"
 
 # 如果提供了 rename 参数，则重命名日志目录
 if [ -n "$rename" ]; then

