@@ -44,14 +44,16 @@ import subprocess
 def run_build(dir: str, uuid_sysdig: str, uuid_net: str = None):
     if uuid_net is None:
         uuid_net = uuid_sysdig
+    sysdig_path = os.path.join("../", dir, "sysdig", f"{uuid_sysdig}.log")
+    net_path = os.path.join("../", dir, "net", f"{uuid_net}.log")
     command = [
         # "go",
         # "run",
         # "main.go",
         "./erinyes",
         "graph",
-        os.path.join("../", dir, "sysdig", f"{uuid_sysdig}.log"),
-        os.path.join("../", dir, "net", f"{uuid_net}.log"),
+        sysdig_path,
+        net_path,
         "remove_all",
     ]
 

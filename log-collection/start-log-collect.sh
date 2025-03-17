@@ -10,6 +10,7 @@ while [[ "$#" -gt 0 ]]; do
         --rename) rename="$2"; shift ;;
         --disable_benign) disable_benign="$2"; shift ;;   # 默认false
         --typ) typ="$2"; shift ;;
+        --total_time) total_time="$2"; shift ;;  # 是否并发，如若并发总时间为多少
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
@@ -50,6 +51,8 @@ done
 # 输出 container_ids 列表
 echo "${container_ids[@]}"
 
+data_attack_type="fused"
+
 # 创建日志目录
 log_dir="output/${data_attack_type}-${timestamp}"
 mkdir -p "$log_dir/net"
@@ -65,14 +68,13 @@ pid1=$!
 echo $pid1
 
 echo "Start running http-parse-complete ..."
-# sudo python3.5 ./http-parse-complete.py >> "${log_dir}/net.log" &
-sudo python3.5 ./http-parse-complete.py > "${log_dir}/net/net.log" &
+sudo python3 ./http-parse-complete.py > "${log_dir}/net/net.log" &
 pid2=$!
 echo $pid2
 
 
 sleep 2
-pid3=$(pgrep -f "python3.5 ./http-parse-complete.py")
+pid3=$(pgrep -f "python3 ./http-parse-complete.py")
 echo $pid3
 
 sleep 2
@@ -102,7 +104,10 @@ trap cleanup SIGINT
 bash update-config.sh
 
 # 运行 Python 脚本，并传递参数
-python3.9 run_lab_collect.py --metadata_out_path "$log_dir" --n_per "$n_per" --typ "$typ"
+# total_time 总时间; n_per 每类benign/attack发几次; typ benign or attack
+# 并发执行: total_time设为总时间
+# 顺序执行: total_time设为0
+python3 run_lab_collect.py --metadata_out_path "$log_dir" --n_per "$n_per" --typ "$typ" --total_time $total_time
 
 sleep 5
 echo "Requests send finished. Cleaning up..."
@@ -110,19 +115,19 @@ cleanup
 
 # 分割日志
 if [ "$graph_strategy" == "split" ]; then
-  python3.9 sysdig-splitter.py --sysdig-path "${log_dir}/sysdig/sysdig.log"
-  python3.9 split-http.py --d "${log_dir}"
+  python3 sysdig-splitter.py --sysdig-path "${log_dir}/sysdig/sysdig.log"
+  python3 split-http.py --d "${log_dir}"
   sleep 5
 fi
 
 # 运行图生成脚本
 if [ "$graph_strategy" == "split" ]; then
-  python3.9 generate-dot.py "$log_dir" "$graph_strategy" "$disable_benign"
+  python3 generate-dot.py "$log_dir" "$graph_strategy" "$disable_benign"
 fi
-python3.9 generate-dot.py "$log_dir" "all" "false"
+# python3 generate-dot.py "$log_dir" "all" "false"
 # python3.9 prov.py "$log_dir" erinyes
 
-chown -R thu1:thu1 "$log_dir"
+chown -R thu2:thu2 "$log_dir"
 
 if [ -n "$rename" ]; then
     new_log_dir="output/${data_attack_type}-${rename}-${timestamp}"

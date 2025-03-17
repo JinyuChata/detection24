@@ -53,31 +53,22 @@ def perform_benign_requests(
 def perform_requests(
     url,
     headers_benign_template,
-    data_benign,
-    headers_attack_template,
-    data_attack,
-    n_benign,
-    n_attack,
+    benign_dict,
+    n_per,
     total_time,
     metadata_out_path,
 ):
-    total_requests = n_benign + n_attack
+    total_requests = n_per * len(benign_dict)
     interval = total_time / total_requests
     tasks = []
     uuid_dict = {}
     
-    print(f"data attack: {data_attack}")
-
-    for _ in range(n_benign):
-        headers_benign = headers_benign_template.copy()
-        headers_benign["uuid"] = generate_uuid()
-        tasks.append((url, headers_benign, data_benign, "benign", uuid_dict))
-
-    for _ in range(n_attack):
-        headers_attack = headers_attack_template.copy()
-        headers_attack["uuid"] = generate_uuid()
-        tasks.append((url, headers_attack, data_attack, "attack", uuid_dict))
-
+    for benign_name, benign_data in benign_dict.items():
+        print(f"==== {benign_name} ====")
+        for _ in range(n_per):
+            headers_benign = headers_benign_template.copy()
+            headers_benign["uuid"] = generate_uuid()
+            tasks.append((url, headers_benign, benign_data, benign_name, uuid_dict))
     random.shuffle(tasks)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=total_requests) as executor:
@@ -94,9 +85,6 @@ def perform_requests(
             future.result()
 
     print("UUID dictionary:")
-    # for uuid_key, value in uuid_dict.items():
-    #     request_type, response_string = value.type, value.resp
-    #     print(f"{uuid_key}: ({request_type}, {response_string})")
     with open(os.path.join(metadata_out_path, "metadata.json"), "w") as f:
         json.dump(uuid_dict, f, ensure_ascii=False, indent=4)
 
@@ -105,6 +93,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process some integers.")
     parser.add_argument(
         "--n_per", type=int, required=True, help="Number of per benign requests"
+    )
+    parser.add_argument(
+        "--total_time", type=int, required=False, default=0, help="Total time for concurrent requests, 0 for serialize"
     )
     parser.add_argument(
         "--typ", type=str, required=True, help="benign | attack"
@@ -220,31 +211,64 @@ if __name__ == "__main__":
     # benign_dict,
     # n_per,
     # metadata_out_path,
+    
     if args.typ == "benign":
-        perform_benign_requests(
-            url,
-            headers_benign_template,
-            {
-                "benign_pic": [data_benign_pic],
-                "benign_authorize": [data_benign_authroize],
-                "benign_publish": [data_benign_publish],
-                "benign_query_price": [data_benign_query_price],
-            },
-            args.n_per,
-            args.metadata_out_path,
-        )
+        if args.total_time == 0:
+            perform_benign_requests(
+                url,
+                headers_benign_template,
+                {
+                    "benign_pic": [data_benign_pic],
+                    "benign_authorize": [data_benign_authroize],
+                    "benign_publish": [data_benign_publish],
+                    "benign_query_price": [data_benign_query_price],
+                },
+                args.n_per,
+                args.metadata_out_path,
+            )
+        else:
+            perform_requests(
+                url, headers_benign_template, 
+                {
+                    "benign_pic": [data_benign_pic],
+                    "benign_authorize": [data_benign_authroize],
+                    "benign_publish": [data_benign_publish],
+                    "benign_query_price": [data_benign_query_price],
+                },
+                args.n_per,
+                args.total_time,
+                args.metadata_out_path
+            )
+        
+
     elif args.typ == "attack":
-        perform_benign_requests(
-            url,
-            headers_benign_template,
-            {
-                # "attack_modify": [data_attack_modify],
-                # "attack_leak": [data_attack_leak],
-                # "attack_warm": [data_attack_warm_1, data_attack_warm_2],
-                # "attack_cfa": [data_attack_cf],
-                "attack_escape": [data_attack_escape_2],
-                # "attack_escape": [data_attack_escape_1, data_attack_escape_2],
-            },
-            args.n_per,
-            args.metadata_out_path,
-        )
+        if args.total_time == 0:
+            perform_benign_requests(
+                url,
+                headers_benign_template,
+                {
+                    # "attack_modify": [data_attack_modify],
+                    # "attack_leak": [data_attack_leak],
+                    # "attack_warm": [data_attack_warm_1, data_attack_warm_2],
+                    # "attack_cfa": [data_attack_cf],
+                    "attack_escape": [data_attack_escape_2],
+                    # "attack_escape": [data_attack_escape_1, data_attack_escape_2],
+                },
+                args.n_per,
+                args.metadata_out_path,
+            )
+        else:
+            perform_requests(
+                url, headers_benign_template, 
+                {
+                    # "attack_modify": [data_attack_modify],
+                    # "attack_leak": [data_attack_leak],
+                    # "attack_warm": [data_attack_warm_1, data_attack_warm_2],
+                    # "attack_cfa": [data_attack_cf],
+                    "attack_escape": [data_attack_escape_2],
+                    # "attack_escape": [data_attack_escape_1, data_attack_escape_2],
+                },
+                args.n_per,
+                args.total_time,
+                args.metadata_out_path
+            )
